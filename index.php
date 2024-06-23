@@ -1,6 +1,8 @@
 <?php
 require_once "classes/Producto.php";
 
+// holiss
+
 $secciones_validas = [
     "home" => [
         "titulo" => "Inicio"
