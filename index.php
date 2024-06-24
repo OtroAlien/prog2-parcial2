@@ -20,6 +20,9 @@ $secciones_validas = [
     ],
     "detalles" => [
         "titulo" => "Detalle"
+    ],
+    "login" => [
+        "titulo" => "Login"
     ]
 ];
 
