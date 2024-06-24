@@ -1492,9 +1492,12 @@ input{
 #chk:checked ~ .login{
 	transform: translateY(-500px);
 }
+
 #chk:checked ~ .login label{
-	transform: scale(1);	
+	transform: scale(1);
+    padding-top: 15px;	
 }
+
 #chk:checked ~ .signup label{
 	transform: scale(.6);
 }
