@@ -44,7 +44,7 @@ try {
         (new Alerta())->add_alerta('warning', "Su sessión expiró. Por favor, ingrese nuevamente");
         header('location: ../../index.php?sec=login');
     }
-    
+
 }catch (Exception $e) {
     // echo "<pre>";
     // print_r($e);
