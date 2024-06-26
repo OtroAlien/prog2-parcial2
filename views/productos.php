@@ -10,15 +10,14 @@ $miProducto = new Producto();
 
 if ($filtro) {
     $productos = $miProducto->catalogoPorCategoria($filtro);
-}else if($descuento){
+} elseif ($descuento) {
     $productos = $miProducto->catalogoPorDescuento($descuento);
-}else if($piel){
+} elseif ($piel) {
     $productos = $miProducto->catalogoPorPiel($piel);
 } else {
     $productos = $miProducto->catalogoCompleto();
 }
 ?>
-
 
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">

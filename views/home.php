@@ -1,8 +1,9 @@
 <?php
 require_once 'classes/Producto.php';
+
 $miProducto = new Producto();
 
-$productosDestacados = $miProducto->catalogoDestacado(true);
+$productosDestacados = $miProducto->catalogoPorDestacado(true);
 ?>
 
 <div class="banner">

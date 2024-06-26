@@ -1,4 +1,6 @@
-<?PHP
+<?php
+
+require_once "Conexion.php";
 
 class Producto
 {
@@ -32,12 +34,14 @@ class Producto
         'vegano'
     ];
 
-    private function createProducto($productoData): Producto
+    private static function createProducto($productoData): Producto
     {
         $producto = new self();
 
         foreach (self::$createValues as $value) {
-            $producto->{$value} = $productoData[$value];
+            if (isset($productoData[$value])) {
+                $producto->{$value} = $productoData[$value];
+            }
         }
 
         return $producto;
@@ -173,7 +177,7 @@ class Producto
         
         $productos = [];
         while ($productoData = $PDOStatement->fetch()) {
-            $productos[] = $this->createProducto($productoData);
+            $productos[] = self::createProducto($productoData);
         }
         
         return $productos;
@@ -190,7 +194,7 @@ class Producto
         
         $productos = [];
         while ($productoData = $PDOStatement->fetch()) {
-            $productos[] = $this->createProducto($productoData);
+            $productos[] = self::createProducto($productoData);
         }
         
         return $productos;
@@ -198,19 +202,19 @@ class Producto
 
     public function catalogoDestacado(bool $productoDestacado): array
     {
-        $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM productos WHERE productoDestacado = :productoDestacado";
-        
-        $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(['productoDestacado' => $productoDestacado ? 1 : 0]);
-        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-        
-        $productos = [];
-        while ($productoData = $PDOStatement->fetch()) {
-            $productos[] = $this->createProducto($productoData);
-        }
-        
-        return $productos;
+    $conexion = Conexion::getConexion();
+    $query = "SELECT * FROM productos WHERE productoDestacado = :productoDestacado";
+    
+    $PDOStatement = $conexion->prepare($query);
+    $PDOStatement->execute(['productoDestacado' => $productoDestacado ? 1 : 0]);
+    $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
+    
+    $productos = [];
+    while ($productoData = $PDOStatement->fetch()) {
+        $productos[] = $this->createProducto($productoData);
+    }
+    
+    return $productos;
     }
 
     public function catalogoPorPiel(string $piel): array
@@ -224,7 +228,7 @@ class Producto
         
         $productos = [];
         while ($productoData = $PDOStatement->fetch()) {
-            $productos[] = $this->createProducto($productoData);
+            $productos[] = self::createProducto($productoData);
         }
         
         return $productos;
@@ -253,7 +257,7 @@ class Producto
         return number_format($this->precio, 2, ".", ",");
     }
 
-    // Gets
+    // Métodos GET para propiedades
 
     public function getNombre()
     {
@@ -310,19 +314,19 @@ class Producto
         return $this->contenido;
     }
 
-    public function getwaterproof()
+    public function getWaterproof()
     {
         return $this->waterproof;
     }
 
-    public function gatVegano()
+    public function getVegano()
     {
         return $this->vegano;
     }
 
     public function getDestacado()
     {
-        return $this->vegano;
+        return $this->productoDestacado;
     }
 }
 ?>
