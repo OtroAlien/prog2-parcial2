@@ -50,20 +50,18 @@ class Producto
     public function catalogoCompleto(): array
     {
         $catalogo = [];
-
+    
         $conexion = Conexion::getConexion();
-        $query = "SELECT productos.*, GROUP_CONCAT(pxc.personaje_id) AS personajes_secundarios FROM productos 
-        LEFT JOIN personajes_x_producto AS pxc ON productos.id = pxc.producto_id     
-        GROUP BY productos.id";
-
+        $query = "SELECT * FROM productos";
+    
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute();
-
+    
         while ($result = $PDOStatement->fetch()) {
             $catalogo[] = $this->createProducto($result);
         }
-
+    
         return $catalogo;
     }
 

@@ -3,7 +3,7 @@ require_once 'classes/Producto.php';
 
 $miProducto = new Producto();
 
-$productosDestacados = $miProducto->catalogoPorDestacado(true);
+$productosDestacados = $miProducto->catalogoDestacado(true);
 ?>
 
 <div class="banner">
