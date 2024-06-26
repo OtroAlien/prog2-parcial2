@@ -3,37 +3,61 @@ require_once "classes/Producto.php";
 
 
 $secciones_validas = [
-    "home" => [
-        "titulo" => "Inicio"
+    "login" => [
+        "titulo" => "Inicio de Sesión",
+        "restringido" => FALSE
     ],
-    "alumnos" => [
-        "titulo" => "Staff"
+    "dashboard" => [
+        "titulo" => "Panel de administración",
+        "restringido" => TRUE
     ],
-    "productos" => [
-        "titulo" => "Productos"
+    "admin_productos" => [
+        "titulo" => "Administrar productos",
+        "restringido" => TRUE
     ],
-    "contacto" => [
-        "titulo" => "Contacto"
+    "add_producto" => [
+        "titulo" => "Agregar producto",
+        "restringido" => TRUE
     ],
-    "formulario" => [
-        "titulo" => "Formulario"
+    "edit_producto" => [
+        "titulo" => "Editar datos de producto",
+        "restringido" => TRUE
     ],
-    "detalles" => [
-        "titulo" => "Detalle"
+    "edit_producto" => [
+        "titulo" => "Editar datos de producto",
+        "restringido" => TRUE
+    ],
+    "delete_producto" => [
+        "titulo" => "Eliminar datos de Producto",
+        "restringido" => TRUE
+    ],
+    "delete_producto" => [
+        "titulo" => "Eliminar datos de un producto",
+        "restringido" => TRUE
     ]
 ];
 
-$seccion = isset($_GET['sec']) ? $_GET['sec'] : 'home';
+// arreglar o revisar
+$seccion = $_GET['sec'] ?? "dashboard";
+// debería ser "home"?
 
 if (!array_key_exists($seccion, $secciones_validas)) {
     $vista = "404";
-    $titulo = "404: Página no encontrada";
+    $titulo = "404 - Página no encontrada";
     $body_class = 'body-404';
 } else {
     $vista = $seccion;
+
+    if($secciones_validas[$seccion]['restringido']){
+        (new Autenticacion())->verify();    
+    }
+
     $titulo = $secciones_validas[$seccion]['titulo'];
     $body_class = "body-$seccion";
 }
+
+$userData = $_SESSION['loggedIn'] ?? FALSE;
+
 
 ?>
 
