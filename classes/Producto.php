@@ -269,7 +269,6 @@ class Producto
             }
         }
         return $producto;
-    }
 
     public function catalogoDestacado(bool $productoDestacado): array
     {
@@ -327,9 +326,6 @@ class Producto
         }
         return $producto;
     }
-    
-
-
     
 
     /**
