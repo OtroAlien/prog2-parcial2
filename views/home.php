@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/Producto.php';
+require_once "functions/autoload.php";
 
 $miProducto = new Producto();
 

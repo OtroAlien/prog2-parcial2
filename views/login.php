@@ -2,11 +2,14 @@
     <div class="loginform">  	
         <input type="checkbox" id="chk" aria-hidden="true">
         <div class="signup">
-            <form>
+        <div>
+			<?= (new Alerta())->get_alertas(); ?>
+		</div> 
+            <form action="admin/actions/auth_register.php" method="POST">
                 <label for="chk" aria-hidden="true">Registrate</label>
-                <input type="text" name="txt" placeholder="Nombre de Usuario" required="">
-                <input type="email" name="email" placeholder="Email" required="">
-                <input type="password" name="pswd" placeholder="Contraseña" required="">
+                <input type="text" name="name" id="name" placeholder="Nombre de Usuario" required="">
+                <input type="email" name="email" id="email" placeholder="Email" required="">
+                <input type="password" name="pswd" id="pswd" placeholder="Contraseña" required="">
                 <div class="boton">
                     <button class="button" type="submit">Registrar</button>
                 </div>
@@ -14,7 +17,7 @@
 		</div>
 
 		<div class="login">
-            <form>
+            <form action="admin/actions/auth_login.php" method="POST">
                 <label for="chk" aria-hidden="true">Iniciar Sesión</label>
                 <input type="email" name="email" placeholder="Email" required="">
                 <input type="password" name="pswd" placeholder="Contraseña" required="">

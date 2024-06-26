@@ -60,4 +60,31 @@ class Autenticacion
             header('location: index.php?sec=login');
         }
     }
+
+
+
+public function register($email, $password, $nombre) {
+    // Verificar si el usuario ya existe
+    $db = new Database();
+    $query = $db->prepare("SELECT * FROM usuarios WHERE email = :email");
+    $query->bindParam(':email', $email);
+    $query->execute();
+    $result = $query->fetch();
+
+    if ($result) {
+        die("El usuario ya está registrado.");
+    }
+
+    // Insertar el nuevo usuario
+    $query = $db->prepare("INSERT INTO usuarios (email, password, nombre) VALUES (:email, :password, :nombre)");
+    $query->bindParam(':email', $email);
+    $query->bindParam(':password', password_hash($password, PASSWORD_DEFAULT));
+    $query->bindParam(':nombre', $nombre);
+
+    if ($query->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
 }

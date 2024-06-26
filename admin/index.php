@@ -1,6 +1,6 @@
 <?php
-require_once "classes/Producto.php";
 
+require_once "../functions/autoload.php";
 
 $secciones_validas = [
     "login" => [
@@ -69,22 +69,22 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
     <title>NATURE | <?= $titulo ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="../css/estilos.css">
 </head>
 <body class="<?= $body_class ?>">
 
     <main class="main">
         <section class="main">
-            <?php include_once 'views/navbar.php'; ?>
+            <?php include_once '../views/navbar.php'; ?>
         </section>
     </main>
     <section>
         <?php
-        require_once "views/$vista.php";
+        require_once "../views/$vista.php";
         ?>
     </section>
     <section>
-        <?php include_once 'views/footer.php'; ?>
+        <?php include_once '../views/footer.php'; ?>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

@@ -3,7 +3,7 @@ require_once "../../functions/autoload.php";
 
 $postData = $_POST;
 
-$login = (new Autenticacion())->log_in($postData['email'], $postData['password']);
+$login = (new Autenticacion())->log_in($postData['email'], $postData['pswd']);
 
 if ($login) {
 
