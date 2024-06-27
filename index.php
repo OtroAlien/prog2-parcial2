@@ -38,6 +38,10 @@ $secciones_validas = [
         "titulo" => "Login",
         "restringido" => FALSE
     ],
+    "logout" => [
+        "titulo" => "Logout",
+        "restringido" => FALSE
+    ],
     "panel_usuario" => [
         "titulo" => "Panel de usuario",
         "restringido" => TRUE
