@@ -5,16 +5,18 @@ class Autenticacion
 
     public function log_in(string $usuario, string $password): ?bool
     {
+        
+        
+        $datosUsuario = (new Usuario())->usuario_x_email($usuario);
 
-        $datosUsuario = (new Usuario())->usuario_x_username($usuario);
-
+        (new Alerta())->get_alertas('danger', "hola");
 
         if ($datosUsuario) {
 
 
-            if (password_verify($password, $datosUsuario->getPassword())) {                
+            if ($password === $datosUsuario->getPassword()) {                
 
-                $datosLogin['username'] = $datosUsuario->getNombre_usuario();
+                $datosLogin['username'] = $datosUsuario->getUsername();
                 $datosLogin['nombre_completo'] = $datosUsuario->getNombre_completo();
                 $datosLogin['id'] = $datosUsuario->getId();
                 $datosLogin['rol'] = $datosUsuario->getRol();
@@ -82,7 +84,7 @@ public function register($email, $password, $nombre) {
     $query->bindParam(':nombre', $nombre);
 
     if ($query->execute()) {
-        return true;
+        header('location: ../index.php?sec=login');return true;
     } else {
         return false;
     }

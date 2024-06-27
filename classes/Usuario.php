@@ -14,14 +14,14 @@ class Usuario
      * Encuentra un usuario por su Username
      * @param string $username El nombre de usuario
      */
-    public function usuario_x_username(string $username): ?Usuario
+    public function usuario_x_email(string $email): ?Usuario
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM usuarios WHERE username = ?";
+        $query = "SELECT * FROM usuarios WHERE email = ?";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
-        $PDOStatement->execute([$username]);
+        $PDOStatement->execute([$email]);
 
         $result = $PDOStatement->fetch();
 
@@ -30,6 +30,7 @@ class Usuario
         }
         return $result;
     }
+
 
     public function getId()
     {
