@@ -5,7 +5,7 @@
         <div>
 			<?= (new Alerta())->get_alertas(); ?>
 		</div> 
-            <form action="actions/auth_register.php" method="POST">
+            <form action="admin/actions/auth_register.php" method="POST">
                 <label for="chk" aria-hidden="true">Registrate</label>
                 <input type="text" name="name" id="name" placeholder="Nombre de Usuario" required="">
                 <input type="email" name="email" id="email" placeholder="Email" required="">
@@ -17,7 +17,7 @@
 		</div>
 
 		<div class="login">
-            <form action="actions/auth_login.php" method="POST">
+            <form action="admin/actions/auth_login.php" method="POST">
                 <label for="chk" aria-hidden="true">Iniciar Sesión</label>
                 <input type="email" name="email" placeholder="Email" required="">
                 <input type="password" name="pswd" placeholder="Contraseña" required="">

@@ -11,7 +11,7 @@
                 </div>
                 <div class="team-content">
                     <div class="team-info">
-                        <h2 class="title">Faq "La Maquina Sexual" Paez</h2>
+                        <h2 class="title">Facundo Paez</h2>
                         <span class="post">8/3/1997</span>
                     </div>
                 </div>

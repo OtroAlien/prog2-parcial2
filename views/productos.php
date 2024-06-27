@@ -1,5 +1,5 @@
 <?php
-require_once "../functions/autoload.php";
+require_once "functions/autoload.php";
 
 $id = $_GET['id'] ?? FALSE;
 $filtro = $_GET['filtro'] ?? FALSE;
