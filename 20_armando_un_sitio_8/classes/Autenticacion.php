@@ -43,6 +43,7 @@ class Autenticacion
         if (isset($_SESSION['loggedIn'])) {
             unset($_SESSION['loggedIn']);
         };
+        session_destroy();
     }
 
     public function verify($admin = TRUE): bool

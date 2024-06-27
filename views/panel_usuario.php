@@ -61,7 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['foto_perfil'])) {
 
                 <!-- Botón para desloguearse -->
                 <div class="text-center mt-4">
-                    <a href="index.php?sec=logout" class="btn btn-danger">Desloguearse</a>
+                <div class="text-center mt-4">
+                    <form action="admin/actions/auth_logout.php" method="post">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                </div>
+
                 </div>
             </div>
         </div>
