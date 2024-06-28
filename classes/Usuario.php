@@ -31,6 +31,42 @@ class Usuario
         return $result;
     }
 
+    public function usuario_register(string $usuario, string $password, string $email): ?bool
+    {
+        $conexion = Conexion::getConexion();
+        $query = $conexion->prepare("SELECT * FROM usuarios WHERE username = :username OR email = :email");
+    
+        // Verificar si el usuario o el correo ya existe
+        $query->bindParam(':username', $usuario);
+        $query->bindParam(':email', $email);
+        $query->execute();
+    
+        $result = $query->fetch();
+    
+        if (!$result) {
+            // Hash de la contraseña
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    
+            // Insertar el nuevo usuario en la base de datos
+            $insertQuery = $conexion->prepare("INSERT INTO usuarios (username, password_hash, email, rol) VALUES (:username, :password_hash, :email, 'usuario')");
+            $insertQuery->bindParam(':username', $usuario);
+            $insertQuery->bindParam(':password_hash', $passwordHash);
+            $insertQuery->bindParam(':email', $email);
+    
+            if ($insertQuery->execute()) {
+                (new Alerta())->add_alerta('success', "Registro exitoso. Ahora puedes iniciar sesión.");
+                return true;
+            } else {
+                (new Alerta())->add_alerta('danger', "Hubo un error en el registro. Por favor, intenta de nuevo.");
+                return false;
+            }
+        } else {
+            (new Alerta())->add_alerta('warning', "El usuario o correo ya está registrado.");
+            return null;
+        }
+    }
+    
+
 
     public function getId()
     {

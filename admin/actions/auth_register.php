@@ -3,16 +3,15 @@ require_once "../../functions/autoload.php";
 
 $postData = $_POST;
 
-$register = (new Autenticacion())->register($postData['email'], $postData['pswd']);
+$usuario = $postData['username'];
+$email = $postData['email'];
+$password = $postData['pswd'];
+
+$register = (new Autenticacion())->register($usuario, $password, $email,);
 
 if ($register) {
-
-    if($register == "usuario"){ 
-        header('location: ../../index.php?sec=panel_usuario');
-    }else{
-        header('location: ../index.php?sec=dashboard');
-    }
-    
+    header('Location: ../index.php?sec=login&success=registered');
 } else {
-    header('location: ../index.php?sec=login');
+    header('Location: ../index.php?sec=register&error=failed');
 }
+exit();

@@ -7,7 +7,7 @@
 		</div> 
             <form action="admin/actions/auth_register.php" method="POST">
                 <label for="chk" aria-hidden="true">Registrate</label>
-                <input type="text" name="name" id="name" placeholder="Nombre de Usuario" required="">
+                <input type="text" name="username" id="username" placeholder="Nombre de Usuario" required="">
                 <input type="email" name="email" id="email" placeholder="Email" required="">
                 <input type="password" name="pswd" id="pswd" placeholder="Contraseña" required="">
                 <div class="boton">
