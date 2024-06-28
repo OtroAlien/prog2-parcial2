@@ -234,15 +234,20 @@ class Producto
 
     public function productoPorId(int $id): ?Producto
     {
-        $catalogo = $this->catalogoCompleto();
-
-        foreach ($catalogo as $p) {
-            if ($p->id == $id) {
-                return $p;
-            }
+        $conexion = Conexion::getConexion();
+        $query = "SELECT * FROM productos WHERE id = :id";
+    
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute(['id' => $id]);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
+    
+        if ($productoData = $PDOStatement->fetch()) {
+            return self::createProducto($productoData);
+        } else {
+            return null;
         }
-        return null;
     }
+    
 
     public function precioDescuento(): string
     {
