@@ -75,7 +75,7 @@ if ($id !== FALSE) {
                                         </li>
                                         <li class="list-group-item">
                                             <strong>Vegano:</strong>
-                                            <span class="characteristic-value"><?= $producto->gatVegano() ? 'Sí' : 'No'; ?></span>
+                                            <span class="characteristic-value"><?= $producto->getVegano() ? 'Sí' : 'No'; ?></span>
                                         </li>
                                     </ul>
                                 </div>
