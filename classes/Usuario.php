@@ -54,17 +54,15 @@ class Usuario
             $insertQuery->bindParam(':email', $email);
     
             if ($insertQuery->execute()) {
-                (new Alerta())->add_alerta('success', "Registro exitoso. Ahora puedes iniciar sesión.");
-                return true;
+                return true;  // Éxito en el registro
             } else {
-                (new Alerta())->add_alerta('danger', "Hubo un error en el registro. Por favor, intenta de nuevo.");
-                return false;
+                return false; // Error en el registro
             }
         } else {
-            (new Alerta())->add_alerta('warning', "El usuario o correo ya está registrado.");
-            return null;
+            return null; // Usuario o correo ya registrado
         }
     }
+    
     
 
 

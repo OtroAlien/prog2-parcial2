@@ -10,8 +10,8 @@ $password = $postData['pswd'];
 $register = (new Autenticacion())->register($usuario, $password, $email,);
 
 if ($register) {
-    header('Location: ../../index.php?sec=login&success=registered');
+    header('location: ../../index.php?sec=login');
 } else {
-    header('Location: ../../index.php?sec=register&error=failed');
+    header('location: ../../index.php?sec=login');
 }
 exit();
