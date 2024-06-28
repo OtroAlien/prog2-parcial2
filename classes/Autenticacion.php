@@ -8,13 +8,14 @@ class Autenticacion
         $datosUsuario = (new Usuario())->usuario_x_email($usuario);
     
         if ($datosUsuario) {
-            // Verificar la contraseña ingresada con el hash almacenado
             if (password_verify($password, $datosUsuario->getPassword())) {                
-    
                 $datosLogin['username'] = $datosUsuario->getUsername();
-                $datosLogin['nombre_completo'] = $datosUsuario->getNombre_completo();
+                $datosLogin['nombre_completo'] = $datosUsuario->getNombre_completo(); // Añadir nombre completo
+                $datosLogin['email'] = $datosUsuario->getEmail();
+                $datosLogin['adress'] = $datosUsuario->getAdress(); // Añadir dirección
                 $datosLogin['id'] = $datosUsuario->getId();
                 $datosLogin['rol'] = $datosUsuario->getRol();
+                $datosLogin['foto_perfil'] = $datosUsuario->getFoto_perfil(); // Añadir foto de perfil
                 $_SESSION['loggedIn'] = $datosLogin;
     
                 return $datosLogin['rol'];

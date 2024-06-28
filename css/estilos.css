@@ -1419,7 +1419,7 @@ input::-webkit-inner-spin-button {
     color: #91aa7c;
   }
 
-  /*--------------------------------------------------------- Login ---------------------------------------------------------*/
+/*--------------------------------------------------------- Login ---------------------------------------------------------*/
 
 .containerlogin{
 	margin: 0;
@@ -1507,3 +1507,40 @@ input::-webkit-inner-spin-button {
 #chk:checked ~ .signup label{
 	transform: scale(.6);
 }
+
+
+/*--------------------------------------------------------- Perfil ---------------------------------------------------------*/
+
+.body-panel_usuario{
+    background-image: url(../img/productos/kit-1.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+}
+
+.container-perfil{
+	display: grid;
+	justify-content: center;
+	align-items: center;
+    width: 60%;
+    margin: 6rem auto;
+    border-radius: 10px;
+}
+
+.rounded{
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 248, 235, 0.4);
+}
+
+.perfil{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.fotoperfil { grid-area: 1 / 1 / 1 / 1; }
+.nombre-usuario { grid-area: 2 / 2 / 2 / 2; }
+.nombre-completo{ grid-area: 2 / 2 / 2 / 2; }

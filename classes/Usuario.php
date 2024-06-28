@@ -4,11 +4,13 @@ class Usuario
 {
 
     private $id;
-    private $email;
     private $username;
     private $nombre_completo;
     private $password_hash;
+    private $email;
+    private $adress;
     private $rol;
+    private $foto_perfil;
 
     /**
      * Encuentra un usuario por su Username
@@ -36,8 +38,6 @@ class Usuario
         {
             $conexion = Conexion::getConexion();
             $query = $conexion->prepare("SELECT * FROM usuarios WHERE username = :username OR email = :email");
-        
-            // Verificar si el usuario o el correo ya existe
             $query->bindParam(':username', $usuario);
             $query->bindParam(':email', $email);
             $query->execute();
@@ -45,10 +45,8 @@ class Usuario
             $result = $query->fetch();
         
             if (!$result) {
-                // Hash de la contraseña
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        
-                // Insertar el nuevo usuario en la base de datos
+
                 $insertQuery = $conexion->prepare("INSERT INTO usuarios (username, password_hash, email, nombre_completo, adress, rol) VALUES (:username, :password_hash, :email, :nombre_completo, :adress, 'usuario')");
                 $insertQuery->bindParam(':username', $usuario);
                 $insertQuery->bindParam(':password_hash', $passwordHash);
@@ -95,5 +93,15 @@ class Usuario
     public function getPassword()
     {
         return $this->password_hash;
+    }
+
+    public function getAdress()
+    {
+        return $this->adress;
+    }
+
+    public function getFoto_perfil()
+    {
+        return $this->foto_perfil;
     }
 }
