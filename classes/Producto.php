@@ -4,7 +4,7 @@ require_once "Conexion.php";
 
 class Producto
 {
-    private $id;
+    private $product_id;
     private $nombre;
     private $descripcion;
     private $precio;
@@ -19,7 +19,7 @@ class Producto
     private $vegano;
 
     private static $createValues = [
-        'id', 
+        'product_id', 
         'nombre', 
         'descripcion', 
         'precio', 
@@ -138,7 +138,7 @@ class Producto
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(
             [
-                'product_id' => $this->id,
+                'product_id' => $this->product_id,
                 'nombre' => $nombre,
                 'descripcion' => $descripcion,
                 'precio' => $precio,
@@ -158,10 +158,10 @@ class Producto
     public function delete()
     {
         $conexion = Conexion::getConexion();
-        $query = "DELETE FROM productos WHERE producto_id = ?";
+        $query = "DELETE FROM productos WHERE product_id = ?";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute([$this->id]);
+        $PDOStatement->execute([$this->product_id]);
     }
 
     public function catalogoPorCategoria(string $categoria): array
@@ -231,17 +231,17 @@ class Producto
         return $productos;
     }
 
-    public function productoPorId(int $id): ?Producto
+    public function productoPorId(int $product_id): ?Producto
     {
         echo "<pre>";
-        print_r($id);
+        print_r($product_id);
         echo "</pre>";
 
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM productos WHERE product_id = :id";
+        $query = "SELECT * FROM productos WHERE product_id = :product_id";
     
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(['id' => $id]);
+        $PDOStatement->execute(['product_id' => $product_id]);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
     
         if ($productoData = $PDOStatement->fetch()) {
@@ -307,7 +307,7 @@ class Producto
 
     public function getId()
     {
-        return $this->id;
+        return $this->product_id;
     }
 
     public function getDescuento()
