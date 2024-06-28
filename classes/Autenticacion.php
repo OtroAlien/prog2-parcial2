@@ -6,17 +6,17 @@ class Autenticacion
     public function log_in(string $usuario, string $password): ?bool
     {
         $datosUsuario = (new Usuario())->usuario_x_email($usuario);
-
+    
         if ($datosUsuario) {
-
-            if ($password === $datosUsuario->getPassword()) {                
-
+            // Verificar la contraseña ingresada con el hash almacenado
+            if (password_verify($password, $datosUsuario->getPassword())) {                
+    
                 $datosLogin['username'] = $datosUsuario->getUsername();
                 $datosLogin['nombre_completo'] = $datosUsuario->getNombre_completo();
                 $datosLogin['id'] = $datosUsuario->getId();
                 $datosLogin['rol'] = $datosUsuario->getRol();
                 $_SESSION['loggedIn'] = $datosLogin;
-
+    
                 return $datosLogin['rol'];
             } else {
                 (new Alerta())->add_alerta('danger', "El password ingresado no es correcto.");
@@ -27,6 +27,7 @@ class Autenticacion
             return NULL;
         }
     }
+    
 
 
     public function register(string $usuario, string $password, string $email): ?bool
@@ -44,6 +45,7 @@ class Autenticacion
             return FALSE;
         }
     }
+    
     
 
 
