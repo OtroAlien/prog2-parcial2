@@ -55,13 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_usuario'])
                             <label for="nombre_completo" class="form-label">Nombre Completo</label>
                             <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" value="<?= $_SESSION['loggedIn']['nombre_completo'] ?>" required>
                         </div>
-
-                    <div class="text-center mt-4">
+                </form>
+                <div class="text-center mt-4">
                         <form action="admin/actions/auth_logout.php" method="post">
                             <button type="submit" class="btn btn-danger">Logout</button>
                         </form>
                     </div>
-                </form>
 
                 <?php if (!empty($_SESSION['loggedIn']['foto_perfil'])): ?>
                     <div class="text-center mt-3">
