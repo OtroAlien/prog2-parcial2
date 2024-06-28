@@ -32,41 +32,40 @@ class Usuario
         }
 
 
-    public function usuario_register(string $usuario, string $password, string $email): ?bool
+        public function usuario_register(string $usuario, string $password, string $email, string $nombre_completo, string $adress): ?bool
         {
             $conexion = Conexion::getConexion();
             $query = $conexion->prepare("SELECT * FROM usuarios WHERE username = :username OR email = :email");
-
+        
             // Verificar si el usuario o el correo ya existe
             $query->bindParam(':username', $usuario);
             $query->bindParam(':email', $email);
             $query->execute();
-
+        
             $result = $query->fetch();
-
+        
             if (!$result) {
                 // Hash de la contraseña
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
+        
                 // Insertar el nuevo usuario en la base de datos
-                $insertQuery = $conexion->prepare("INSERT INTO usuarios (username, password_hash, email, rol) VALUES (:username, :password_hash, :email, 'usuario')");
+                $insertQuery = $conexion->prepare("INSERT INTO usuarios (username, password_hash, email, nombre_completo, adress, rol) VALUES (:username, :password_hash, :email, :nombre_completo, :adress, 'usuario')");
                 $insertQuery->bindParam(':username', $usuario);
                 $insertQuery->bindParam(':password_hash', $passwordHash);
                 $insertQuery->bindParam(':email', $email);
-
+                $insertQuery->bindParam(':nombre_completo', $nombre_completo);
+                $insertQuery->bindParam(':adress', $adress);
+        
                 if ($insertQuery->execute()) {
-                    return true;  // Éxito en el registro
+                    return true;
                 } else {
-                    return false; // Error en el registro
+                    return false;
                 }
             } else {
-                return null; // Usuario o correo ya registrado
+                return null;
             }
         }
-
-    
-    
-
+        
 
     public function getId()
     {

@@ -30,9 +30,9 @@ class Autenticacion
     
 
 
-    public function register(string $usuario, string $password, string $email): ?bool
+    public function register(string $usuario, string $password, string $email, string $nombre_completo, string $adress): ?bool
     {
-        $usuario_register = (new Usuario())->usuario_register($usuario, $password, $email);
+        $usuario_register = (new Usuario())->usuario_register($usuario, $password, $email, $nombre_completo, $adress);
     
         if ($usuario_register === null) {
             (new Alerta())->add_alerta('warning', "El usuario o correo ya está registrado.");
@@ -45,6 +45,7 @@ class Autenticacion
             return FALSE;
         }
     }
+    
     
     
 
