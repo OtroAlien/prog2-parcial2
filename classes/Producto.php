@@ -158,7 +158,7 @@ class Producto
     public function delete()
     {
         $conexion = Conexion::getConexion();
-        $query = "DELETE FROM comics WHERE id = ?";
+        $query = "DELETE FROM productos WHERE producto_id = ?";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute([$this->id]);
@@ -228,14 +228,17 @@ class Producto
         while ($productoData = $PDOStatement->fetch()) {
             $productos[] = self::createProducto($productoData);
         }
-        
         return $productos;
     }
 
     public function productoPorId(int $id): ?Producto
     {
+        echo "<pre>";
+        print_r($id);
+        echo "</pre>";
+
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM productos WHERE id = :id";
+        $query = "SELECT * FROM productos WHERE product_id = :id";
     
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['id' => $id]);

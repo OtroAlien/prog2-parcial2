@@ -98,6 +98,14 @@ h1{
     color: white;
 }
 
+.heart-button {
+    background-color: rgb(84, 99, 72);
+    border: white;
+    cursor: pointer;
+}
+
+
+
 @media screen and (max-width: 991px) {
 
     .navbar {
@@ -655,9 +663,29 @@ a:hover {
     transition: color 0.2s;
 }
 
+.sectionProducts .single-product .part-1 ul li button {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #ffffff;
+    color: #444444;
+    text-align: center;
+    box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
+    transition: color 0.2s;
+    border: none
+}
+
+
 .sectionProducts .single-product .part-1 ul li a:hover {
     background-color:  #546348;
     color: white;
+}
+
+.sectionProducts .single-product .part-1 ul li button:hover {
+    background-color:  #546348;
+    color: white;
+    border: none;
 }
 
 .sectionProducts .single-product .part-2 .product-title {

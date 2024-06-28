@@ -1,8 +1,12 @@
-<?PHP
+<?php
+require_once "functions/autoload.php";
+
 $id = $_GET['id'] ?? FALSE;
 
-$miObjetoProducto = new Producto();
-$producto = $miObjetoProducto->productoPorId($id);
+if ($id !== FALSE) {
+    $miProducto = new Producto();
+    $producto = $miProducto->productoPorId($id);
+}
 
 ?>
 <div class="container">
@@ -88,6 +92,7 @@ $producto = $miObjetoProducto->productoPorId($id);
             </div>
         <?PHP } else { ?>
             <div class="col">
+                
                 <h2 class="text-center m-5">No se encontró el producto deseado.</h2>
             </div>
         <?PHP } ?>

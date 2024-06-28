@@ -139,17 +139,22 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
             });
         });
 
-        function checkLogin(redirectUrl) {
-            // Simulación de verificación de inicio de sesión
-            var isLoggedIn = <?= json_encode($userData ? true : false) ?>;
+        function checkLogin(button) {
+    // Simulamos una verificación de login, aquí deberías integrar tu lógica de verificación
+    let isLoggedIn = true;  // Cambiar esta lógica según tu verificación de usuario
 
-            if (isLoggedIn) {
-                window.location.href = redirectUrl;
-            } else {
-                var authModal = new bootstrap.Modal(document.getElementById('authModal'));
-                authModal.show();
-            }
-        }
+    if (isLoggedIn) {
+    // Cambia el color del botón y aplica los estilos adicionales
+    button.style.color = 'white';
+    button.style.backgroundColor = 'rgb(84, 99, 72)';
+    button.style.cursor = 'pointer';
+    } else {
+        // Mostrar el modal si no está logueado
+        var authModal = new bootstrap.Modal(document.getElementById('authModal'));
+        authModal.show();
+    }
+}
+
     </script>
 </body>
 </html>
