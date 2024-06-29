@@ -30,10 +30,6 @@ $secciones_validas = [
     "delete_producto" => [
         "titulo" => "Eliminar datos de Producto",
         "restringido" => TRUE
-    ],
-    "delete_producto" => [
-        "titulo" => "Eliminar datos de un producto",
-        "restringido" => TRUE
     ]
 ];
 

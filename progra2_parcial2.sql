@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-06-2024 a las 04:12:07
+-- Tiempo de generación: 29-06-2024 a las 08:30:05
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `progra2_parcial2`
+-- Base de datos: `progra2_parcial2`
 --
 
 -- --------------------------------------------------------
@@ -88,7 +88,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`product_id`, `nombre`, `descripcion`, `precio`, `imagen`, `stock`, `categoria`, `lanzamiento`, `contenido`, `descuento`, `waterproof`, `vegano`, `productoDestacado`) VALUES
-(1, 'Snail Bee High Content Essence', 'Esencia altamente concentrada que contiene mucina de caracol y veneno de abeja, conocidos por sus propiedades regenerativas y calmantes. Ayuda a mejorar la textura de la piel, aporta hidratación y calma la piel irritada.', 28000.00, 'productos/skincare-1.jpeg', 50, 'Skincare', '2020-05-12', '15', '0', 0, 1, 1),
+(1, 'Snail Bee High Content Essence', 'Esencia altamente concentrada que contiene mucina de caracol y veneno de abeja, conocidos por sus propiedades regenerativas y calmantes. Ayuda a mejorar la textura de la piel, aporta hidratación y calma la piel irritada.', 28000.00, 'productos/skincare-1.jpeg', 50, 'Skincare', '2020-05-12', '15', '0', 0, 1, 0),
 (2, 'Green Tea Fresh Toner', 'Tónico refrescante formulado con extracto de té verde orgánico de Jeju. Ayuda a equilibrar la piel, controlar la producción de sebo y proporcionar una hidratación ligera. Ideal para pieles grasas y mixtas.', 19000.00, 'productos/skincare-2.jpeg', 80, 'Skincare', '2019-08-20', '30', '20', 1, 1, 1),
 (3, 'Galactomyces 95 Tone Balancing Essence', 'Esencia a base de fermento de galactomyces al 95%, conocido por sus propiedades iluminadoras y equilibrantes. Ayuda a unificar el tono de la piel, minimizar los poros y mejorar la textura.', 32000.00, 'productos/skincare-3.jpeg', 30, 'Skincare', '2021-03-10', '60', '40', 0, 0, 1),
 (4, 'Aloe Propolis Soothing Gel', 'Gel calmante formulado con un 80% de extracto de aloe vera y 10% de extracto de propóleo. Proporciona una hidratación profunda, calma la piel irritada y ayuda a mejorar la barrera cutánea.', 21000.00, 'productos/skincare-4.jpeg', 60, 'Skincare', '2018-12-05', '60', '15', 1, 1, 0),
@@ -237,6 +237,18 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`user_id`, `username`, `nombre_completo`, `password_hash`, `email`, `adress`, `rol`) VALUES
+(1, 'jdoe', 'John Doe', 'hashed_password_1', 'jdoe@example.com', '123 Main St', 'usuario'),
+(2, 'asmith', 'Alice Smith', 'hashed_password_2', 'asmith@example.com', '456 Elm St', 'usuario'),
+(3, 'bking', 'Bob King', 'hashed_password_3', 'bking@example.com', '789 Oak St', 'admin'),
+(7, 'test', '', '$2y$10$rj0s5o9KP2P7hbLxFGMKC.v513rK0IufzC2JFkjVBqy2zwJ5OfdDu', 'test@example.com', '', 'admin'),
+(8, 'test2', '', '$2y$10$2MepSOovvbRqjgOPKYAMde4V0vDhvVqRebCWAuFOSpwug1PtZWDeO', 'test2@example.com', '', 'usuario'),
+(9, 'Nombre de usuario', 'Nombre Completo', '$2y$10$P/eED211zBgJ5.n7JDNw2OJnZI5oR1.9HRIJrJWWb8eF3FKG2jJvy', 'email@example.com', 'Direccion 123', 'usuario');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -334,7 +346,7 @@ ALTER TABLE `user_address`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
