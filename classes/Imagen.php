@@ -1,9 +1,13 @@
-<?PHP
+<?php
 
 class Imagen
 {
     public function subirImagen($directorio, $datosArchivo): string
     {
+        // Verificar si el directorio existe, y si no, crearlo
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0777, true);
+        }
 
         //le damos un nuevo nombre
         $og_name = (explode(".", $datosArchivo['name']));
@@ -21,23 +25,20 @@ class Imagen
 
     public function borrarImagen($archivo): bool
     {
-
         if (file_exists(($archivo))) {
-
             echo "<pre>";
             print_r($archivo);
             echo "</pre>";
 
-            $fileDelete =  unlink($archivo);
+            $fileDelete = unlink($archivo);
 
             if (!$fileDelete) {
                 throw new Exception("No se pudo eliminar la imagen");
             } else {
                 return TRUE;
             }
-        }else{
+        } else {
             return FALSE;
         }
     }
-
 }

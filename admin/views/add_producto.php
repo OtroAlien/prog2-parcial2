@@ -13,7 +13,7 @@ $producto = (new Producto())->catalogoCompleto();
             <div class="row mb-5">
                 <div class="col">
                     <h2 class="mb-4">Agregar Producto</h2>
-                    <form class="row g-3" action="actions/add_product.php" method="POST" enctype="multipart/form-data">
+                    <form class="row g-3" action="actions/add_products.php" method="POST" enctype="multipart/form-data">
                         
                         <div class="col-md-6 mb-3">
                             <label for="nombre" class="form-label">Nombre del Producto</label>

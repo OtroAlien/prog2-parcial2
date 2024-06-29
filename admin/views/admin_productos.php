@@ -14,7 +14,7 @@ if (!$productos) {
         <div class="col">
             <h1 class="text-center mb-5 fw-bold">Administración de Productos</h1>
             <div class="text-end mb-3">
-                <a href="index.php?sec=add_producto" class="btn btn-primary">Cargar Nuevo Producto</a>
+                <!-- <a href="index.php?sec=add_producto" class="btn btn-primary">Cargar Nuevo Producto</a> -->
             </div>
 
             <div class="table-responsive">

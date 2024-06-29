@@ -92,10 +92,10 @@ class Producto
         return $catalogo;
     }
 
-    public function insert($nombre, $descripcion, $imagen, $precio, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado, $subcategoria): int
+    public function insert($nombre, $descripcion, $imagen, $precio, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano): int
     {
         $conexion = Conexion::getConexion();
-        $query = "INSERT INTO productos VALUES (NULL, :nombre, :descripcion, :precio, :imagen, :stock, :categoria, :lanzamiento, :contenido, :descuento, :waterproof, :vegano, :productoDestacado, :subcategoria)";
+        $query = "INSERT INTO productos VALUES (NULL, :nombre, :descripcion, :precio, :imagen, :stock, :categoria, :lanzamiento, :contenido, :descuento, :waterproof, :vegano)";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(
@@ -110,16 +110,14 @@ class Producto
                 'contenido' => $contenido,
                 'descuento' => $descuento,
                 'waterproof' => $waterproof,
-                'vegano' => $vegano,
-                'productoDestacado' => $productoDestacado,
-                'subcategoria' => $subcategoria,
+                'vegano' => $vegano
             ]
         );
 
         return $conexion->lastInsertId();
     }
 
-    public function edit($nombre, $descripcion, $precio, $imagen, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado, $subcategoria)
+    public function edit($nombre, $descripcion, $precio, $imagen, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano)
     {
         $conexion = Conexion::getConexion();
         $query = "UPDATE productos SET
@@ -134,30 +132,29 @@ class Producto
             descuento = :descuento,
             waterproof = :waterproof,
             vegano = :vegano,
-            productoDestacado = :productoDestacado,
-            subcategoria = :subcategoria
+            productoDestacado = :productoDestacado
             WHERE product_id = :product_id";
     
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(
             [
-                ':product_id' => $this->product_id,
-                ':nombre' => $nombre,
-                ':descripcion' => $descripcion,
-                ':precio' => $precio,
-                ':imagen' => $imagen,
-                ':stock' => $stock,
-                ':categoria' => $categoria,
-                ':lanzamiento' => $lanzamiento,
-                ':contenido' => $contenido,
-                ':descuento' => $descuento,
-                ':waterproof' => $waterproof,
-                ':vegano' => $vegano,
-                ':productoDestacado' => $productoDestacado,
-                ':subcategoria' => $subcategoria
+                'product_id' => $this->product_id,
+                'nombre' => $nombre,
+                'descripcion' => $descripcion,
+                'precio' => $precio,
+                'imagen' => $imagen,
+                'stock' => $stock,
+                'categoria' => $categoria,
+                'lanzamiento' => $lanzamiento,
+                'contenido' => $contenido,
+                'descuento' => $descuento,
+                'waterproof' => $waterproof,
+                'vegano' => $vegano,
+                'productoDestacado' => $productoDestacado
             ]
         );
     }
+    
     
     
 

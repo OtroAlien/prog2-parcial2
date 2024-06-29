@@ -2,7 +2,7 @@
 require_once "../../functions/autoload.php";
 
 $postData = $_POST;
-$fileData = $_FILES['portada'];
+$fileData = $_FILES['imagen'];
 
 echo "<pre>";
 print_r($_POST);
@@ -30,7 +30,6 @@ try {
         $postData['waterproof'],
         $postData['vegano'],
         $portada,
-        $postData['productoDestacado']
     );
 
 

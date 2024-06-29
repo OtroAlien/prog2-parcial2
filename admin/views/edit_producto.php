@@ -96,7 +96,7 @@ $producto = (new Producto())->productoPorId($id);
                     </div>
 
                     <div class="col-12 text-center mt-3"> <!-- Added mt-3 here -->
-                        <button type="submit" class="btn btn-warning mt-3">Editar</button>
+                        <button type="submit" class="btn btn-success btn-sm">Editar</button>
                     </div>
                 </form>
             </div>
