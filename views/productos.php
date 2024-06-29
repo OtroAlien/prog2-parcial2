@@ -17,10 +17,6 @@ if ($filtro) {
 } else {
     $productos = $miProducto->catalogoCompleto();
 }
-
-
-session_start();
-$userData = $_SESSION['loggedIn'] ?? FALSE;
 ?>
 
 <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
@@ -171,7 +167,7 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
                         </ul>
                     </div>
                     <div class="part-2">
-                        <h3 class="product-title"><?= $userData['id'] ?></h3>
+                        <h3 class="product-title"><?= $producto->getNombre() ?></h3>
                         <p class="product-description"><?= $producto->getDescripcion() ?></p>
                         <h4 class="product-old-price">$<?= $producto->precioFormateado() ?></h4>
                         <h4 class="product-price">$<?= $producto->precioDescuento() ?></h4>

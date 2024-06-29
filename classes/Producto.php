@@ -17,6 +17,7 @@ class Producto
     private $descuento;
     private $waterproof;
     private $vegano;
+    
 
     private static $createValues = [
         'product_id', 
