@@ -1,8 +1,5 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
+require_once "functions/autoload.php";
 $userID = $_SESSION['loggedIn']['id'] ?? false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_usuario'])) {

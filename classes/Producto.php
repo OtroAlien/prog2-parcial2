@@ -17,7 +17,7 @@ class Producto
     private $descuento;
     private $waterproof;
     private $vegano;
-    
+    private $productoDestacado; // Añadido atributo productoDestacado
 
     private static $createValues = [
         'product_id', 
@@ -32,7 +32,8 @@ class Producto
         'contenido', 
         'descuento', 
         'waterproof', 
-        'vegano'
+        'vegano',
+        'productoDestacado' // Añadido a createValues
     ];
 
     private static function createProducto($productoData): Producto
@@ -201,19 +202,19 @@ class Producto
 
     public function catalogoDestacado(bool $productoDestacado): array
     {
-    $conexion = Conexion::getConexion();
-    $query = "SELECT * FROM productos WHERE productoDestacado = :productoDestacado";
+        $conexion = Conexion::getConexion();
+        $query = "SELECT * FROM productos WHERE productoDestacado = :productoDestacado";
     
-    $PDOStatement = $conexion->prepare($query);
-    $PDOStatement->execute(['productoDestacado' => $productoDestacado ? 1 : 0]);
-    $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute(['productoDestacado' => $productoDestacado ? 1 : 0]);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
     
-    $productos = [];
-    while ($productoData = $PDOStatement->fetch()) {
-        $productos[] = $this->createProducto($productoData);
-    }
+        $productos = [];
+        while ($productoData = $PDOStatement->fetch()) {
+            $productos[] = $this->createProducto($productoData);
+        }
     
-    return $productos;
+        return $productos;
     }
 
     public function catalogoPorPiel(string $piel): array

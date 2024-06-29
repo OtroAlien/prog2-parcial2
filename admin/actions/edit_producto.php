@@ -7,12 +7,12 @@ $id = $_GET['id'] ?? FALSE;
 
 try {
     // Obtener el producto por ID
-    $producto = (new Producto())->producto_x_id($id);
+    $producto = (new Producto())->productoPorId($id);
 
     // Procesar imagen
     if (!empty($fileData['tmp_name'])) {
-        $imagen = (new Imagen())->subirImagen(__DIR__ . "/../../img/products", $fileData);
-        (new Imagen())->borrarImagen(__DIR__ . "/../../img/products/" . $postData['imagen_og']);
+        $imagen = (new Imagen())->subirImagen(__DIR__ . "/../../img/productos", $fileData);
+        (new Imagen())->borrarImagen(__DIR__ . "/../../img/productos/" . $postData['imagen_og']);
     } else {
         $imagen = $postData['imagen_og'];
     }
@@ -21,10 +21,14 @@ try {
     $producto->edit(
         $postData['nombre'],
         $postData['categoria'],
-        $postData['subcategoria'],
         $postData['descripcion'],
         $postData['precio'],
         $postData['stock'],
+        $postData['lanzamiento'],
+        $postData['contenido'],
+        $postData['descuento'],
+        $postData['waterproof'],
+        $postData['vegano'],
         $imagen
     );
 

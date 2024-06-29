@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

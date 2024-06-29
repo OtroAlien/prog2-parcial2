@@ -104,7 +104,17 @@ h1{
     cursor: pointer;
 }
 
+.img-container {
+    width: 80px; /* Tamaño cuadrado deseado para la imagen */
+    height: 80px;
+    overflow: hidden;
+    margin: 0 auto; /* Centrar la imagen dentro del contenedor */
+}
 
+.img-container img {
+    width: 100%; /* Para asegurar que la imagen ocupe todo el espacio del contenedor */
+    height: auto; /* Mantener la proporción */
+}
 
 @media screen and (max-width: 991px) {
 
