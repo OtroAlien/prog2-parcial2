@@ -139,21 +139,21 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
             });
         });
 
-        function checkLogin(button) {
-    // Simulamos una verificación de login, aquí deberías integrar tu lógica de verificación
-    let isLoggedIn = true;  // Cambiar esta lógica según tu verificación de usuario
+        function checkLogin(button,product_id,usr) {
+            // Simulación de verificación de inicio de 
+            var isLoggedIn = <?= json_encode($userData ? true : false) ?>;
+            var usrdata = <?= json_encode($userData) ?>;
 
-    if (isLoggedIn) {
-    // Cambia el color del botón y aplica los estilos adicionales
-    button.style.color = 'white';
-    button.style.backgroundColor = 'rgb(84, 99, 72)';
-    button.style.cursor = 'pointer';
-    } else {
-        // Mostrar el modal si no está logueado
-        var authModal = new bootstrap.Modal(document.getElementById('authModal'));
-        authModal.show();
-    }
-}
+            if (isLoggedIn) {
+                
+                button.style.backgroundColor = 'rgb(84, 99, 72)';
+                button.style.border = '1px solid white';
+                button.style.cursor = 'pointer';
+            } else {
+                var authModal = new bootstrap.Modal(document.getElementById('authModal'));
+                authModal.show();
+            }
+        }
 
     </script>
 </body>

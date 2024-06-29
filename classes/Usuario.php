@@ -53,7 +53,7 @@ class Usuario
                 $insertQuery->bindParam(':email', $email);
                 $insertQuery->bindParam(':nombre_completo', $nombre_completo);
                 $insertQuery->bindParam(':adress', $adress);
-        
+
                 if ($insertQuery->execute()) {
                     return true;
                 } else {
@@ -64,6 +64,27 @@ class Usuario
             }
         }
         
+
+        public function edit_usuario($usuario)
+        {
+    
+            $conexion = Conexion::getConexion();
+            $query = "UPDATE usuario SET username = :username, nombre_completo = :nombre_completo, password_hash = :password_hash, email = :email, adress = :adress, foto_perfil = :foto_perfil, rol = :rol WHERE id = :id";
+    
+            $PDOStatement = $conexion->prepare($query);
+            $PDOStatement->execute(
+                [
+                    'id' => $this->id,
+                    'username' => $username,
+                    'nombre_completo' => $nombre_completo,
+                    'password_hash' => $password_hash,
+                    'email' => $email,
+                    'adress' => $adress,
+                    'foto_perfil' => $foto_perfil,
+                    'rol' => $rol
+                ]
+            );
+        }
 
     public function getId()
     {

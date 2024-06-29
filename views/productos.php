@@ -1,7 +1,7 @@
 <?php
 require_once "functions/autoload.php";
 
-$product_id = $_GET['product_id'] ?? FALSE;
+$id = $_GET['id'] ?? FALSE;
 $filtro = $_GET['filtro'] ?? FALSE;
 $descuento = $_GET['descuento'] ?? FALSE;
 $piel = $_GET['piel'] ?? FALSE;
@@ -18,6 +18,9 @@ if ($filtro) {
     $productos = $miProducto->catalogoCompleto();
 }
 
+
+session_start();
+$userData = $_SESSION['loggedIn'] ?? FALSE;
 ?>
 
 <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
@@ -132,43 +135,49 @@ if ($filtro) {
                 <div class="row">
                 <?php if (!empty($productos)) {
             foreach ($productos as $producto) { ?>
-<div class="col-md-6 col-lg-4 col-xl-4 col-sm-12">
-    <div id="product-1" class="single-product">
-        <div class="part-1">
-            <?php if ($producto->getDescuento() > 0) { ?>
-                <div class="descuento-cartelito">Descuento: <?= $producto->getDescuento() ?>%</div>
-            <?php } ?>
-            <div class="overlay"></div>
-            <img class="part-1 img" src="./img/<?= $producto->getImagen() ?>" alt="Imagen de <?= $producto->getNombre() ?>">
-            <ul>
-                <li><a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
-                            <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
-                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                        </svg>
-                    </a></li>
-                <li><button id="heart-<?= $producto->getId() ?>" class="heart-button" onclick="checkLogin(this)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.060.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                        </svg>
-                    </button></li>
-                <li><a href="index.php?sec=detalles&id=<?= $producto->getId() ?>">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                        </svg>
-                    </a></li>
-            </ul>
-        </div>
-        <div class="part-2">
-            <h3 class="product-title"><?= $producto->getNombre() ?></h3>
-            <p class="product-description"><?= $producto->getDescripcion() ?></p>
-            <h4 class="product-old-price">$<?= $producto->precioFormateado() ?></h4>
-            <h4 class="product-price">$<?= $producto->precioDescuento() ?></h4>
-        </div>
-    </div>
-</div>
+            <div class="col-md-6 col-lg-4 col-xl-4 col-sm-12">
+                <div id="product-1" class="single-product">
+                    <div class="part-1">
+                        <?php if ($producto->getDescuento() > 0) { ?>
+                            <div class="descuento-cartelito">Descuento: <?= $producto->getDescuento() ?>%</div>
+                        <?php } ?>
+                        <div class="overlay"></div>
+                        <img class="part-1 img" src="./img/<?= $producto->getImagen() ?>" alt="Imagen de <?= $producto->getNombre() ?>">
+                        <ul>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                    </svg>
+                                </a></li>
+                            <li>
+                                <form id="favoritoForm" method="POST" action="add_favorites.php" style="display: none;">
+                                    <input type="hidden" name="product_id" id="product_id" value="<?= $producto->getId() ?>">
+                                    <input type="hidden" name="user_id" id="user_id" value="<?= $userData['id'] ?>">
+                                </form>
 
+                                <button class="fav" onclick="checkLogin(this,<?= $producto->getId() ?>,<?= $userData['id'] ?>)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg>
+                                </button>
+                            </li>
+                            <li><a href="index.php?sec=detalles&id=<?= $producto->getId() ?>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                </a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-title"><?= $userData['id'] ?></h3>
+                        <p class="product-description"><?= $producto->getDescripcion() ?></p>
+                        <h4 class="product-old-price">$<?= $producto->precioFormateado() ?></h4>
+                        <h4 class="product-price">$<?= $producto->precioDescuento() ?></h4>
+                    </div>
+                </div>
+            </div>
             <?php }
             } else { ?>
                 <div class="col">
