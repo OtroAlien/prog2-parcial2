@@ -3,33 +3,31 @@
 class Autenticacion
 {
 
-    public function log_in(string $usuario, string $password): ?bool
+    public function log_in(string $usuario, string $password): ?string
     {
         $datosUsuario = (new Usuario())->usuario_x_email($usuario);
     
         if ($datosUsuario) {
-            if (password_verify($password, $datosUsuario->getPassword())) {                
+            if (password_verify($password, $datosUsuario->getPassword())) {
+                // Crear y almacenar información de sesión
                 $datosLogin['username'] = $datosUsuario->getUsername();
-                $datosLogin['nombre_completo'] = $datosUsuario->getNombre_completo(); // Añadir nombre completo
+                $datosLogin['nombre_completo'] = $datosUsuario->getNombre_completo();
                 $datosLogin['email'] = $datosUsuario->getEmail();
-                $datosLogin['adress'] = $datosUsuario->getAdress(); // Añadir dirección
+                $datosLogin['adress'] = $datosUsuario->getAdress();
                 $datosLogin['id'] = $datosUsuario->getId();
                 $datosLogin['rol'] = $datosUsuario->getRol();
-                $datosLogin['foto_perfil'] = $datosUsuario->getFoto_perfil(); // Añadir foto de perfil
                 $_SESSION['loggedIn'] = $datosLogin;
     
-                return $datosLogin['rol'];
+                return $datosLogin['rol']; // Devolver el rol del usuario
             } else {
                 (new Alerta())->add_alerta('danger', "El password ingresado no es correcto.");
-                return FALSE;
+                return null; // Contraseña incorrecta
             }
         } else {
             (new Alerta())->add_alerta('warning', "El usuario ingresado no se encontró en nuestra base de datos.");
-            return NULL;
+            return null; // Usuario no encontrado
         }
     }
-    
-
 
     public function register(string $usuario, string $password, string $email, string $nombre_completo, string $adress): ?bool
     {
@@ -46,12 +44,6 @@ class Autenticacion
             return FALSE;
         }
     }
-    
-    
-    
-
-
-
 
     public function log_out()
     {

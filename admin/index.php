@@ -80,7 +80,7 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
     </main>
     <section>
         <?php
-        require_once "../views/$vista.php";
+        require_once "views/$vista.php";
         ?>
     </section>
     <section>

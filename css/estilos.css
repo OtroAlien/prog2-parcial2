@@ -1511,7 +1511,7 @@ input::-webkit-inner-spin-button {
 
 /*--------------------------------------------------------- Perfil ---------------------------------------------------------*/
 
-.body-panel_usuario{
+.body-panel_usuario {
     background-image: url(../img/productos/kit-1.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -1519,28 +1519,93 @@ input::-webkit-inner-spin-button {
     height: 100%;
 }
 
-.container-perfil{
-	display: grid;
-	justify-content: center;
-	align-items: center;
-    width: 60%;
+.container-perfil {
     margin: 6rem auto;
     border-radius: 10px;
+    max-width: 70%;
 }
 
-.rounded{
+.perfil {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.perfil-info, .actualizar-info {
+    flex: 1;
+    padding: 10px;
+    align-content: center;
+}
+
+.actualizar-info {
+    background-color: rgba(255, 251, 242, 0.2);
+    border-radius: 5px;
+    border: transparent !important;
+}
+
+.rounded {
     backdrop-filter: blur(10px);
     background-color: rgba(255, 248, 235, 0.4);
+    border: transparent !important;
 }
 
-.perfil{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+.actualizar-info .button {
+    width: 200px !important;
+    padding: 5px;
+    margin: auto;
 }
 
-.fotoperfil { grid-area: 1 / 1 / 1 / 1; }
-.nombre-usuario { grid-area: 2 / 2 / 2 / 2; }
-.nombre-completo{ grid-area: 2 / 2 / 2 / 2; }
+.text-center {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+    text-align: left;
+}
+
+.historial-compras {
+    margin-top: 20px;
+}
+
+.nombre-usuario h2,
+    .nombre-completo h2{
+        text-align: left !important;
+        margin: 5px;
+        padding: 5px;
+    }
+
+.perfil-info .button{
+    background-color: rgb(130, 0, 0) !important;
+    padding: 5px;
+}
+
+.perfil-info .button:hover {
+    background: rgb(100, 0, 0) !important;
+    color: aliceblue;
+  }
+
+.perfil-info .button:after {
+    background: #463434;
+}
+
+.rounded .button {
+    width: 200px !important;
+    padding: 5px;
+    margin: auto;
+}
+
+.text-center .mt-4 {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .perfil {
+        display: block;
+    }
+
+    .perfil-info,
+    .actualizar-info,
+    .historial-compras {
+        margin-bottom: 2rem;
+    }
+}
