@@ -119,7 +119,7 @@ class Producto
         return $conexion->lastInsertId();
     }
 
-    public function edit($nombre, $descripcion, $precio, $imagen, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado)
+    public function edit($nombre, $descripcion, $precio, $imagen, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado, $subcategoria)
     {
         $conexion = Conexion::getConexion();
         $query = "UPDATE productos SET
@@ -134,28 +134,32 @@ class Producto
             descuento = :descuento,
             waterproof = :waterproof,
             vegano = :vegano,
-            productoDestacado = :productoDestacado
+            productoDestacado = :productoDestacado,
+            subcategoria = :subcategoria
             WHERE product_id = :product_id";
     
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(
             [
-                'product_id' => $this->product_id,
-                'nombre' => $nombre,
-                'descripcion' => $descripcion,
-                'precio' => $precio,
-                'imagen' => $imagen,
-                'stock' => $stock,
-                'categoria' => $categoria,
-                'lanzamiento' => $lanzamiento,
-                'contenido' => $contenido,
-                'descuento' => $descuento,
-                'waterproof' => $waterproof,
-                'vegano' => $vegano,
-                'productoDestacado' => $productoDestacado
+                ':product_id' => $this->product_id,
+                ':nombre' => $nombre,
+                ':descripcion' => $descripcion,
+                ':precio' => $precio,
+                ':imagen' => $imagen,
+                ':stock' => $stock,
+                ':categoria' => $categoria,
+                ':lanzamiento' => $lanzamiento,
+                ':contenido' => $contenido,
+                ':descuento' => $descuento,
+                ':waterproof' => $waterproof,
+                ':vegano' => $vegano,
+                ':productoDestacado' => $productoDestacado,
+                ':subcategoria' => $subcategoria
             ]
         );
     }
+    
+    
 
     public function delete()
     {
