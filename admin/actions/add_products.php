@@ -23,12 +23,13 @@ try {
         $postData['descripcion'],
         $postData['precio'],
         $postData['stock'],
-        $postData['categoria'],
         $postData['lanzamiento'], 
         $postData['contenido'],
         $postData['descuento'],
         $postData['waterproof'],
         $postData['vegano'],
+        $postData['productoDestacado'],
+        $postData['categoria'],
         $portada,
     );
 

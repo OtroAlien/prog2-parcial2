@@ -39,9 +39,9 @@ $producto = (new Producto())->catalogoCompleto();
                             <label for="categoria" class="form-label">Categoría</label>
                             <select class="form-select" id="categoria" name="categoria" required>
                                 <option value="" selected disabled>Elija una opción</option>
-                                <option value="Skincare">Skincare</option>
-                                <option value="Maquillaje">Maquillaje</option>
-                                <option value="Cabello">Cabello</option>
+                                <option value="1">Skincare</option>
+                                <option value="2">Maquillaje</option>
+                                <option value="3">Cabello</option>
                             </select>
                         </div>
 

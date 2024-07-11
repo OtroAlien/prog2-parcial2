@@ -26,14 +26,13 @@ class Producto
         'precio', 
         'imagen', 
         'stock', 
-        'categoria', 
-        'piel', 
+        'categoria',
         'lanzamiento', 
         'contenido', 
         'descuento', 
         'waterproof', 
         'vegano',
-        'productoDestacado' // Añadido a createValues
+        'productoDestacado'
     ];
 
     private static function createProducto($productoData): Producto
@@ -92,10 +91,10 @@ class Producto
         return $catalogo;
     }
 
-    public function insert($nombre, $descripcion, $imagen, $precio, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano): int
+    public function insert($nombre, $descripcion, $imagen, $precio, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado): int
     {
         $conexion = Conexion::getConexion();
-        $query = "INSERT INTO productos VALUES (NULL, :nombre, :descripcion, :precio, :imagen, :stock, :categoria, :lanzamiento, :contenido, :descuento, :waterproof, :vegano)";
+        $query = "INSERT INTO productos VALUES (NULL, :nombre, :descripcion, :precio, :imagen, :stock, :categoria, :lanzamiento, :contenido, :descuento, :waterproof, :vegano, :productoDestacado)";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(
@@ -110,7 +109,8 @@ class Producto
                 'contenido' => $contenido,
                 'descuento' => $descuento,
                 'waterproof' => $waterproof,
-                'vegano' => $vegano
+                'vegano' => $vegano,
+                'productoDestacado' => $productoDestacado
             ]
         );
 
