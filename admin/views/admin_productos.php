@@ -14,7 +14,7 @@ if (!$productos) {
         <div class="col">
             <h1 class="text-center mb-5 fw-bold">Administración de Productos</h1>
             <div class="text-end mb-3">
-                <!-- <a href="index.php?sec=add_producto" class="btn btn-primary">Cargar Nuevo Producto</a> -->
+                <a href="index.php?sec=add_producto" class="btn btn-primary">Cargar Nuevo Producto</a>
             </div>
 
             <div class="table-responsive">
@@ -37,7 +37,7 @@ if (!$productos) {
                             <tr>
                                 <td>
                                     <div class="img-container">
-                                        <img src="../../img/productos/<?= htmlspecialchars($P->getImagen()) ?>" alt="Imagen de <?= htmlspecialchars($P->getNombre()) ?>" class="img-thumbnail rounded">
+                                        <img src="../img/<?= htmlspecialchars($P->getImagen()) ?>" alt="Imagen de <?= htmlspecialchars($P->getNombre()) ?>" class="img-thumbnail rounded">
                                     </div>
                                 </td>
                                 <td><?= htmlspecialchars($P->getNombre()) ?></td>

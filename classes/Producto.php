@@ -155,9 +155,6 @@ class Producto
         );
     }
     
-    
-    
-
     public function delete()
     {
         $conexion = Conexion::getConexion();
