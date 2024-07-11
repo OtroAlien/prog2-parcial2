@@ -3,7 +3,7 @@ $items = (new Carrito())->get_carrito();
 ?>
 <div class="container">
 
-    <h1 class="text-center mb-5 fw-bold">Finalizar Pago</h1>
+    <h2 class="text-center mb-5 fw-bold">Finalizar Pago</h2>
 
     <div class="border rounded p-3 mb-4">
 
@@ -13,7 +13,7 @@ $items = (new Carrito())->get_carrito();
             <div class="col-12 ">
 
                 <section>
-                    <h2>Datos de Usuario</h2>
+                    <h3>Datos de Usuario</h3>
                     <?PHP
                     echo "<pre>";
                     print_r($_SESSION['loggedIn']);
@@ -39,7 +39,7 @@ $items = (new Carrito())->get_carrito();
                                 <tr>
 
                                     <td class="align-middle">
-                                        <h2 class="h5"><?= $item['producto'] ?></h2>
+                                        <h4 class="h5"><?= $item['producto'] ?></h4>
                                         <p><?= $item['titulo'] ?></p>
                                     </td>
                                     <td class="align-middle">
@@ -57,7 +57,7 @@ $items = (new Carrito())->get_carrito();
 
                             <tr>
                                 <td colspan="3" class="text-end">
-                                    <h2 class="h5 py-3">Total:</h2>
+                                    <h4 class="h5 py-3">Total:</h4>
                                 </td>
                                 <td class="text-end">
 

@@ -6,10 +6,10 @@ $producto = (new Producto())->productoPorId($id);
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="text-center mb-5 fw-bold">¿Está seguro que desea eliminar este producto?</h1>
+            <h2 class="text-center mb-5 fw-bold">¿Está seguro que desea eliminar este producto?</h2>
             <div class="row g-3">
                 <div class="col-12 col-md-6">
-                    <h2 class="fs-6">Nombre del Producto:</h2>
+                    <h3 class="fs-6">Nombre del Producto:</h3>
                     <p><?= $producto->getNombre() ?></p>
                 </div>
                 <div class="col-12 col-md-6">

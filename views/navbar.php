@@ -1,18 +1,3 @@
-<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="authModalLabel">Inicia Sesión o Regístrate</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Debes iniciar sesión o registrarte para acceder a esta funcionalidad.</p>
-        <a href="index.php?sec=login" class="btn btn-primary">Iniciar Sesión/Registrarse</a>
-      </div>
-    </div>
-  </div>
-</div>
-
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -60,3 +45,18 @@
     </button>
   </div>
 </nav>
+
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p style="font-size: 1.25rem;" class="modal-title" id="authModalLabel">Inicia Sesión o Regístrate</p>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Debes iniciar sesión o registrarte para acceder a esta funcionalidad.</p>
+        <a href="index.php?sec=login" class="btn btn-primary">Iniciar Sesión/Registrarse</a>
+      </div>
+    </div>
+  </div>
+</div>

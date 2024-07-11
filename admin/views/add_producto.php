@@ -7,12 +7,12 @@ $producto = (new Producto())->catalogoCompleto();
 <div class="container my-5">
     <div class="row">
         <div class="col">
-            <h1 class="text-center mb-5 fw-bold">Administración de Productos</h1>
+            <h2 class="text-center mb-5 fw-bold">Administración de Productos</h2>
 
             <!-- Formulario para agregar productos -->
             <div class="row mb-5">
                 <div class="col">
-                    <h2 class="mb-4">Agregar Producto</h2>
+                    <h3 class="mb-4">Agregar Producto</h3>
                     <form class="row g-3" action="actions/add_products.php" method="POST" enctype="multipart/form-data">
                         
                         <div class="col-md-6 mb-3">

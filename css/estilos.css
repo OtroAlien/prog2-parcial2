@@ -531,8 +531,16 @@ h1{
     width: 100%;
 }
 
-.d-none {
-    text-shadow: 2px 2px 5px black;
+.carousel-caption{
+    background-color: #00000077;
+    width: 100%;
+    left: 0;
+    right: 0;
+}
+
+.cc-carrusel{
+    width: 50%;
+    margin: auto;
 }
 
 .ofertas h2{
