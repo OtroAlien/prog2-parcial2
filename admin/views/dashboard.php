@@ -1,5 +1,5 @@
 
-    <div class="container d-flex justify-content-center p-5">
+    <div class="container-admprofile">
         <div>
             <h2 class="text-center mb-5 fw-bold">Panel de control de administrador</h2>
             <div class="list-group">
