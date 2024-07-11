@@ -1,6 +1,6 @@
 <footer class="footer">
             <div class="footerLogo">
-                <h5>NATURE</h5>
+                <p style="font-size: 1rem; margin-bottom:0">NATURE</p>
             </div>
             <div>
                 <ul class="footerUl">
@@ -11,6 +11,6 @@
                 </ul>
             </div>
             <div>
-                <p>Todos los derehos reservados 2023</p>
+                <p style="margin-bottom:0">Todos los derehos reservados 2024</p>
             </div>
         </footer>

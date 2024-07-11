@@ -1,14 +1,14 @@
 
-    <div class="container d-flex justify-content-center p-5">
+    <div class="container-admprofile">
         <div>
-            <h1 class="text-center mb-5 fw-bold">Panel de control de administrador</h1>
+            <h2 class="text-center mb-5 fw-bold">Panel de control de administrador</h2>
             <div class="list-group">
                 <a href="index.php?sec=admin_productos" class="list-group-item list-group-item-action">
-                    <h4 class="mb-1">Administrar Productos</h4>
+                    <h3 class="mb-1">Administrar Productos</h3>
                     <p class="mb-1">Editar, borrar o subir nuevos productos.</p>
                 </a>
                 <a href="admin_usuarios.php" class="list-group-item list-group-item-action">
-                    <h4 class="mb-1">Administrar Usuarios</h4>
+                    <h3 class="mb-1">Administrar Usuarios</h3>
                     <p class="mb-1">Ver la lista de usuarios y cambiar sus roles.</p>
                 </a>
             </div>

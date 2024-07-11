@@ -7,7 +7,7 @@ $producto = (new Producto())->productoPorId($id);
     <div class="row">
         <div class="col">
 
-            <h1 class="text-center mb-5 fw-bold">Edición de datos de: <span class="text-danger"><?= htmlspecialchars($producto->getNombre()) ?></span></h1>
+            <h2 class="text-center mb-5 fw-bold">Edición de datos de: <span class="text-danger"><?= htmlspecialchars($producto->getNombre()) ?></span></h2>
             <div class="row mb-5 d-flex justify-content-center mt-5"> <!-- Added mt-5 here -->
 
                 <form class="row g-3" action="actions/edit_producto.php?id=<?= htmlspecialchars($producto->getId()) ?>" method="POST" enctype="multipart/form-data">

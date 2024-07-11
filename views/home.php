@@ -122,7 +122,7 @@ $productosDestacados = $miProducto->catalogoDestacado(true);
                             </ul>
                         </div>
                         <div class="part-2">
-                            <h5 class="product-title"><?= $producto->getNombre() ?></h5>
+                            <h3 class="product-title"><?= $producto->getNombre() ?></h3>
                             <p class="product-description"><?= $producto->getDescripcion() ?></p>
                             <h4 class="product-old-price">$<?= $producto->precioFormateado() ?></h4>
                             <h4 class="product-price">$<?= $producto->precioDescuento() ?></h4>

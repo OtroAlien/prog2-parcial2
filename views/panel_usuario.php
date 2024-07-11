@@ -21,14 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_usuario'])
     </div>
     <div class="perfil border rounded p-3 mt-4">
         <div class="perfil-info">
-            <h1 class="text-center mb-5 fw-bold">Perfil</h1>
+            <h2 class="text-center mb-5 fw-bold">Perfil</h2>
             <div class="nombre-usuario">
                 <label for="username" class="form-label">Nombre de Usuario</label>
-                <h2 id="username"><?= $_SESSION['loggedIn']['username'] ?></h2>
+                <h3 id="username"><?= $_SESSION['loggedIn']['username'] ?></h3>
             </div>
             <div class="nombre-completo">
                 <label for="nombre_completo" class="form-label">Nombre Completo</label>
-                <h2 id="nombre_completo"><?= $_SESSION['loggedIn']['nombre_completo'] ?></h2>
+                <h3 id="nombre_completo"><?= $_SESSION['loggedIn']['nombre_completo'] ?></h3>
             </div>
             <div class="text-center mt-4">
                 <form action="admin/actions/auth_logout.php" method="post">

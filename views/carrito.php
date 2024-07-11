@@ -2,7 +2,7 @@
 $items = (new Carrito())->get_carrito();
 ?>
 
-<h1 class="text-center fs-2 my-5"> Carrito de Compras</h1>
+<h2 class="text-center fs-2 my-5"> Carrito de Compras</h2>
 <div class="container my-4">
 
     <?PHP if (count($items)) { ?>
@@ -26,7 +26,7 @@ $items = (new Carrito())->get_carrito();
                             <td><img src="img/covers/<?= $item['portada'] ?>" alt="Imágen Illustrativa de <?= $item['titulo'] ?>" class="img-fluid rounded shadow-sm"></td>
 
                             <td class="align-middle">
-                                <h2 class="h5"><?= $item['producto'] ?></h2>
+                                <h3 class="h5"><?= $item['producto'] ?></h3>
                                 <p><?= $item['titulo'] ?></p>
                             </td>
                             <td class="align-middle">
@@ -47,7 +47,7 @@ $items = (new Carrito())->get_carrito();
 
                     <tr>
                         <td colspan="4" class="text-end">
-                            <h2 class="h5 py-3">Total:</h2>
+                            <h3 class="h5 py-3">Total:</h3>
                         </td>
                         <td class="text-end">
 
