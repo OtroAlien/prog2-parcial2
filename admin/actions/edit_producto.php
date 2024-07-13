@@ -29,7 +29,9 @@ try {
         $postData['contenido'],
         $postData['descuento'],
         $postData['waterproof'],
-        $postData['vegano']
+        $postData['vegano'],
+        $postData['piel'],
+        $postData['productoDestacado']
     );
 
     // Mensaje de éxito
