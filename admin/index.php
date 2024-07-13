@@ -15,6 +15,10 @@ $secciones_validas = [
         "titulo" => "Administrar productos",
         "restringido" => TRUE
     ],
+    "admin_usuarios" => [
+        "titulo" => "Administrar Usuarios",
+        "restringido" => TRUE
+    ],
     "add_producto" => [
         "titulo" => "Agregar producto",
         "restringido" => TRUE

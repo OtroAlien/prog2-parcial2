@@ -4,36 +4,37 @@ require_once "Conexion.php";
 
 class Producto
 {
-    private $product_id;
-    private $nombre;
-    private $descripcion;
-    private $precio;
-    private $imagen;
-    private $stock;
-    private $categoria;
-    private $piel;
-    private $lanzamiento;
-    private $contenido;
-    private $descuento;
-    private $waterproof;
-    private $vegano;
-    private $productoDestacado; // Añadido atributo productoDestacado
-
+    private int $product_id;
+    private string $nombre;
+    private string $descripcion;
+    private float $precio;
+    private string $imagen;
+    private int $stock;
+    private Categoria $categoria;
+    private string $piel;
+    private string $lanzamiento;
+    private int $contenido;
+    private int $descuento;
+    private bool $waterproof;
+    private bool $vegano;
+    private bool $productoDestacado;
+    
     private static $createValues = [
         'product_id', 
         'nombre', 
         'descripcion', 
         'precio', 
         'imagen', 
-        'stock', 
-        'categoria',
+        'stock',
         'lanzamiento', 
         'contenido', 
-        'descuento', 
+        'descuento',
         'waterproof', 
         'vegano',
         'productoDestacado'
     ];
+
+
 
     private static function createProducto($productoData): Producto
     {
@@ -45,24 +46,31 @@ class Producto
             }
         }
 
+        // Asumiendo que $productoData['categoria'] contiene un array con los datos de la categoría
+        if (isset($productoData['categoria']) && is_array($productoData['categoria'])) {
+            $producto->categoria = Categoria::createCategoria($productoData['categoria']);
+        }
+
         return $producto;
     }
 
     public function catalogoCompleto(): array
     {
         $catalogo = [];
-    
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM productos";
-    
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id";
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute();
-    
+
         while ($result = $PDOStatement->fetch()) {
+            $result['categoria'] = [
+                'categoria_id' => $result['categoria_id'],
+                'nombre' => $result['categoria_nombre']
+            ];
             $catalogo[] = $this->createProducto($result);
         }
-    
+
         return $catalogo;
     }
 
@@ -70,28 +78,35 @@ class Producto
     {
         $conexion = Conexion::getConexion();
         if ($maximo) {
-            $query = "SELECT * FROM productos WHERE precio BETWEEN :minimo AND :maximo;";
+            $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE precio BETWEEN :minimo AND :maximo;";
             $valores = [
                 'minimo' => $minimo,
                 'maximo' => $maximo
             ];
         } else {
-            $query = "SELECT * FROM productos WHERE precio > :minimo";
+            $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE precio > :minimo";
             $valores = [
                 'minimo' => $minimo
             ];
         }
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute($valores);
 
-        $catalogo = $PDOStatement->fetchAll();
+        $catalogo = [];
+        while ($result = $PDOStatement->fetch()) {
+            $result['categoria'] = [
+                'categoria_id' => $result['categoria_id'],
+                'nombre' => $result['categoria_nombre']
+            ];
+            $catalogo[] = $this->createProducto($result);
+        }
 
         return $catalogo;
     }
 
-    public function insert($nombre, $descripcion, $imagen, $precio, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado): int
+    public function insert($nombre, $descripcion, $imagen, $precio, $stock, $categoria_id, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado): int
     {
         $conexion = Conexion::getConexion();
         $query = "INSERT INTO productos VALUES (NULL, :nombre, :descripcion, :precio, :imagen, :stock, :categoria, :lanzamiento, :contenido, :descuento, :waterproof, :vegano, :productoDestacado)";
@@ -104,7 +119,7 @@ class Producto
                 'precio' => $precio,
                 'imagen' => $imagen,
                 'stock' => $stock,
-                'categoria' => $categoria,
+                'categoria' => $categoria_id,
                 'lanzamiento' => $lanzamiento,
                 'contenido' => $contenido,
                 'descuento' => $descuento,
@@ -117,7 +132,7 @@ class Producto
         return $conexion->lastInsertId();
     }
 
-    public function edit($nombre, $descripcion, $precio, $imagen, $stock, $categoria, $lanzamiento, $contenido, $descuento, $waterproof, $vegano)
+    public function edit($nombre, $descripcion, $precio, $imagen, $stock, $categoria_id, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado)
     {
         $conexion = Conexion::getConexion();
         $query = "UPDATE productos SET
@@ -134,7 +149,7 @@ class Producto
             vegano = :vegano,
             productoDestacado = :productoDestacado
             WHERE product_id = :product_id";
-    
+
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(
             [
@@ -144,7 +159,7 @@ class Producto
                 'precio' => $precio,
                 'imagen' => $imagen,
                 'stock' => $stock,
-                'categoria' => $categoria,
+                'categoria' => $categoria_id,
                 'lanzamiento' => $lanzamiento,
                 'contenido' => $contenido,
                 'descuento' => $descuento,
@@ -154,7 +169,7 @@ class Producto
             ]
         );
     }
-    
+
     public function delete()
     {
         $conexion = Conexion::getConexion();
@@ -167,90 +182,106 @@ class Producto
     public function catalogoPorCategoria(string $categoria): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM productos WHERE categoria = :categoria";
-        
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE c.nombre = :categoria";
+
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['categoria' => $categoria]);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-        
+
         $productos = [];
         while ($productoData = $PDOStatement->fetch()) {
+            $productoData['categoria'] = [
+                'categoria_id' => $productoData['categoria_id'],
+                'nombre' => $productoData['categoria_nombre']
+            ];
             $productos[] = self::createProducto($productoData);
         }
-        
+
         return $productos;
     }
 
     public function catalogoPorDescuento(float $descuento): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM productos WHERE descuento = :descuento";
-        
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE p.descuento = :descuento";
+
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['descuento' => $descuento]);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-        
+
         $productos = [];
         while ($productoData = $PDOStatement->fetch()) {
+            $productoData['categoria'] = [
+                'categoria_id' => $productoData['categoria_id'],
+                'nombre' => $productoData['categoria_nombre']
+            ];
             $productos[] = self::createProducto($productoData);
         }
-        
+
         return $productos;
     }
 
     public function catalogoDestacado(bool $productoDestacado): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM productos WHERE productoDestacado = :productoDestacado";
-    
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE p.productoDestacado = :productoDestacado";
+
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['productoDestacado' => $productoDestacado ? 1 : 0]);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-    
+
         $productos = [];
         while ($productoData = $PDOStatement->fetch()) {
-            $productos[] = $this->createProducto($productoData);
+            $productoData['categoria'] = [
+                'categoria_id' => $productoData['categoria_id'],
+                'nombre' => $productoData['categoria_nombre']
+            ];
+            $productos[] = self::createProducto($productoData);
         }
-    
+
         return $productos;
     }
 
     public function catalogoPorPiel(string $piel): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM productos WHERE piel = :piel";
-        
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE p.piel = :piel";
+
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['piel' => $piel]);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-        
+
         $productos = [];
         while ($productoData = $PDOStatement->fetch()) {
+            $productoData['categoria'] = [
+                'categoria_id' => $productoData['categoria_id'],
+                'nombre' => $productoData['categoria_nombre']
+            ];
             $productos[] = self::createProducto($productoData);
         }
+
         return $productos;
     }
 
     public function productoPorId(int $product_id): ?Producto
     {
-        echo "<pre>";
-        print_r($product_id);
-        echo "</pre>";
-
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM productos WHERE product_id = :product_id";
-    
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE p.product_id = :product_id";
+
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['product_id' => $product_id]);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-    
+
         if ($productoData = $PDOStatement->fetch()) {
+            $productoData['categoria'] = [
+                'categoria_id' => $productoData['categoria_id'],
+                'nombre' => $productoData['categoria_nombre']
+            ];
             return self::createProducto($productoData);
         } else {
             return null;
         }
     }
-    
 
     public function precioDescuento(): string
     {
@@ -264,12 +295,11 @@ class Producto
     }
 
     // Métodos GET para propiedades
-
     public function getNombre()
     {
         return $this->nombre;
     }
-    
+
     public function getDescripcion()
     {
         return $this->descripcion;
@@ -292,7 +322,7 @@ class Producto
 
     public function getCategoria()
     {
-        return $this->categoria;
+        return $this->categoria->getNombre();
     }
 
     public function getPiel()
