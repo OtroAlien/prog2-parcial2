@@ -106,32 +106,33 @@ class Producto
         return $catalogo;
     }
 
-    public function insert($nombre, $descripcion, $imagen, $precio, $stock, $categoria_id, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado): int
+    public function insert($nombre, $descripcion, $precio, $imagen, $stock, $categoria_id, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado): int
     {
         $conexion = Conexion::getConexion();
-        $query = "INSERT INTO productos VALUES (NULL, :nombre, :descripcion, :precio, :imagen, :stock, :categoria, :lanzamiento, :contenido, :descuento, :waterproof, :vegano, :productoDestacado)";
-
+        $query = "INSERT INTO productos (nombre, descripcion, precio, imagen, stock, categoria_id, lanzamiento, contenido, descuento, waterproof, vegano, productoDestacado) VALUES (:nombre, :descripcion, :precio, :imagen, :stock, :categoria_id, :lanzamiento, :contenido, :descuento, :waterproof, :vegano, :productoDestacado)";
+    
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(
-            [
-                'nombre' => $nombre,
-                'descripcion' => $descripcion,
-                'precio' => $precio,
-                'imagen' => $imagen,
-                'stock' => $stock,
-                'categoria' => $categoria_id,
-                'lanzamiento' => $lanzamiento,
-                'contenido' => $contenido,
-                'descuento' => $descuento,
-                'waterproof' => $waterproof,
-                'vegano' => $vegano,
-                'productoDestacado' => $productoDestacado
-            ]
-        );
-
+        
+        if (!$PDOStatement->execute([
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'precio' => $precio,
+            'imagen' => $imagen,
+            'stock' => $stock,
+            'categoria_id' => $categoria_id,
+            'lanzamiento' => $lanzamiento,
+            'contenido' => $contenido,
+            'descuento' => $descuento,
+            'waterproof' => $waterproof,
+            'vegano' => $vegano,
+            'productoDestacado' => $productoDestacado
+        ])) {
+            print_r($PDOStatement->errorInfo());
+        }
+        
         return $conexion->lastInsertId();
     }
-
+    
     public function edit($nombre, $descripcion, $precio, $imagen, $stock, $categoria_id, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado)
     {
         $conexion = Conexion::getConexion();
@@ -141,7 +142,7 @@ class Producto
             precio = :precio,
             imagen = :imagen,
             stock = :stock,
-            categoria = :categoria,
+            categoria_id = :categoria_id,
             lanzamiento = :lanzamiento,
             contenido = :contenido,
             descuento = :descuento,
@@ -149,26 +150,28 @@ class Producto
             vegano = :vegano,
             productoDestacado = :productoDestacado
             WHERE product_id = :product_id";
-
+    
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(
-            [
-                'product_id' => $this->product_id,
-                'nombre' => $nombre,
-                'descripcion' => $descripcion,
-                'precio' => $precio,
-                'imagen' => $imagen,
-                'stock' => $stock,
-                'categoria' => $categoria_id,
-                'lanzamiento' => $lanzamiento,
-                'contenido' => $contenido,
-                'descuento' => $descuento,
-                'waterproof' => $waterproof,
-                'vegano' => $vegano,
-                'productoDestacado' => $productoDestacado
-            ]
-        );
+        
+        if (!$PDOStatement->execute([
+            'product_id' => $this->product_id,
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'precio' => $precio,
+            'imagen' => $imagen,
+            'stock' => $stock,
+            'categoria_id' => $categoria_id,
+            'lanzamiento' => $lanzamiento,
+            'contenido' => $contenido,
+            'descuento' => $descuento,
+            'waterproof' => $waterproof,
+            'vegano' => $vegano,
+            'productoDestacado' => $productoDestacado
+        ])) {
+            print_r($PDOStatement->errorInfo());
+        }
     }
+    
 
     public function delete()
     {
