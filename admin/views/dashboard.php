@@ -7,7 +7,7 @@
                     <h3 class="mb-1">Administrar Productos</h3>
                     <p class="mb-1">Editar, borrar o subir nuevos productos.</p>
                 </a>
-                <a href="admin_usuarios.php" class="list-group-item list-group-item-action">
+                <a href="admin_usuarios.php" class="list-group-item list-group-item-action disabled" aria-disabled="true">
                     <h3 class="mb-1">Administrar Usuarios</h3>
                     <p class="mb-1">Ver la lista de usuarios y cambiar sus roles.</p>
                 </a>
