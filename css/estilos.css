@@ -421,12 +421,12 @@ h1{
 
 .footer{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     margin: auto;
     background-color: #000000be;
-    padding: 15px 5vw 0px 5vw;
+    padding: 10px;
     font-size: 0.8rem;
     color: rgb(129, 129, 129);
 }
