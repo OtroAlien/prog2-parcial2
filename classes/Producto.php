@@ -182,7 +182,7 @@ class Producto
     public function catalogoPorCategoria(string $categoria): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE c.nombre = :categoria";
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id WHERE c.nombre = :categoria";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['categoria' => $categoria]);
@@ -203,7 +203,7 @@ class Producto
     public function catalogoPorDescuento(float $descuento): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE p.descuento = :descuento";
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id WHERE p.descuento = :descuento";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['descuento' => $descuento]);
@@ -224,7 +224,7 @@ class Producto
     public function catalogoDestacado(bool $productoDestacado): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE p.productoDestacado = :productoDestacado";
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id WHERE p.productoDestacado = :productoDestacado";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['productoDestacado' => $productoDestacado ? 1 : 0]);
@@ -245,7 +245,7 @@ class Producto
     public function catalogoPorPiel(string $piel): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE p.piel = :piel";
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id WHERE p.piel = :piel";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['piel' => $piel]);
@@ -266,7 +266,7 @@ class Producto
     public function productoPorId(int $product_id): ?Producto
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE p.product_id = :product_id";
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id WHERE p.product_id = :product_id";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['product_id' => $product_id]);

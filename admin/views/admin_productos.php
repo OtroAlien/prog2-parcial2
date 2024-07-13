@@ -2,6 +2,7 @@
 
 $productos = (new Producto())->catalogoCompleto();
 
+
 // Verificar si se obtuvieron productos
 if (!$productos) {
     echo "<p>No se encontraron productos.</p>";
