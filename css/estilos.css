@@ -1631,14 +1631,13 @@ input::-webkit-inner-spin-button {
 /*--------------------------------------------------------- Admin Productos ---------------------------------------------------------*/
 
 .container-admp{
-    width: 80%;
-    margin: 5rem auto;
+    width: 80vw;
+    margin: 15rem auto;
 }
 
 .container-admp h2{
     margin-top: 2rem;
 }
-
 
 .container-admprofile{
     display: flex;
