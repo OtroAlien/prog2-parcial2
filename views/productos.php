@@ -77,6 +77,7 @@ if ($filtro) {
         <div class="row">
             <div class="col-md-3">
                 <div class="container mt-5">
+
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="ingredientesHeading">
@@ -127,6 +128,20 @@ if ($filtro) {
                                 </div>
                             </div>
                         </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="ofertasHeading">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"  data-bs-target="#filtroCollapse" aria-expanded="false" aria-controls="filtroCollapse">
+                                    Quitar Filtro
+                                </button>
+                            </h2>
+                            <div id="filtroCollapse" class="accordion-collapse collapse" aria-labelledby="quitarFiltro" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul class="list-group">
+                                        <a href="index.php?sec=productos" class="list-group-item">Quitar Filtro</a>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -152,18 +167,11 @@ if ($filtro) {
                                         <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                                     </svg>
                                 </a></li>
-                            <li>
-                                <form id="favoritoForm" method="POST" action="add_favorites.php" style="display: none;">
-                                    <input type="hidden" name="product_id" id="product_id" value="<?= $producto->getId() ?>">
-                                    <input type="hidden" name="user_id" id="user_id" value="<?= $userData['id'] ?>">
-                                </form>
-
-                                <button class="fav" onclick="checkLogin(this,<?= $producto->getId() ?>,<?= $userData['id'] ?>)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                                </svg>
-                                </button>
-                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.060.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                    </svg>
+                                </a></li>
                             <li><a href="index.php?sec=detalles&id=<?= $producto->getId() ?>">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -175,8 +183,12 @@ if ($filtro) {
                     <div class="part-2">
                         <h3 class="product-title"><?= $producto->getNombre() ?></h3>
                         <p class="product-description"><?= $producto->getDescripcion() ?></p>
-                        <h4 class="product-old-price">$<?= $producto->precioFormateado() ?></h4>
-                        <h4 class="product-price">$<?= $producto->precioDescuento() ?></h4>
+                        <div class="d-flex">
+                            <p class="product-old-price me-2">
+                                <del>$<?= $producto->precioFormateado() ?></del>
+                            </p>
+                            <p class="product-price fw-bold">$<?= $producto->precioDescuento() ?></p>
+                        </div>
                     </div>
                 </div>
             </div>
