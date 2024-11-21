@@ -286,6 +286,32 @@ class Producto
         }
     }
 
+    public function buscarProductos(string $busqueda): array
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre 
+                  FROM productos p 
+                  JOIN categorias c ON p.categoria_id = c.categoria_id 
+                  WHERE p.nombre LIKE :busqueda OR c.nombre LIKE :busqueda";
+    
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute(['busqueda' => '%' . $busqueda . '%']);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
+    
+        $productos = [];
+        while ($productoData = $PDOStatement->fetch()) {
+            $productoData['categoria'] = [
+                'categoria_id' => $productoData['categoria_id'],
+                'nombre' => $productoData['categoria_nombre']
+            ];
+            $productos[] = self::createProducto($productoData);
+        }
+    
+        return $productos;
+    }
+    
+
+
     public function precioDescuento(): string
     {
         $resultado = number_format(($this->precio - ($this->precio * $this->descuento /100)), 2, ".", ",");

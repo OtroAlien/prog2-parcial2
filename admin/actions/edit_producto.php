@@ -1,4 +1,4 @@
-<?PHP
+<?php
 require_once "../../functions/autoload.php";
 
 $postData = $_POST;
@@ -6,23 +6,28 @@ $fileData = $_FILES['imagen'] ?? FALSE;
 $id = $_GET['id'] ?? FALSE;
 
 try {
-    // Obtener el producto por ID
     $producto = (new Producto())->productoPorId($id);
 
-    // Procesar imagen
+    // Procesar la nueva imagen si se seleccionó una
     if (!empty($fileData['tmp_name'])) {
-        $imagen = (new Imagen())->subirImagen(__DIR__ . "/../../img/products", $fileData);
-        (new Imagen())->borrarImagen(__DIR__ . "/../../img/products/" . $postData['imagen_actual']);
+        $nuevaImagen = (new Imagen())->subirImagen(__DIR__ . "/../../img/productos", $fileData);
+
+        // Borrar la imagen anterior del servidor
+        $imagenAnterior = __DIR__ . "/../../img/productos/" . $postData['imagen_actual'];
+        if (file_exists($imagenAnterior)) {
+            unlink($imagenAnterior);
+        }
     } else {
-        $imagen = $postData['imagen_actual'];
+        // Mantener la imagen actual si no se subió una nueva
+        $nuevaImagen = $postData['imagen_actual'];
     }
 
-    // Editar producto
+    // Actualizar datos del producto
     $producto->edit(
         $postData['nombre'],
         $postData['descripcion'],
         $postData['precio'],
-        $imagen,
+        $nuevaImagen, // Imagen actualizada o anterior
         $postData['stock'],
         $postData['categoria'],
         $postData['lanzamiento'],
@@ -34,11 +39,11 @@ try {
         $postData['productoDestacado']
     );
 
-    // Mensaje de éxito
-    (new Alerta())->add_alerta('warning', "Se editaron correctamente los datos del producto.");
+    // Agregar alerta de éxito
+    (new Alerta())->add_alerta('success', "Se editaron correctamente los datos del producto, incluida la imagen.");
     header('Location: ../index.php?sec=admin_productos');
-
 } catch (Exception $e) {
-    (new Alerta())->add_alerta('danger', "Ocurrió un error inesperado, por favor póngase en contacto con el administrador del sistema.");
+    // Manejar errores
+    (new Alerta())->add_alerta('danger', "Ocurrió un error inesperado. Por favor, intente nuevamente.");
     header('Location: ../index.php?sec=admin_productos');
 }

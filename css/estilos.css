@@ -1632,7 +1632,7 @@ input::-webkit-inner-spin-button {
 
 .container-admp{
     width: 80vw;
-    margin: 15rem auto;
+    margin: 5rem auto !important;
 }
 
 .container-admp h2{

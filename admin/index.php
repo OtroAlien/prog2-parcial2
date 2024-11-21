@@ -58,7 +58,6 @@ if (!array_key_exists($seccion, $secciones_validas)) {
 
 $userData = $_SESSION['loggedIn'] ?? FALSE;
 
-
 ?>
 
 <!DOCTYPE html>
