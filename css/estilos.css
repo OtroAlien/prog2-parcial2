@@ -1613,3 +1613,7 @@ input::-webkit-inner-spin-button {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.my-5{
+    margin: 5rem auto !important;
+}
