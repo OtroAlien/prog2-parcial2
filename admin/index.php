@@ -3,6 +3,54 @@
 require_once "../functions/autoload.php";
 
 $secciones_validas = [
+
+
+    "home" => [
+        "titulo" => "Inicio",
+        "restringido" => FALSE
+    ],
+    "alumnos" => [
+        "titulo" => "Staff",
+        "restringido" => FALSE
+    ],
+    "productos" => [
+        "titulo" => "Productos",
+        "restringido" => FALSE
+    ],
+    "carrito" => [
+        "titulo" => "Carrito",
+        "restringido" => FALSE
+    ],
+    "test" => [
+        "titulo" => "Página de testeo",
+        "restringido" => FALSE
+    ],
+    "contacto" => [
+        "titulo" => "Contacto",
+        "restringido" => FALSE
+    ],
+    "formulario" => [
+        "titulo" => "Formulario",
+        "restringido" => FALSE
+    ],
+    "detalles" => [
+        "titulo" => "Detalle",
+        "restringido" => FALSE
+    ],
+    "logout" => [
+        "titulo" => "Logout",
+        "restringido" => FALSE
+    ],
+    "panel_usuario" => [
+        "titulo" => "Panel de usuario",
+        "restringido" => TRUE
+    ],
+
+
+
+
+
+
     "login" => [
         "titulo" => "Inicio de Sesión",
         "restringido" => FALSE
