@@ -22,8 +22,7 @@ if (!$producto) {
                 <form class="row g-3"
                       action="actions/edit_producto.php?id=<?= htmlspecialchars($producto->getId()) ?>"
                       method="POST"
-                      enctype="multipart/form-data"
-                      onsubmit="return confirm('¿Estás seguro de que deseas actualizar los datos del producto?');">
+                      enctype="multipart/form-data">
 
                     <!-- Nombre -->
                     <div class="col-md-6 mt-3">
@@ -100,7 +99,7 @@ if (!$producto) {
                     <!-- Imagen actual -->
                     <div class="col-md-6 mt-3">
                         <label for="imagen_actual" class="form-label">Imagen Actual</label>
-                        <img src="../../img/productos/<?= htmlspecialchars($producto->getImagen()) ?>"
+                        <img src="../img/<?= htmlspecialchars($producto->getImagen()) ?>"
                              alt="Imagen de <?= htmlspecialchars($producto->getNombre()) ?>"
                              class="img-fluid rounded shadow-sm d-block mb-3">
                         <input class="form-control" type="hidden" id="imagen_actual" name="imagen_actual"

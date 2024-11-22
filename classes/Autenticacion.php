@@ -11,9 +11,9 @@ class Autenticacion
             if (password_verify($password, $datosUsuario->getPassword())) {
                 // Crear y almacenar información de sesión
                 $datosLogin['username'] = $datosUsuario->getUsername();
-                $datosLogin['nombre_completo'] = $datosUsuario->getNombre_completo();
+                $datosLogin['nombre_completo'] = $datosUsuario->getNombreCompleto();
                 $datosLogin['email'] = $datosUsuario->getEmail();
-                $datosLogin['adress'] = $datosUsuario->getAdress();
+                $datosLogin['adress'] = $datosUsuario->getAddress();
                 $datosLogin['id'] = $datosUsuario->getId();
                 $datosLogin['rol'] = $datosUsuario->getRol();
                 $_SESSION['loggedIn'] = $datosLogin;

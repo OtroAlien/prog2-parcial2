@@ -2,55 +2,8 @@
 
 require_once "../functions/autoload.php";
 
+
 $secciones_validas = [
-
-
-    "home" => [
-        "titulo" => "Inicio",
-        "restringido" => FALSE
-    ],
-    "alumnos" => [
-        "titulo" => "Staff",
-        "restringido" => FALSE
-    ],
-    "productos" => [
-        "titulo" => "Productos",
-        "restringido" => FALSE
-    ],
-    "carrito" => [
-        "titulo" => "Carrito",
-        "restringido" => FALSE
-    ],
-    "test" => [
-        "titulo" => "Página de testeo",
-        "restringido" => FALSE
-    ],
-    "contacto" => [
-        "titulo" => "Contacto",
-        "restringido" => FALSE
-    ],
-    "formulario" => [
-        "titulo" => "Formulario",
-        "restringido" => FALSE
-    ],
-    "detalles" => [
-        "titulo" => "Detalle",
-        "restringido" => FALSE
-    ],
-    "logout" => [
-        "titulo" => "Logout",
-        "restringido" => FALSE
-    ],
-    "panel_usuario" => [
-        "titulo" => "Panel de usuario",
-        "restringido" => TRUE
-    ],
-
-
-
-
-
-
     "login" => [
         "titulo" => "Inicio de Sesión",
         "restringido" => FALSE
@@ -82,7 +35,11 @@ $secciones_validas = [
     "delete_producto" => [
         "titulo" => "Eliminar datos de Producto",
         "restringido" => TRUE
-    ]
+    ],
+    "contacto" => [
+        "titulo" => "Contacto",
+        "restringido" => FALSE
+    ],
 ];
 
 // arreglar o revisar
@@ -126,10 +83,18 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
         </section>
     </main>
     <section>
-        <?php
+    <?php
+    // Determinar la ruta de la vista dependiendo de su origen
+    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'add_producto', 'edit_producto', 'delete_producto'])) {
+        // Vistas de administración
         require_once "views/$vista.php";
-        ?>
-    </section>
+    } else {
+        // Vistas de la web pública
+        require_once "../views/$vista.php";
+    }
+    ?>
+</section>
+
     <section>
         <?php include_once '../views/footer.php'; ?>
     </section>

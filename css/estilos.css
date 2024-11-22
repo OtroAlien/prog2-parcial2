@@ -1123,7 +1123,7 @@ input:-webkit-autofill:active{
 .social{
     margin: 1rem auto;
     text-align: center;
-    background: rgb(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     width: 600px;
@@ -1582,11 +1582,46 @@ input::-webkit-inner-spin-button {
     }
 }
 
+
+.card-transparent {
+    background: rgba(255, 255, 255, 0.4); /* Fondo semitransparente */
+    backdrop-filter: blur(50px); /* Desenfoque */
+    border: none; /* Sin bordes */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.perfil-header {
+    text-align: center;
+}
+
+.perfil-header img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%; /* Redondear la imagen */
+    border: 3px solid white; /* Borde alrededor de la imagen */
+}
+
+.perfil-header h5 {
+    margin-top: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.perfil-header .btn {
+    margin-top: 15px;
+}
+
+.container{
+    margin-top: 7rem;
+}
+
 /*--------------------------------------------------------- Admin Productos ---------------------------------------------------------*/
 
 .container-admp{
     width: 80vw;
-    margin: 5rem auto !important;
+    margin: 7rem auto !important;
 }
 
 .container-admp h2{

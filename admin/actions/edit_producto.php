@@ -6,10 +6,10 @@ $fileData = $_FILES['imagen'] ?? FALSE;
 $id = $_GET['id'] ?? FALSE;
 
 try {
-    // Obtener el producto actual
+    
     $producto = (new Producto())->productoPorId($id);
 
-    // Procesar la nueva imagen si se seleccionó una
+    
     if (!empty($fileData['tmp_name'])) {
         // Generar un nombre único basado en el nombre del producto (o cualquier otra lógica que desees)
         $nombreProducto = isset($postData['nombre']) ? $postData['nombre'] : 'producto'; // Usar el nombre del producto
@@ -61,12 +61,12 @@ try {
         $postData['productoDestacado']
     );
 
-    // Agregar alerta de éxito
-    (new Alerta())->add_alerta('success', "Se editaron correctamente los datos del producto, incluida la imagen.");
-    header('Location: ../index.php?sec=admin_productos');
+    // Redirigir después de actualizar
+    header('Location: ../index.php?sec=admin_productos&status=success');
+    exit;
 } catch (Exception $e) {
-    // Manejar errores
-    (new Alerta())->add_alerta('danger', "Ocurrió un error inesperado. Por favor, intente nuevamente.");
-    header('Location: ../index.php?sec=admin_productos');
+    // Redirigir en caso de error
+    header('Location: ../index.php?sec=admin_productos&status=error');
+    exit;
 }
 ?>
