@@ -6,11 +6,13 @@ $fileData = $_FILES['imagen'] ?? FALSE;
 $id = $_GET['id'] ?? FALSE;
 
 try {
-    $usuario = (new Usuario())->getId($id);
+    // Cargar el usuario usando el método adecuado
+    $usuario = (new Usuario())->cargarUsuario($id);
     if (!$usuario) {
         throw new Exception("Usuario no encontrado.");
     }
 
+    // Procesar la imagen si se ha cargado una nueva
     if (!empty($fileData['tmp_name'])) {
         $nombreUsuario = isset($postData['username']) ? $postData['username'] : 'usuario';
         $nombreUnico = strtolower(str_replace(' ', '-', $nombreUsuario)) . '.jpeg';
@@ -26,6 +28,7 @@ try {
         if (move_uploaded_file($fileData['tmp_name'], $rutaDestino)) {
             $nuevaImagen = 'usuarios/' . $nombreUnico;
 
+            // Eliminar la imagen anterior si existe
             $imagenAnterior = __DIR__ . "/../../img/" . $postData['imagen_actual'];
             if (file_exists($imagenAnterior)) {
                 unlink($imagenAnterior);
@@ -34,30 +37,35 @@ try {
             throw new Exception("Hubo un error al mover la imagen.");
         }
     } else {
+        // Si no se subió una imagen, mantener la imagen actual
         $nuevaImagen = $postData['imagen_actual'];
     }
 
+    // Modificar los datos del usuario y la dirección
     $usuario->edit_usuario(
-        $postData['username'],
-        $postData['email'],
-        $postData['nombre_completo'],
-        $postData['rol'],
-        $nuevaImagen
+        [
+            'username' => $postData['username'],
+            'email' => $postData['email'],
+            'nombre_completo' => $postData['nombre_completo'],
+            'rol' => $postData['rol'],
+            'foto_perfil' => $nuevaImagen
+        ],
+        [
+            'calle' => $postData['calle'],
+            'ciudad' => $postData['ciudad'],
+            'localidad' => $postData['localidad'],
+            'codigo_postal' => $postData['codigo_postal'],
+            'pais' => $postData['pais'],
+            'telefono' => $postData['telefono'],
+            'altura' => $postData['altura']
+        ]
     );
 
-    $usuario->edit_address([
-        'calle' => $postData['calle'],
-        'ciudad' => $postData['ciudad'],
-        'localidad' => $postData['localidad'],
-        'codigo_postal' => $postData['codigo_postal'],
-        'pais' => $postData['pais'],
-        'telefono' => $postData['telefono'],
-        'altura' => $postData['altura']
-    ]);
-
-    header('Location: ../index.php?sec=admin_usuarios&status=success');
+    // Redirigir a la página de éxito
+    header('Location: ../index.php?sec=panel_usuario&status=success');
     exit;
 } catch (Exception $e) {
-    header('Location: ../index.php?sec=admin_usuarios&status=error&message=' . urlencode($e->getMessage()));
+    // Redirigir a la página con error si ocurre una excepción
+    header('Location: ../index.php?sec=panel_usuario&status=error&message=' . urlencode($e->getMessage()));
     exit;
 }
