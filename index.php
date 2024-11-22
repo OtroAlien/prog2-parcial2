@@ -140,7 +140,6 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
         });
 
         function checkLogin(button,product_id,usr) {
-            // Simulación de verificación de inicio de 
             var isLoggedIn = <?= json_encode($userData ? true : false) ?>;
             var usrdata = <?= json_encode($userData) ?>;
 

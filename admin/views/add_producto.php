@@ -9,12 +9,10 @@ $producto = (new Producto())->catalogoCompleto();
         <div class="col">
             <h2 class="text-center mb-5 fw-bold">Administración de Productos</h2>
 
-            <!-- Botón para volver atrás -->
             <div class="text-start mb-4">
                 <a href="../admin/index.php?sec=admin_productos" class="btn btn-secondary">Volver Atrás</a>
             </div>
 
-            <!-- Formulario para agregar productos -->
             <div class="row mb-5">
                 <div class="col">
                     <h3 class="mb-4">Agregar Producto</h3>

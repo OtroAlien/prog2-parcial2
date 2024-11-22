@@ -33,24 +33,22 @@ class Usuario
         return $usuario;
     }
 
-    /**
-     * Registrar un nuevo usuario.
-     */
+
     public function usuario_register(string $username, string $password, string $email, string $nombre_completo): bool
     {
         $conexion = Conexion::getConexion();
 
-        // Verifica si el usuario ya existe
+        
         $query = $conexion->prepare("SELECT * FROM usuarios WHERE username = :username OR email = :email");
         $query->bindParam(':username', $username);
         $query->bindParam(':email', $email);
         $query->execute();
 
         if ($query->fetch()) {
-            return false; // Usuario ya existe
+            return false; 
         }
 
-        // Inserta el nuevo usuario
+
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $insertQuery = $conexion->prepare(
             "INSERT INTO usuarios (username, password_hash, email, nombre_completo, rol) 
@@ -64,9 +62,7 @@ class Usuario
         return $insertQuery->execute();
     }
 
-    /**
-     * Actualizar datos del usuario.
-     */
+
 
      public function edit_address(array $address): bool
      {
@@ -99,7 +95,7 @@ class Usuario
                  ':altura' => $address['altura'] ?? null,
              ]);
  
-             return $PDOStatement->rowCount() > 0; // Retorna true si al menos una fila fue afectada
+             return $PDOStatement->rowCount() > 0;
          } catch (PDOException $e) {
              throw new Exception("Error al actualizar la dirección: " . $e->getMessage());
          }
@@ -133,13 +129,12 @@ class Usuario
                 ':foto_perfil' => $this->foto_perfil ?? null,
             ]);
 
-            return $PDOStatement->rowCount() > 0; // Retorna true si al menos una fila fue afectada
+            return $PDOStatement->rowCount() > 0;
         } catch (PDOException $e) {
             throw new Exception("Error al actualizar el usuario: " . $e->getMessage());
         }
     }
 
-    // Métodos Getters
     public function getId()
     {
         return $this->id;

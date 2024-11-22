@@ -46,7 +46,6 @@ class Producto
             }
         }
 
-        // Asumiendo que $productoData['categoria'] contiene un array con los datos de la categoría
         if (isset($productoData['categoria']) && is_array($productoData['categoria'])) {
             $producto->categoria = Categoria::createCategoria($productoData['categoria']);
         }
@@ -323,7 +322,7 @@ class Producto
         return number_format($this->precio, 2, ".", ",");
     }
 
-    // Métodos GET para propiedades
+
     public function getNombre()
     {
         return $this->nombre;

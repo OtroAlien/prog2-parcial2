@@ -6,27 +6,6 @@
 
         <?PHP
 
-        // $usuarioProvisto="jperez_dv";
-        // $passwordProvisto="password123";
-
-       
-
-        // echo "<pre>";
-        // print_r($usuarioProvisto);
-        // echo "</pre>";
-
-
-        // echo "<pre>";
-        // print_r($passwordProvisto);
-        // echo "</pre>";
-
-        // (new Autenticacion())->log_in($usuarioProvisto, $passwordProvisto);
-
-
-        // echo "<pre>";
-        // print_r($_SESSION);
-        // echo "</pre>";
-
         (new Autenticacion())->log_out();
         ?>
 

@@ -4,9 +4,6 @@ require_once "../../functions/autoload.php";
 $items = (new Carrito())->get_carrito();
 $userID = $_SESSION['loggedIn']['id'] ?? FALSE;
 
-//  echo "<pre>";
-//  print_r($items);
-//  echo "</pre>";
 
 try {
 
@@ -45,9 +42,7 @@ try {
     }
     
 }catch (Exception $e) {
-    // echo "<pre>";
-    // print_r($e);
-    // echo "</pre>";
+
     (new Alerta())->add_alerta('warning', "No se pudo finalizar la compra");
     header('location: ../../index.php?sec=panel_usuario');
 }

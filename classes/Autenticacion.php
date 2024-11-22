@@ -9,7 +9,6 @@ class Autenticacion
     
         if ($datosUsuario) {
             if (password_verify($password, $datosUsuario->getPassword())) {
-                // Crear y almacenar información de sesión
                 $datosLogin['username'] = $datosUsuario->getUsername();
                 $datosLogin['nombre_completo'] = $datosUsuario->getNombreCompleto();
                 $datosLogin['email'] = $datosUsuario->getEmail();
@@ -18,14 +17,14 @@ class Autenticacion
                 $datosLogin['rol'] = $datosUsuario->getRol();
                 $_SESSION['loggedIn'] = $datosLogin;
     
-                return $datosLogin['rol']; // Devolver el rol del usuario
+                return $datosLogin['rol'];
             } else {
                 (new Alerta())->add_alerta('danger', "El password ingresado no es correcto.");
-                return null; // Contraseña incorrecta
+                return null;
             }
         } else {
             (new Alerta())->add_alerta('warning', "El usuario ingresado no se encontró en nuestra base de datos.");
-            return null; // Usuario no encontrado
+            return null;
         }
     }
 

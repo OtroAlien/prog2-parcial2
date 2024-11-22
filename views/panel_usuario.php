@@ -4,7 +4,6 @@ require_once "functions/autoload.php";
 $userID = $_SESSION['loggedIn']['id'] ?? false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_usuario'])) {
-    // Datos del formulario
     $email = trim($_POST['email']);
     $telefono = trim($_POST['telefono']);
     $calle = trim($_POST['calle']);
@@ -21,21 +20,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_usuario'])
         try {
             $conexion->beginTransaction();
 
-            // Actualizar tabla `usuarios`
             $queryUsuario = "UPDATE usuarios SET email = ? WHERE user_id = ?";
             $stmtUsuario = $conexion->prepare($queryUsuario);
             $stmtUsuario->execute([$email, $userID]);
 
-            // Actualizar tabla `user_address`
             $queryAddress = "UPDATE user_address 
                              SET telefono = ?, calle = ?, ciudad = ?, localidad = ?, codigo_postal = ?, pais = ?, altura = ? 
                              WHERE user_id = ?";
             $stmtAddress = $conexion->prepare($queryAddress);
             $stmtAddress->execute([$telefono, $calle, $ciudad, $localidad, $codigo_postal, $pais, $altura, $userID]);
 
-            // Manejo de la foto de perfil
             if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
-                $allowedTypes = ['image/jpeg', 'image/png'];  // Definir los tipos de imagen permitidos
+                $allowedTypes = ['image/jpeg', 'image/png'];
                 if (!in_array($_FILES['foto_perfil']['type'], $allowedTypes)) {
                     (new Alerta())->add_alerta('danger', "Tipo de archivo no permitido.");
                     exit;
@@ -44,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_usuario'])
                 $targetDir = "uploads/profile_pictures/";
                 $targetFile = $targetDir . basename($_FILES["foto_perfil"]["name"]);
 
-                // Verificar si el archivo ya existe
                 if (file_exists($targetFile)) {
                     (new Alerta())->add_alerta('danger', "El archivo ya existe.");
                     exit;
@@ -68,8 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_usuario'])
     }
 }
 
-// Obtener la información del usuario
-$usuario = (new Usuario())->getId($userID);  // Asumiendo que tienes un método que obtiene los datos del usuario por ID
+$usuario = (new Usuario())->getId($userID);
 ?>
 
 <div class="container-admp">
@@ -78,14 +72,11 @@ $usuario = (new Usuario())->getId($userID);  // Asumiendo que tienes un método 
 
             <div class="card card-transparent p-4">
                 <div class="perfil-header">
-                    <!-- Foto de perfil -->
                     <img src="<?= $_SESSION['loggedIn']['foto'] ?? 'https://via.placeholder.com/150' ?>" alt="Foto de Perfil" class="img-thumbnail rounded">
                     
-                    <!-- Datos básicos -->
                     <p><strong>Usuario:</strong> <?= $_SESSION['loggedIn']['username'] ?></p>
                     <p><strong>Email:</strong> <?= $_SESSION['loggedIn']['email'] ?></p>
 
-                    <!-- Botón de cerrar sesión -->
                     <form action="admin/actions/auth_logout.php" method="post">
                         <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
                     </form>
@@ -139,7 +130,6 @@ $usuario = (new Usuario())->getId($userID);  // Asumiendo que tienes un método 
                 </div>
             </div>
 
-            <!-- Historial de compras -->
             <div class="card card-transparent mt-5 p-4">
                 <h4 class="text-center">Historial de Compras</h4>
                 <?php

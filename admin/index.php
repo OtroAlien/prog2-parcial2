@@ -42,9 +42,7 @@ $secciones_validas = [
     ],
 ];
 
-// arreglar o revisar
 $seccion = $_GET['sec'] ?? "dashboard";
-// debería ser "home"?
 
 if (!array_key_exists($seccion, $secciones_validas)) {
     $vista = "404";
@@ -84,12 +82,9 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
     </main>
     <section>
     <?php
-    // Determinar la ruta de la vista dependiendo de su origen
     if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'add_producto', 'edit_producto', 'delete_producto'])) {
-        // Vistas de administración
         require_once "views/$vista.php";
     } else {
-        // Vistas de la web pública
         require_once "../views/$vista.php";
     }
     ?>

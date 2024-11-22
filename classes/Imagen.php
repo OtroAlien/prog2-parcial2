@@ -4,12 +4,10 @@ class Imagen
 {
     public function subirImagen($directorio, $datosArchivo): string
     {
-        // Verificar si el directorio existe, y si no, crearlo
         if (!is_dir($directorio)) {
             mkdir($directorio, 0777, true);
         }
 
-        //le damos un nuevo nombre
         $og_name = (explode(".", $datosArchivo['name']));
         $extension = end($og_name);
         $filename = time() . ".$extension";
