@@ -3,11 +3,12 @@ require_once "../functions/autoload.php";
 
 $postData = $_POST;
 $fileData = $_FILES['imagen'] ?? FALSE;
-$id = $_GET['id'] ?? FALSE;
+// $id = $_GET['id'] ?? FALSE;
 
+$id = $_SESSION['loggedIn']['id'] ?? false;
 try {
     // Cargar el usuario usando el método adecuado
-    $usuario = (new Usuario())->cargarUsuario($id);
+    $usuario = (new Usuario())->obtenerIdUsuario($id);
     if (!$usuario) {
         throw new Exception("Usuario no encontrado.");
     }

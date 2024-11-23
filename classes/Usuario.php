@@ -23,6 +23,31 @@ class Usuario
         'foto_perfil'
     ];
 
+// Función para obtener el ID del usuario
+function obtenerIdUsuario($userID) {
+    $conexion = Conexion::getConexion(); // Conexión a la base de datos
+
+    try {
+        // Consulta para obtener el ID del usuario
+        $query = "SELECT id FROM usuarios WHERE user_id = ?";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute([$userID]);
+
+        // Obtener el resultado
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($usuario) {
+            return $usuario['id']; // Retornar el ID
+        } else {
+            return null; // Usuario no encontrado
+        }
+    } catch (PDOException $e) {
+        echo "Error al obtener el ID del usuario: " . $e->getMessage();
+        return null;
+    }
+}
+
+
     public function usuario_x_email(string $email): ?self
     {
         $conexion = Conexion::getConexion();
@@ -60,7 +85,7 @@ class Usuario
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $insertQuery = $conexion->prepare(
             "INSERT INTO usuarios (username, password_hash, email, nombre_completo, rol) 
-             VALUES (:username, :password_hash, :email, :nombre_completo, 'usuario')"
+            VALUES (:username, :password_hash, :email, :nombre_completo, 'usuario')"
         );
         $insertQuery->bindParam(':username', $username);
         $insertQuery->bindParam(':password_hash', $passwordHash);
@@ -76,13 +101,13 @@ class Usuario
 
         try {
             $queryUsuario = "UPDATE usuarios 
-                             SET username = :username, 
-                                 nombre_completo = :nombre_completo, 
-                                 email = :email, 
-                                 rol = :rol, 
-                                 foto_perfil = :foto_perfil,
-                                 id_address = :id_address
-                             WHERE user_id = :user_id";
+                SET username = :username, 
+                    nombre_completo = :nombre_completo, 
+                    email = :email, 
+                    rol = :rol, 
+                    foto_perfil = :foto_perfil,
+                    id_address = :id_address
+                WHERE user_id = :user_id";
 
             $stmtUsuario = $conexion->prepare($queryUsuario);
             $stmtUsuario->execute([
@@ -96,14 +121,14 @@ class Usuario
             ]);
 
             $queryAddress = "UPDATE user_address 
-                             SET calle = :calle, 
-                                 ciudad = :ciudad, 
-                                 localidad = :localidad, 
-                                 codigo_postal = :codigo_postal, 
-                                 pais = :pais, 
-                                 telefono = :telefono, 
-                                 altura = :altura 
-                             WHERE user_id = :user_id";
+                    SET calle = :calle, 
+                        ciudad = :ciudad, 
+                        localidad = :localidad, 
+                        codigo_postal = :codigo_postal, 
+                        pais = :pais, 
+                        telefono = :telefono, 
+                        altura = :altura 
+                    WHERE user_id = :user_id";
 
             $stmtAddress = $conexion->prepare($queryAddress);
             $stmtAddress->execute([
