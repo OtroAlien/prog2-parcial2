@@ -40,6 +40,10 @@ $secciones_validas = [
         "titulo" => "Contacto",
         "restringido" => FALSE
     ],
+    "delete_category" => [
+        "titulo" => "Eliminar categorías",
+        "restringido" => TRUE
+    ],
 ];
 
 $seccion = $_GET['sec'] ?? "dashboard";

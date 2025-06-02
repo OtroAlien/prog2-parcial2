@@ -1,6 +1,7 @@
 <?php
 
 require_once "Conexion.php";
+require_once "Categoria.php"; // Asegúrate de incluir esta clase
 
 class Producto
 {
@@ -18,7 +19,7 @@ class Producto
     private bool $waterproof;
     private bool $vegano;
     private bool $productoDestacado;
-    
+
     private static $createValues = [
         'product_id', 
         'nombre', 
@@ -34,56 +35,73 @@ class Producto
         'productoDestacado'
     ];
 
-
-
-    private static function createProducto($productoData): Producto
+    public static function reasignarProductosACategoriaRespaldo(int $categoria_id, int $categoria_respaldo_id = 999): void
     {
-        $producto = new self();
-
-        foreach (self::$createValues as $value) {
-            if (isset($productoData[$value])) {
-                $producto->{$value} = $productoData[$value];
-            }
-        }
-
-        if (isset($productoData['categoria']) && is_array($productoData['categoria'])) {
-            $producto->categoria = Categoria::createCategoria($productoData['categoria']);
-        }
-
-        return $producto;
-    }
-
-    public function catalogoCompleto(): array
-    {
-        $catalogo = [];
         $conexion = Conexion::getConexion();
-        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id";
-        $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-        $PDOStatement->execute();
 
-        while ($result = $PDOStatement->fetch()) {
-            $result['categoria'] = [
-                'categoria_id' => $result['categoria_id'],
-                'nombre' => $result['categoria_nombre']
-            ];
-            $catalogo[] = $this->createProducto($result);
+        $verifica = $conexion->prepare("SELECT COUNT(*) FROM categorias WHERE categoria_id = :id");
+        $verifica->execute(['id' => $categoria_respaldo_id]);
+        if ($verifica->fetchColumn() == 0) {
+            $crear = $conexion->prepare("INSERT INTO categorias (categoria_id, nombre) VALUES (:id, 'Sin categoría')");
+            $crear->execute(['id' => $categoria_respaldo_id]);
         }
 
-        return $catalogo;
+        $sql = "UPDATE productos SET categoria_id = :respaldo WHERE categoria_id = :actual";
+        $stmt = $conexion->prepare($sql);
+        $stmt->execute([
+            'respaldo' => $categoria_respaldo_id,
+            'actual' => $categoria_id
+        ]);
     }
+
+    public static function eliminarCategoriaConReasignacion(int $categoria_id): bool
+    {
+        $conexion = Conexion::getConexion();
+
+        $sqlCount = "SELECT COUNT(*) FROM productos WHERE categoria_id = :categoria_id";
+        $stmtCount = $conexion->prepare($sqlCount);
+        $stmtCount->execute(['categoria_id' => $categoria_id]);
+        $total = $stmtCount->fetchColumn();
+
+        if ($total > 0) {
+            self::reasignarProductosACategoriaRespaldo($categoria_id);
+        }
+
+        $sqlDelete = "DELETE FROM categorias WHERE categoria_id = :categoria_id";
+        $stmtDelete = $conexion->prepare($sqlDelete);
+        return $stmtDelete->execute(['categoria_id' => $categoria_id]);
+    }
+
+    public static function categoriaPorId(int $id): ?Categoria
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT * FROM categorias WHERE categoria_id = :id";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        if ($datos = $stmt->fetch()) {
+            $categoria = new Categoria();
+            $categoria->setId($datos['categoria_id']);
+            $categoria->setNombre($datos['nombre']);
+            return $categoria;
+        }
+
+        return null;
+    }
+
 
     public function productos_x_rango(int $minimo = 0, int $maximo = 0): array
     {
         $conexion = Conexion::getConexion();
         if ($maximo) {
-            $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE precio BETWEEN :minimo AND :maximo;";
+            $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id WHERE p.precio BETWEEN :minimo AND :maximo;";
             $valores = [
                 'minimo' => $minimo,
                 'maximo' => $maximo
             ];
         } else {
-            $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria = c.categoria_id WHERE precio > :minimo";
+            $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id WHERE p.precio > :minimo";
             $valores = [
                 'minimo' => $minimo
             ];
@@ -392,5 +410,40 @@ class Producto
     {
         return $this->productoDestacado;
     }
+    
+    private static function createProducto(array $data): Producto
+    {
+        $producto = new self();
+        
+        foreach (self::$createValues as $value) {
+            if (isset($data[$value])) {
+                $producto->{$value} = $data[$value];
+            }
+        }
+        
+        if (isset($data['categoria'])) {
+            $categoria = new Categoria();
+            $categoria->setId($data['categoria']['categoria_id']);
+            $categoria->setNombre($data['categoria']['nombre']);
+            $producto->categoria = $categoria;
+        } else if (isset($data['categoria_id'])) {
+            $producto->categoria = self::categoriaPorId($data['categoria_id']);
+        }
+        
+        if (isset($data['piel'])) {
+            $producto->piel = $data['piel'];
+        }
+        
+        return $producto;
+    }
+    
+    public function remove_producto(int $id): void
+    {
+        $this->product_id = $id;
+        $this->delete();
+    }
 }
+
+
+
 ?>
