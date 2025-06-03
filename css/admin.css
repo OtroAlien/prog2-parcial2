@@ -1,0 +1,34 @@
+/* Estilos para el panel de administración */
+.container-admp {
+    padding: 20px;
+}
+
+/* Estilos para el panel lateral */
+.card {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    border-radius: 8px 8px 0 0;
+}
+
+/* Ajustes para la tabla de productos */
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para formularios en el panel */
+.form-control-sm, .form-select-sm {
+    margin-bottom: 10px;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .col-md-3, .col-md-9 {
+        margin-bottom: 20px;
+    }
+}

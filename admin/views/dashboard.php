@@ -1,5 +1,5 @@
 
-    <div class="container-admprofile">
+<div class="container-admprofile">
         <div>
             <h2 class="text-center mb-5 fw-bold">Panel de control de administrador</h2>
             <div class="list-group">
@@ -7,8 +7,12 @@
                     <h3 class="mb-1">Administrar Productos</h3>
                     <p class="mb-1">Editar, borrar o subir nuevos productos.</p>
                 </a>
-                <a href="index.php?admin_usuarios.php" class="list-group-item list-group-item-action" >
-                    <h3 class="mb-1">Administrarrrrrrrrrrrrrrrr Usuarios</h3>
+                <a href="index.php?sec=admin_categorias" class="list-group-item list-group-item-action">
+                    <h3 class="mb-1">Administrar Categorías</h3>
+                    <p class="mb-1">Agregar, editar o eliminar categorías de productos.</p>
+                </a>
+                <a href="index.php?sec=admin_usuarios" class="list-group-item list-group-item-action" >
+                    <h3 class="mb-1">Administrar Usuarios</h3>
                     <p class="mb-1">Ver la lista de usuarios y cambiar sus roles.</p>
                 </a>
             </div>

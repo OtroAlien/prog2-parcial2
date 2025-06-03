@@ -20,12 +20,12 @@ $secciones_validas = [
         "titulo" => "Administrar Usuarios",
         "restringido" => TRUE
     ],
-    "add_producto" => [
-        "titulo" => "Agregar producto",
+    "admin_categorias" => [
+        "titulo" => "Administrar Categorías",
         "restringido" => TRUE
     ],
-    "edit_producto" => [
-        "titulo" => "Editar datos de producto",
+    "add_producto" => [
+        "titulo" => "Agregar producto",
         "restringido" => TRUE
     ],
     "edit_producto" => [
@@ -74,6 +74,7 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NATURE | <?= $titulo ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/estilos.css">
 </head>
@@ -86,7 +87,7 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
     </main>
     <section>
     <?php
-    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'add_producto', 'edit_producto', 'delete_producto'])) {
+    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'admin_categorias', 'add_producto', 'edit_producto', 'delete_producto'])) {
         require_once "views/$vista.php";
     } else {
         require_once "../views/$vista.php";

@@ -327,6 +327,29 @@ class Producto
         return $productos;
     }
     
+    public function catalogoCompleto(): array
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre 
+                  FROM productos p 
+                  JOIN categorias c ON p.categoria_id = c.categoria_id";
+    
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute();
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
+    
+        $productos = [];
+        while ($productoData = $PDOStatement->fetch()) {
+            $productoData['categoria'] = [
+                'categoria_id' => $productoData['categoria_id'],
+                'nombre' => $productoData['categoria_nombre']
+            ];
+            $productos[] = self::createProducto($productoData);
+        }
+    
+        return $productos;
+    }
+    
 
 
     public function precioDescuento(): string
@@ -442,8 +465,44 @@ class Producto
         $this->product_id = $id;
         $this->delete();
     }
+
+    public static function obtenerTodosDescuentos(): array
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT DISTINCT descuento FROM productos ORDER BY descuento ASC";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $descuentos = [];
+        while ($datos = $stmt->fetch()) {
+            $descuento = new stdClass();
+            $descuento->valor = $datos['descuento'];
+            $descuento->nombre = $datos['descuento'] . '%';
+            $descuentos[] = $descuento;
+        }
+        
+        return $descuentos;
+    }
+    
+    public static function obtenerTodosContenidos(): array
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT DISTINCT contenido FROM productos ORDER BY contenido ASC";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $contenidos = [];
+        while ($datos = $stmt->fetch()) {
+            $contenido = new stdClass();
+            $contenido->valor = $datos['contenido'];
+            $contenido->nombre = $datos['contenido'] . ' ml';
+            $contenidos[] = $contenido;
+        }
+        
+        return $contenidos;
+    }
 }
-
-
 
 ?>
