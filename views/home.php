@@ -17,7 +17,7 @@ $productosDestacados = $miProducto->catalogoDestacado(true);
 
     <main class="Contenido">
         <section class="categories">
-            <h2>Categorias</h2>
+            <h2>Categorías</h2>
             <div class="catGrid">
                 <div class="card1 text-bg-dark">
                     <a href="index.php?sec=productos&filtro=Skincare">

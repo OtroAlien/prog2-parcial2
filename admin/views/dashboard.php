@@ -8,7 +8,7 @@
                     <p class="mb-1">Editar, borrar o subir nuevos productos.</p>
                 </a>
                 <a href="index.php?admin_usuarios.php" class="list-group-item list-group-item-action" >
-                    <h3 class="mb-1">Administrar Usuarios</h3>
+                    <h3 class="mb-1">Administrarrrrrrrrrrrrrrrr Usuarios</h3>
                     <p class="mb-1">Ver la lista de usuarios y cambiar sus roles.</p>
                 </a>
             </div>
