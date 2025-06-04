@@ -235,4 +235,50 @@ function obtenerIdUsuario($userID) {
     {
         return $this->address;
     }
+
+    /**
+     * Obtiene todos los usuarios de la base de datos
+     * @return array Array de objetos Usuario
+     */
+    public static function obtenerTodos(): array
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT * FROM usuarios ORDER BY user_id ASC";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        
+        $usuarios = [];
+        while ($datos = $stmt->fetch()) {
+            $usuario = new self();
+            $usuario->id = $datos['user_id'];
+            $usuario->username = $datos['username'];
+            $usuario->nombre_completo = $datos['nombre_completo'];
+            $usuario->password_hash = $datos['password_hash'];
+            $usuario->email = $datos['email'];
+            $usuario->rol = $datos['rol'];
+            $usuarios[] = $usuario;
+        }
+        
+        return $usuarios;
+    }
+    
+    /**
+     * Obtiene todos los roles disponibles en la base de datos
+     * @return array Array de roles únicos
+     */
+    public static function obtenerRoles(): array
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT DISTINCT rol FROM usuarios ORDER BY FIELD(rol, 'superadmin', 'admin', 'usuario')";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute();
+        
+        $roles = [];
+        while ($rol = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $roles[] = $rol['rol'];
+        }
+        
+        return $roles;
+    }
 }

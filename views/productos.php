@@ -157,15 +157,25 @@ if ($filtro) {
                         </svg>
                     </span>
                     <input type="text" id="buscadorProductos" class="form-control" placeholder="Buscar productos por nombre, descripción o categoría...">
+                    <select id="filtroRapido" class="form-select" style="max-width: 200px;">
+                        <option value="">Filtrar por...</option>
+                        <option value="categoria">Categoría</option>
+                        <option value="descuento">Descuento</option>
+                        <option value="piel">Tipo de piel</option>
+                    </select>
                 </div>
             </div>
 
+            <!-- Filtros rápidos -->
+            <div id="filtrosAdicionales" class="mb-4" style="display: none;">
+                <!-- Los filtros se cargarán dinámicamente según la selección -->
+            </div>
             <div class="container">
                 <div class="row" id="productosContainer">
                 <?php if (!empty($productos)) {
             foreach ($productos as $producto) { ?>
             <div class="col-md-6 col-lg-4 col-xl-4 col-sm-12">
-                <div id="product-1" class="single-product" data-categoria="<?= $producto->getCategoria() ?>">
+                <div id="product-1" class="single-product" data-categoria="<?= $producto->getCategoria() ?>" data-descuento="<?= $producto->getDescuento() ?>" data-piel="<?= $producto->getPiel() ?>">
                     <div class="part-1">
                         <?php if ($producto->getDescuento() > 0) { ?>
                             <div class="descuento-cartelito">Descuento: <?= $producto->getDescuento() ?>%</div>
@@ -220,24 +230,129 @@ if ($filtro) {
     document.addEventListener('DOMContentLoaded', function() {
         // Funcionalidad de búsqueda de productos
         const buscadorProductos = document.getElementById('buscadorProductos');
+        const filtroRapido = document.getElementById('filtroRapido');
+        const filtrosAdicionales = document.getElementById('filtrosAdicionales');
+        
+        // Configuración de filtros adicionales
+        const filtrosConfig = {
+            categoria: [
+                { valor: 'Skincare', nombre: 'Skincare' },
+                { valor: 'Cabello', nombre: 'Hair' },
+                { valor: 'Maquillaje', nombre: 'Makeup' }
+            ],
+            descuento: [
+                { valor: '15', nombre: 'Hasta 15%' },
+                { valor: '20', nombre: 'Hasta 20%' },
+                { valor: '40', nombre: 'Hasta 40%' }
+            ],
+            piel: [
+                { valor: 'todoTipo', nombre: 'Todo tipo' },
+                { valor: 'pielGrasa', nombre: 'Piel grasa' },
+                { valor: 'pielMixta', nombre: 'Piel mixta' },
+                { valor: 'pielSeca', nombre: 'Piel seca' },
+                { valor: 'pielMadura', nombre: 'Piel madura' }
+            ]
+        };
+        
+        // Evento para cambio de filtro rápido
+        if (filtroRapido) {
+            filtroRapido.addEventListener('change', function() {
+                const tipoFiltro = this.value;
+                
+                if (tipoFiltro) {
+                    // Mostrar filtros adicionales
+                    filtrosAdicionales.style.display = 'block';
+                    
+                    // Generar opciones de filtro
+                    let opcionesFiltro = '<div class="d-flex align-items-center">';
+                    opcionesFiltro += '<span class="me-2">Seleccione ' + tipoFiltro + ':</span>';
+                    opcionesFiltro += '<select id="filtroEspecifico" class="form-select" style="max-width: 200px;">';
+                    opcionesFiltro += '<option value="">Todos</option>';
+                    
+                    filtrosConfig[tipoFiltro].forEach(opcion => {
+                        opcionesFiltro += `<option value="${opcion.valor}">${opcion.nombre}</option>`;
+                    });
+                    
+                    opcionesFiltro += '</select>';
+                    opcionesFiltro += '</div>';
+                    
+                    filtrosAdicionales.innerHTML = opcionesFiltro;
+                    
+                    // Agregar evento al nuevo select
+                    const filtroEspecifico = document.getElementById('filtroEspecifico');
+                    if (filtroEspecifico) {
+                        filtroEspecifico.addEventListener('change', function() {
+                            aplicarFiltros();
+                        });
+                    }
+                } else {
+                    // Ocultar filtros adicionales
+                    filtrosAdicionales.style.display = 'none';
+                    filtrosAdicionales.innerHTML = '';
+                    mostrarTodosProductos();
+                }
+            });
+        }
+        
+        // Función para aplicar filtros
+        function aplicarFiltros() {
+            const tipoFiltro = filtroRapido.value;
+            const valorFiltro = document.getElementById('filtroEspecifico')?.value || '';
+            const textoBusqueda = buscadorProductos.value.toLowerCase();
+            const productosItems = document.querySelectorAll('#productosContainer .col-md-6');
+            
+            productosItems.forEach(item => {
+                const nombre = item.querySelector('.product-title').textContent.toLowerCase();
+                const descripcion = item.querySelector('.product-description').textContent.toLowerCase();
+                const productoElement = item.querySelector('.single-product');
+                const categoria = productoElement.getAttribute('data-categoria') || '';
+                const descuento = productoElement.getAttribute('data-descuento') || '';
+                const piel = productoElement.getAttribute('data-piel') || '';
+                
+                // Verificar búsqueda por texto
+                const cumpleBusqueda = textoBusqueda === '' || 
+                    nombre.includes(textoBusqueda) || 
+                    descripcion.includes(textoBusqueda) || 
+                    categoria.toLowerCase().includes(textoBusqueda);
+                
+                // Verificar filtro específico
+                let cumpleFiltro = true;
+                
+                if (valorFiltro) {
+                    switch(tipoFiltro) {
+                        case 'categoria':
+                            cumpleFiltro = categoria === valorFiltro;
+                            break;
+                        case 'descuento':
+                            cumpleFiltro = descuento == valorFiltro;
+                            break;
+                        case 'piel':
+                            cumpleFiltro = piel === valorFiltro;
+                            break;
+                    }
+                }
+                
+                // Mostrar u ocultar según los filtros
+                if (cumpleBusqueda && cumpleFiltro) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        // Función para mostrar todos los productos
+        function mostrarTodosProductos() {
+            const productosItems = document.querySelectorAll('#productosContainer .col-md-6');
+            productosItems.forEach(item => {
+                item.style.display = '';
+            });
+        }
+        
+        // Evento para búsqueda por texto
         if (buscadorProductos) {
             buscadorProductos.addEventListener('keyup', function() {
-                const textoBusqueda = this.value.toLowerCase();
-                const productosItems = document.querySelectorAll('#productosContainer .col-md-6');
-                
-                productosItems.forEach(item => {
-                    const nombre = item.querySelector('.product-title').textContent.toLowerCase();
-                    const descripcion = item.querySelector('.product-description').textContent.toLowerCase();
-                    const categoria = item.closest('.single-product').getAttribute('data-categoria') || '';
-                    
-                    if (nombre.includes(textoBusqueda) || 
-                        descripcion.includes(textoBusqueda) || 
-                        categoria.toLowerCase().includes(textoBusqueda)) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
+                aplicarFiltros();
             });
         }
     });

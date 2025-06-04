@@ -48,6 +48,10 @@ $secciones_validas = [
         "titulo" => "Eliminar categorías",
         "restringido" => TRUE
     ],
+    "admin_ordenes" => [
+        "titulo" => "Administración de Órdenes",
+        "restringido" => TRUE
+    ],
 ];
 
 $seccion = $_GET['sec'] ?? "dashboard";
@@ -86,12 +90,12 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
 
     <main class="main">
         <section class="main">
-            <?php include_once '../views/navbar.php'; ?>
+            <?php include_once 'views/admin_navbar.php'; ?>
         </section>
     </main>
     <section>
     <?php
-    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'admin_categorias', 'add_producto', 'edit_producto', 'delete_producto', 'duplicate_producto', 'delete_category'])) {
+    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'admin_categorias', 'add_producto', 'edit_producto', 'delete_producto', 'duplicate_producto', 'delete_category', 'admin_ordenes'])) {
         include_once "views/$vista.php";
     } else {
         include_once "../views/$vista.php";
