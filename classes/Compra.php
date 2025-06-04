@@ -29,7 +29,9 @@ class Compra
     {
         $conexion = Conexion::getConexion();
         $query = "SELECT o.orden_id, u.username, u.nombre_completo, o.fecha_orden, o.total, o.estado, 
-                 GROUP_CONCAT(CONCAT(op.cantidad, 'x ', p.nombre) SEPARATOR ', ') as detalle
+                 GROUP_CONCAT(CONCAT(op.cantidad, 'x ', p.nombre, ' ($', op.precio, ')') SEPARATOR ', ') as detalle,
+                 GROUP_CONCAT(CONCAT(op.cantidad, 'x ', p.nombre) SEPARATOR ', ') as detalle_sin_precio,
+                 GROUP_CONCAT(op.precio SEPARATOR ', ') as precios_unitarios
                  FROM ordenes o
                  JOIN usuarios u ON o.user_id = u.user_id
                  JOIN ordenes_productos op ON o.orden_id = op.orden_id

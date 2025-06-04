@@ -1,0 +1,100 @@
+:root {
+    /* Light theme (default) */
+    --background-color: #ffffff;
+    --text-color: #444444;
+    --navbar-bg: rgba(79, 79, 79, 0.5);
+    --card-bg: #ffffff;
+    --card-border: rgba(0, 0, 0, 0.125);
+    --footer-bg: #f8f9fa;
+    --input-bg: #ffffff;
+    --btn-primary-bg: #0d6efd;
+    --btn-primary-color: #ffffff;
+    --table-bg: #ffffff;
+    --table-border: #dee2e6;
+    --table-stripe: rgba(0, 0, 0, 0.05);
+    --modal-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+    /* Dark theme */
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --navbar-bg: rgba(33, 33, 33, 0.9);
+    --card-bg: #1e1e1e;
+    --card-border: rgba(255, 255, 255, 0.125);
+    --footer-bg: #212121;
+    --input-bg: #2c2c2c;
+    --btn-primary-bg: #375a7f;
+    --btn-primary-color: #ffffff;
+    --table-bg: #1e1e1e;
+    --table-border: #444;
+    --table-stripe: rgba(255, 255, 255, 0.05);
+    --modal-bg: #2c2c2c;
+}
+
+/* Apply theme variables */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar {
+    background-color: var(--navbar-bg);
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+}
+
+.footer {
+    background-color: var(--footer-bg);
+}
+
+input, select, textarea {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border-color: var(--card-border);
+}
+
+.table {
+    background-color: var(--table-bg);
+    color: var(--text-color);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--table-stripe);
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+    color: var(--text-color);
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle svg {
+    width: 25px;
+    height: 25px;
+}
+
+.theme-toggle .sun-icon,
+[data-theme="dark"] .theme-toggle .moon-icon {
+    display: none;
+}
+
+.theme-toggle .moon-icon,
+[data-theme="dark"] .theme-toggle .sun-icon {
+    display: block;
+}
