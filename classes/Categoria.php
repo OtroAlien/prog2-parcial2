@@ -96,4 +96,14 @@ class Categoria
             'id' => $this->categoria_id
         ]);
     }
+    
+    // Contar productos por categoría
+    public static function contarProductosPorCategoria(int $categoria_id): int
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT COUNT(*) FROM productos WHERE categoria_id = :categoria_id";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute(['categoria_id' => $categoria_id]);
+        return (int)$stmt->fetchColumn();
+    }
 }

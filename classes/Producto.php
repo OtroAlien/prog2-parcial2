@@ -35,7 +35,7 @@ class Producto
         'productoDestacado'
     ];
 
-    public static function reasignarProductosACategoriaRespaldo(int $categoria_id, int $categoria_respaldo_id = 999): void
+    public static function reasignarProductosACategoriaRespaldo(int $categoria_id, int $categoria_respaldo_id = 4): void
     {
         $conexion = Conexion::getConexion();
 
