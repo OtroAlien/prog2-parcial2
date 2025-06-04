@@ -10,8 +10,8 @@ try {
 
     Producto::eliminarCategoriaConReasignacion($id);
 
-    header('Location: ../index.php?sec=admin_categorias');
+    header('Location: ../index.php?sec=admin_productos');
 } catch (Exception $e) {
     (new Alerta())->add_alerta('danger', "Error al eliminar la categoría.");
-    header('Location: ../index.php?sec=admin_categorias');
+    header('Location: ../index.php?sec=admin_productos');
 }

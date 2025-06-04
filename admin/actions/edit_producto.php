@@ -48,8 +48,7 @@ try {
         $postData['descuento'],
         $postData['waterproof'],
         $postData['vegano'],
-        $postData['piel'],
-        $postData['productoDestacado']
+        isset($postData['productoDestacado']) ? $postData['productoDestacado'] : 0
     );
 
     header('Location: ../index.php?sec=admin_productos&status=success');

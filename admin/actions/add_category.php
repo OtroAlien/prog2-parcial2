@@ -25,5 +25,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Redireccionar de vuelta a la página de administración de categorías
-header('Location: ../index.php?sec=admin_categorias');
+header('Location: ../index.php?sec=admin_productos');
 exit;

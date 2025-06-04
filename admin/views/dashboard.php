@@ -7,7 +7,7 @@
                     <h3 class="mb-1">Administrar Productos</h3>
                     <p class="mb-1">Editar, borrar o subir nuevos productos.</p>
                 </a>
-                <a href="index.php?sec=admin_categorias" class="list-group-item list-group-item-action">
+                <a href="index.php?sec=admin_productos" class="list-group-item list-group-item-action">
                     <h3 class="mb-1">Administrar Categorías</h3>
                     <p class="mb-1">Agregar, editar o eliminar categorías de productos.</p>
                 </a>

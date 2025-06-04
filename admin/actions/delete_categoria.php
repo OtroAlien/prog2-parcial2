@@ -19,5 +19,5 @@ try {
     (new Alerta())->add_alerta('danger', $e->getMessage());
 }
 
-header('Location: ../index.php?sec=admin_categorias');
+header('Location: ../index.php?sec=admin_productos');
 exit;

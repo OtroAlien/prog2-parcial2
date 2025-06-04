@@ -8,6 +8,9 @@ $producto = (new Producto())->productoPorId($id);
 if (!$producto) {
     die("Producto no encontrado");
 }
+
+// Obtener todas las categorías para el dropdown
+$categorias = Categoria::obtenerTodas();
 ?>
 
 <div class="container my-5">
@@ -33,9 +36,11 @@ if (!$producto) {
                         <label for="categoria" class="form-label">Categoría</label>
                         <select class="form-select" name="categoria" id="categoria" required>
                             <option value="" disabled>Elija una opción</option>
-                            <option value="1" <?= $producto->getCategoria() == 1 ? "selected" : "" ?>>Skincare</option>
-                            <option value="2" <?= $producto->getCategoria() == 2 ? "selected" : "" ?>>Maquillaje</option>
-                            <option value="3" <?= $producto->getCategoria() == 3 ? "selected" : "" ?>>Cabello</option>
+                            <?php foreach ($categorias as $categoria): ?>
+                                <option value="<?= htmlspecialchars($categoria->getId()) ?>" <?= $producto->getCategoriaId() == $categoria->getId() ? "selected" : "" ?>>
+                                    <?= htmlspecialchars($categoria->getNombre()) ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -113,6 +118,14 @@ if (!$producto) {
                         <select class="form-select" name="vegano" id="vegano" required>
                             <option value="1" <?= $producto->getVegano() == 1 ? "selected" : "" ?>>Sí</option>
                             <option value="0" <?= $producto->getVegano() == 0 ? "selected" : "" ?>>No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mt-3">
+                        <label for="productoDestacado" class="form-label">Producto Destacado</label>
+                        <select class="form-select" name="productoDestacado" id="productoDestacado" required>
+                            <option value="1" <?= $producto->getDestacado() == 1 ? "selected" : "" ?>>Sí</option>
+                            <option value="0" <?= $producto->getDestacado() == 0 ? "selected" : "" ?>>No</option>
                         </select>
                     </div>
 
