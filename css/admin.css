@@ -3,15 +3,34 @@
     padding: 20px;
 }
 
+/* Eliminar todos los bordes */
+.list-group-item {
+    border: none;
+}
+
+.modal-content {
+    border: none;
+}
+
+.form-control, .form-select {
+    
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+
+
 /* Estilos para el panel lateral */
 .card {
     border-radius: 8px;
+    border: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
 .card-header {
     border-radius: 8px 8px 0 0;
+    border: none;
 }
 
 /* Ajustes para la tabla de productos */
@@ -21,9 +40,33 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Eliminar bordes de las tablas */
+.table {
+    border: none;
+}
+
+.table th,
+.table td {
+    border: none;
+}
+
+.table thead th {
+    border: none;
+}
+
+/* Centrar las acciones en la tabla */
+.table td:last-child {
+    text-align: center;
+}
+
 /* Estilos para formularios en el panel */
 .form-control-sm, .form-select-sm {
     margin-bottom: 10px;
+}
+
+/* Estilos para el buscador */
+.input-group {
+    padding: 0 10px 0 0;
 }
 
 /* Ajustes para pantallas pequeñas */

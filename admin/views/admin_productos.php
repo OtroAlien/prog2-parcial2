@@ -18,11 +18,14 @@ if ($producto_id) {
 ?>
 
 <div class="container-admp">
+<a href="../admin/index.php" class="btn btn-outline-success"><i class="fas fa-arrow-left me-2"></i>Atrás</a>
     <div class="row">
+    <h2 class="text-center mb-3 fw-bold">Panel de Administración</h2>
         <div class="col-md-3 mb-4">
+            
             <div class="card">
                 <div class="card-header bg-dark text-white">
-                    <h5 class="mb-0">Panel de Administración</h5>
+                    <h5 class="mb-0 text-center">Administración General</h5>
                 </div>
                 <div class="card-body">
                     
@@ -31,7 +34,7 @@ if ($producto_id) {
                     <form action="actions/add_category.php" method="POST" class="mb-3">
                         <div class="input-group input-group-sm mb-2">
                             <input type="text" class="form-control" placeholder="Nombre de categoría" name="nombre" required>
-                            <button class="btn btn-outline-primary" type="submit">Agregar</button>
+                            <button class="btn btn-outline-success" type="submit">Agregar</button>
                         </div>
                     </form>
 
@@ -43,7 +46,7 @@ if ($producto_id) {
                                 <?= htmlspecialchars($categoria->getNombre()) ?>
                                 <div class="btn-group" role="group" aria-label="Acciones">
                                     <a href="#" class="text-primary edit-category" data-bs-toggle="modal" data-bs-target="#editCategoryModal" data-id="<?= htmlspecialchars($categoria->getId()) ?>" data-nombre="<?= htmlspecialchars($categoria->getNombre()) ?>" title="Editar categoría">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                         </svg>
                                     </a>
@@ -64,7 +67,7 @@ if ($producto_id) {
                     <form action="actions/add_category.php" method="POST" class="mb-3">
                         <div class="input-group input-group-sm mb-2">
                             <input type="text" class="form-control" placeholder="Nombre de categoría" name="nombre" required>
-                            <button class="btn btn-outline-primary" type="submit">Agregar</button>
+                            <button class="btn btn-outline-success" type="submit">Agregar</button>
                         </div>
                     </form>
 
@@ -76,7 +79,7 @@ if ($producto_id) {
                                 <?= htmlspecialchars($descuento->nombre) ?>
                                 <div class="btn-group" role="group" aria-label="Acciones">
                                     <a href="#" class="text-primary edit-discount" data-bs-toggle="modal" data-bs-target="#editDiscountModal" data-valor="<?= htmlspecialchars($descuento->valor) ?>" title="Editar descuento">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                         </svg>
                                     </a>
@@ -97,7 +100,7 @@ if ($producto_id) {
                     <form action="actions/add_category.php" method="POST" class="mb-3">
                         <div class="input-group input-group-sm mb-2">
                             <input type="text" class="form-control" placeholder="Contenido en ml" name="contenido" required>
-                            <button class="btn btn-outline-primary" type="submit">Agregar</button>
+                            <button class="btn btn-outline-success" type="submit">Agregar</button>
                         </div>
                     </form>
 
@@ -110,7 +113,7 @@ if ($producto_id) {
                                 <?= htmlspecialchars($contenido->nombre) ?>
                                 <div class="btn-group" role="group" aria-label="Acciones">
                                     <a href="#" class="text-primary edit-contenido" data-bs-toggle="modal" data-bs-target="#editContenidoModal" data-valor="<?= htmlspecialchars($contenido->valor) ?>" title="Editar contenido">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                         </svg>
                                     </a>
@@ -129,25 +132,33 @@ if ($producto_id) {
         
         <!-- Tabla de productos -->
         <div class="col-md-9">
-            <h2 class="text-center mb-5 fw-bold">Administración de Productos</h2>
+            
             <div class="d-flex justify-content-between mb-3">
-                <a href="../admin/index.php" class="btn btn-secondary">Volver Atrás</a>
-                <a href="index.php?sec=add_producto" class="btn btn-primary">Cargar Nuevo Producto</a>
+                
+                
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" id="buscadorProductos" class="form-control" placeholder="Buscar productos por nombre, descripción o categoría...">
+                
+            </div>
+                <a href="index.php?sec=add_producto" class="btn btn-outline-success">Nuevo Producto <i class="fas fa-plus"></i></a>
             </div>
 
+            <!-- Buscador de productos -->
+            
 
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead class="table-dark">
                         <tr>
                             <th scope="col" width="10%">Imagen</th>
-                            <th scope="col" width="10%">Nombre</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col">Categoría</th>
-                            <th scope="col">Descuento</th>
-                            <th scope="col">Waterproof</th>
+                            <th scope="col" width="10%" class="sortable" data-column="nombre">Nombre <span class="sort-icon"></span></th>
+                            <th scope="col" class="sortable" data-column="descripcion">Descripción <span class="sort-icon"></span></th>
+                            <th scope="col" class="sortable" data-column="precio">Precio <span class="sort-icon"></span></th>
+                            <th scope="col" class="sortable" data-column="stock">Stock <span class="sort-icon"></span></th>
+                            <th scope="col" class="sortable" data-column="categoria">Categoría <span class="sort-icon"></span></th>
+                            <th scope="col" class="sortable" data-column="descuento">Descuento <span class="sort-icon"></span></th>
+                            <th scope="col" class="sortable" data-column="waterproof">Waterproof <span class="sort-icon"></span></th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -160,26 +171,28 @@ if ($producto_id) {
                                     </div>
                                 </td>
                                 <td><?= htmlspecialchars($P->getNombre()) ?></td>
-                                <td><?= htmlspecialchars(substr($P->getDescripcion(), 0, 100)) . (strlen($P->getDescripcion()) > 100 ? '...' : '') ?></td>
+                                <td><?= htmlspecialchars(substr($P->getDescripcion(), 0, 30)) . (strlen($P->getDescripcion()) > 30 ? '...' : '') ?></td>
                                 <td>$<?= htmlspecialchars($P->getPrecio()) ?></td>
                                 <td><?= htmlspecialchars($P->getStock()) ?></td>
                                 <td><?= htmlspecialchars($P->getCategoria()) ?></td>
                                 <td><?= htmlspecialchars($P->getDescuento()) ?>%</td>
                                 <td><?= $P->getWaterproof() ? 'Sí' : 'No' ?></td>
                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Acciones">
-                                        <a href="index.php?sec=edit_producto&id=<?= htmlspecialchars($P->getId()) ?>" role="button" class="btn btn-success btn-sm">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                            </svg>
-                                        </a>
-                                        <a href="index.php?sec=delete_producto&id=<?= htmlspecialchars($P->getId()) ?>" role="button" class="btn btn-danger btn-sm">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                                            </svg>
-                                        </a>
-                                    </div>
+                                    <a href="index.php?sec=edit_producto&id=<?= htmlspecialchars($P->getId()) ?>" class="text-primary" title="Editar producto">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-pencil" viewBox="0 0 16 16">
+                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                        </svg>
+                                    </a>
+                                    <a href="index.php?sec=duplicate_producto&id=<?= htmlspecialchars($P->getId()) ?>" class="text-success" title="Duplicar producto">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                                            <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+                                        </svg>
+                                    </a>
+                                    <a href="index.php?sec=delete_producto&id=<?= htmlspecialchars($P->getId()) ?>" class="text-danger" title="Eliminar producto">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    </a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -297,6 +310,29 @@ if ($producto_id) {
                 document.getElementById('editCategoryForm').action = `actions/update_category.php?id=${id}`;
             });
         });
+
+        // Funcionalidad de búsqueda de productos
+        const buscadorProductos = document.getElementById('buscadorProductos');
+        if (buscadorProductos) {
+            buscadorProductos.addEventListener('keyup', function() {
+                const textoBusqueda = this.value.toLowerCase();
+                const filasProductos = document.querySelectorAll('tbody tr');
+                
+                filasProductos.forEach(fila => {
+                    const nombre = fila.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    const descripcion = fila.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                    const categoria = fila.querySelector('td:nth-child(6)').textContent.toLowerCase();
+                    
+                    if (nombre.includes(textoBusqueda) || 
+                        descripcion.includes(textoBusqueda) || 
+                        categoria.includes(textoBusqueda)) {
+                        fila.style.display = '';
+                    } else {
+                        fila.style.display = 'none';
+                    }
+                });
+            });
+        }
     });
 </script>
 

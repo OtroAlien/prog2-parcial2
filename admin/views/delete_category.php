@@ -1,5 +1,6 @@
 <?php
-require_once "../../functions/autoload.php";
+// This file is already included by admin/index.php
+// require_once "../../functions/autoload.php";
 
 $id = $_GET['id'] ?? false;
 $categoria = (new Categoria())->categoriaPorId($id); // Suponiendo que tenés este método
@@ -19,7 +20,7 @@ $categoria = (new Categoria())->categoriaPorId($id); // Suponiendo que tenés es
                         <a href="actions/delete_categoria.php?id=<?= $categoria->getId() ?>" role="button" class="btn btn-danger btn-lg">
                             Eliminar Categoría
                         </a>
-                        <a href="index.php?sec=admin_categorias" role="button" class="btn btn-secondary btn-lg mt-3">
+                        <a href="index.php?sec=admin_productos" role="button" class="btn btn-secondary btn-lg mt-3">
                             Cancelar
                         </a>
                     </div>

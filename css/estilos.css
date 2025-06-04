@@ -1530,7 +1530,7 @@ input::-webkit-inner-spin-button {
 .text-center {
     display: flex;
     justify-content: center;
-    margin: 1rem;
+    /* margin: 1rem; */
     text-align: left;
 }
 
@@ -1620,12 +1620,8 @@ input::-webkit-inner-spin-button {
 /*--------------------------------------------------------- Admin Productos ---------------------------------------------------------*/
 
 .container-admp{
-    width: 80vw;
+    width: 90vw;
     margin: 7rem auto !important;
-}
-
-.container-admp h2{
-    margin-top: 2rem;
 }
 
 .container-admprofile{

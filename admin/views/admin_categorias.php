@@ -1,5 +1,5 @@
 <?php
-require_once "../../functions/autoload.php";
+require_once "../functions/autoload.php";
 
 $categorias = Categoria::obtenerTodas();
 
@@ -21,7 +21,7 @@ if ($categoria_id) {
                     <h5 class="mb-0">Gestión de Categorías</h5>
                 </div>
                 <div class="card-body">
-                    <form action="actions/<?= $categoria_seleccionada ? 'update_category.php?id='.$categoria_seleccionada->getId() : 'add_category.php' ?>" method="POST">
+                    <form action="../actions/<?= $categoria_seleccionada ? 'update_category.php?id='.$categoria_seleccionada->getId() : 'add_category.php' ?>" method="POST">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre de la Categoría</label>
                             <input type="text" class="form-control" id="nombre" name="nombre" value="<?= $categoria_seleccionada ? htmlspecialchars($categoria_seleccionada->getNombre()) : '' ?>" required>

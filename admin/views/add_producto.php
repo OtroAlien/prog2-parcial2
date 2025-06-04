@@ -7,7 +7,7 @@ $producto = (new Producto())->catalogoCompleto();
 <div class="container my-5">
     <div class="row">
         <div class="col">
-            <h2 class="text-center mb-5 fw-bold">Administración de Productos</h2>
+            <h2 class="text-center mb-5 fw-bold">Panel de Administración</h2>
 
             <div class="text-start mb-4">
                 <a href="../admin/index.php?sec=admin_productos" class="btn btn-secondary">Volver Atrás</a>

@@ -148,12 +148,24 @@ if ($filtro) {
             </div>
             <div class="col-md-9">
 
+            <!-- Buscador de productos -->
+            <div class="mb-4">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </span>
+                    <input type="text" id="buscadorProductos" class="form-control" placeholder="Buscar productos por nombre, descripción o categoría...">
+                </div>
+            </div>
+
             <div class="container">
-                <div class="row">
+                <div class="row" id="productosContainer">
                 <?php if (!empty($productos)) {
             foreach ($productos as $producto) { ?>
             <div class="col-md-6 col-lg-4 col-xl-4 col-sm-12">
-                <div id="product-1" class="single-product">
+                <div id="product-1" class="single-product" data-categoria="<?= $producto->getCategoria() ?>">
                     <div class="part-1">
                         <?php if ($producto->getDescuento() > 0) { ?>
                             <div class="descuento-cartelito">Descuento: <?= $producto->getDescuento() ?>%</div>
@@ -203,3 +215,30 @@ if ($filtro) {
             </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Funcionalidad de búsqueda de productos
+        const buscadorProductos = document.getElementById('buscadorProductos');
+        if (buscadorProductos) {
+            buscadorProductos.addEventListener('keyup', function() {
+                const textoBusqueda = this.value.toLowerCase();
+                const productosItems = document.querySelectorAll('#productosContainer .col-md-6');
+                
+                productosItems.forEach(item => {
+                    const nombre = item.querySelector('.product-title').textContent.toLowerCase();
+                    const descripcion = item.querySelector('.product-description').textContent.toLowerCase();
+                    const categoria = item.closest('.single-product').getAttribute('data-categoria') || '';
+                    
+                    if (nombre.includes(textoBusqueda) || 
+                        descripcion.includes(textoBusqueda) || 
+                        categoria.toLowerCase().includes(textoBusqueda)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+    });
+</script>

@@ -36,6 +36,10 @@ $secciones_validas = [
         "titulo" => "Eliminar datos de Producto",
         "restringido" => TRUE
     ],
+    "duplicate_producto" => [
+        "titulo" => "Duplicar Producto",
+        "restringido" => TRUE
+    ],
     "contacto" => [
         "titulo" => "Contacto",
         "restringido" => FALSE
@@ -87,10 +91,10 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
     </main>
     <section>
     <?php
-    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'admin_categorias', 'add_producto', 'edit_producto', 'delete_producto'])) {
-        require_once "views/$vista.php";
+    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'admin_categorias', 'add_producto', 'edit_producto', 'delete_producto', 'duplicate_producto', 'delete_category'])) {
+        include_once "views/$vista.php";
     } else {
-        require_once "../views/$vista.php";
+        include_once "../views/$vista.php";
     }
     ?>
 </section>

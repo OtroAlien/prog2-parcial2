@@ -434,6 +434,11 @@ class Producto
         return $this->productoDestacado;
     }
     
+    public function getCategoriaId()
+    {
+        return $this->categoria->getId();
+    }
+    
     private static function createProducto(array $data): Producto
     {
         $producto = new self();
