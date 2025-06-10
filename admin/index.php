@@ -48,6 +48,14 @@ $secciones_validas = [
         "titulo" => "Eliminar categorías",
         "restringido" => TRUE
     ],
+    "edit_orden" => [
+        "titulo" => "Editar Orden",
+        "restringido" => TRUE
+    ],
+    "delete_orden" => [
+        "titulo" => "Eliminar Orden",
+        "restringido" => TRUE
+    ],
     "admin_ordenes" => [
         "titulo" => "Administración de Órdenes",
         "restringido" => TRUE
@@ -96,7 +104,7 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
     </main>
     <section>
     <?php
-    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'admin_categorias', 'add_producto', 'edit_producto', 'delete_producto', 'duplicate_producto', 'delete_category', 'admin_ordenes'])) {
+    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'admin_categorias', 'add_producto', 'edit_producto', 'delete_producto', 'duplicate_producto', 'delete_category', 'admin_ordenes', 'edit_orden', 'delete_orden'])) {
         include_once "views/$vista.php";
     } else {
         include_once "../views/$vista.php";

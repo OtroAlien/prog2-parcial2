@@ -148,6 +148,8 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
                 var $input = $(this).parent().find('input[name="cantidad"]');
                 var newValue = parseInt($input.val()) + 1;
                 $input.val(newValue);
+                // Update hidden input for form submission
+                $('#cantidad-input').val(newValue);
             });
 
             $('.quantity-decrease').on('click', function() {
@@ -155,6 +157,8 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
                 var newValue = parseInt($input.val()) - 1;
                 if (newValue >= 1) {
                     $input.val(newValue);
+                    // Update hidden input for form submission
+                    $('#cantidad-input').val(newValue);
                 }
             });
         });

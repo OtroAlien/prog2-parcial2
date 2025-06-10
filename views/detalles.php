@@ -28,9 +28,9 @@ if ($id !== FALSE) {
                                 <li class="list-group-item">
                                 <div class="quantity-selector">
                                     <p>Cantidad</p>
-                                    <button class="quantity-decrease">-</button>
-                                    <input type="number" name="cantidad" value="1" min="1" readonly>
-                                    <button class="quantity-increase">+</button>
+                                    <button type="button" class="quantity-decrease">-</button>
+                                    <input type="number" name="cantidad" id="cantidad" value="1" min="1" readonly>
+                                    <button type="button" class="quantity-increase">+</button>
                                 </div>
                                 </li>
                                 <li class="list-group-item"><span class="fw-light"> Fecha de lanzamiento: <?= $producto->getLanzamiento(); ?></li>
@@ -40,7 +40,11 @@ if ($id !== FALSE) {
                                 <div class="fs-3 mb-3 fw-medium text-center">ARS $<?= $producto->precioFormateado() ?></div>
                                 <div class="row">
                                     <div class="col-9">
-                                        <a href="#" class="btn w-100 border">Agregar al carrito</a>
+                                        <form action="admin/actions/add_to_cart.php" method="POST">
+                                            <input type="hidden" name="producto_id" value="<?= $producto->getId() ?>">
+                                            <input type="hidden" name="cantidad" id="cantidad-input" value="1">
+                                            <button type="submit" class="btn w-100 border">Agregar al carrito</button>
+                                        </form>
                                     </div>
                                     <div class="col-3">
                                         <a href="#" class="btn w-100 border"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
