@@ -12,7 +12,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    color: #444444;
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -101,21 +101,21 @@ h1{
 }
 
 .heart-button {
-    background-color: rgb(84, 99, 72);
+    background-color: var(--accent-color);
     border: white;
     cursor: pointer;
 }
 
 .img-container {
-    width: 80px; /* Tamaño cuadrado deseado para la imagen */
+    width: 80px;
     height: 80px;
     overflow: hidden;
-    margin: 0 auto; /* Centrar la imagen dentro del contenedor */
+    margin: 0 auto;
 }
 
 .img-container img {
-    width: 100%; /* Para asegurar que la imagen ocupe todo el espacio del contenedor */
-    height: auto; /* Mantener la proporción */
+    width: 100%;
+    height: auto;
 }
 
 @media screen and (max-width: 991px) {
@@ -447,7 +447,7 @@ h2, .pExplore, .info p {
     height: 50px;
     border-radius: 35px;
     border: 2px solid #303829;
-    background: -webkit-linear-gradient(right, #91aa7c, #546347);
+    background: -webkit-linear-gradient(right, var(--accent-color-light), #546347);
     color: #fff;
     transition: width 0.7s;
     position: relative;
@@ -543,7 +543,7 @@ a:hover {
 .sectionProducts .header h2 {
     font-size: 2.2rem;
     font-weight: 400;
-    color: #444444; 
+    color: var(--text-color); 
 }
 
 .sectionProducts .single-product {
@@ -608,8 +608,8 @@ a:hover {
     position: absolute;
     top: 15px;
     left: 20px;
-    color: #ffffff;
-    background-color: rgb(84, 99, 72);
+    color: var(--card-bg);
+    background-color: var(--accent-color);
     padding: 2px 8px;
     text-transform: uppercase;
     font-size: 0.85rem;
@@ -617,7 +617,7 @@ a:hover {
 
 .sectionProducts .single-product .part-1 .new {
     left: 0;
-    background-color: #444444;
+    background-color: var(--text-color);
 }
 
 .sectionProducts .single-product .part-1 ul {
@@ -647,15 +647,15 @@ a:hover {
     width: 40px;
     height: 40px;
     line-height: 40px;
-    background-color: #ffffff;
-    color: #444444;
+    background-color: var(--card-bg);
+    color: var(--text-color);
     text-align: center;
     box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
     transition: color 0.2s;
 }
 
 .sectionProducts .single-product .part-1 ul li a:hover {
-    background-color:  #546348;
+    background-color:  var(--accent-color);
     color: white;
 }
 
@@ -690,7 +690,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: #444444;
+    background-color: var(--text-color);
     transform: translateY(-50%);
 }
 
@@ -707,7 +707,7 @@ ol, ul {
 }
 
 .accordion-button:not(.collapsed){
-    background-color: #546348;
+    background-color: var(--accent-color);
     color: white;
 }
 
@@ -724,7 +724,7 @@ ol, ul {
 }
 
 .sectionProducts .list-group-item:hover {
-    background-color: #91aa7c;
+    background-color: var(--accent-color-light);
 }
 
 .descuento-cartelito{
@@ -888,7 +888,7 @@ ol, ul {
     z-index: -1;
     transition: all 0.5s ease 0s;
 }
-.our-team:hover .team-content{ border: 2px dotted #546348; }
+.our-team:hover .team-content{ border: 2px dotted var(--accent-color); }
 .our-team .team-info{
     width: 100%;
     color: #464646;
@@ -903,7 +903,7 @@ ol, ul {
     margin: 0 0 5px 0;
     transition: all 0.5s ease 0s;
 }
-.our-team:hover .title{ color: #546348; }
+.our-team:hover .title{ color: var(--accent-color); }
 .our-team .post{
     display: block;
     font-size: 14px;
@@ -999,7 +999,7 @@ input:-webkit-autofill:active{
 .input-data input:valid ~ label, .textarea textarea:valid ~ label{
   transform: translateY(-20px);
   font-size: 14px;
-  color: #546348;
+  color: var(--accent-color);
 }
 
 .textarea textarea{
@@ -1033,7 +1033,7 @@ input:-webkit-autofill:active{
   content: "";
   height: 2px;
   width: 100%;
-  background: #546348;
+  background: var(--accent-color);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.3s ease;
@@ -1058,7 +1058,7 @@ input:-webkit-autofill:active{
     font-size: 20px;
     letter-spacing: 4px;
     position: relative;
-    background-color: #546348;
+    background-color: var(--accent-color);
     border: none;
     color: #fff;
     padding: 10px;
@@ -1071,7 +1071,7 @@ input:-webkit-autofill:active{
   }
   
   .button:hover {
-    background: #91aa7c;
+    background: var(--accent-color-light);
     color: #000;
   }
   
@@ -1137,7 +1137,7 @@ input:-webkit-autofill:active{
     display: flex;
     margin: 2rem auto;
     column-gap: 5rem;
-    background: -webkit-linear-gradient(right, #91aa7c, #546348);
+    background: -webkit-linear-gradient(right, var(--accent-color-light), var(--accent-color));
     width: fit-content;
     padding: 1rem;
     border-radius: 5px;
@@ -1147,7 +1147,7 @@ input:-webkit-autofill:active{
     text-align: center;
     font-size: 30px;
     font-weight: 600;
-    background-color: #546348;
+    background-color: var(--accent-color);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 1rem;
@@ -1242,7 +1242,7 @@ input:-webkit-autofill:active{
 .quantity-selector button {
     padding: 0.375rem 0.75rem;
     border: 1px solid #ccc;
-    background-color: #546348;
+    background-color: var(--accent-color);
     cursor: pointer;
 }
 
@@ -1388,7 +1388,7 @@ input::-webkit-inner-spin-button {
 
   .button404:hover {
     background-color: rgb(48, 56, 41, 0.8);
-    color: #91aa7c;
+    color: var(--accent-color-light);
   }
 
 /*--------------------------------------------------------- Login ---------------------------------------------------------*/
@@ -1966,7 +1966,7 @@ h2, .pExplore, .info p {
     height: 50px;
     border-radius: 35px;
     border: 2px solid #303829;
-    background: -webkit-linear-gradient(right, #91aa7c, #546347);
+    background: -webkit-linear-gradient(right, var(--accent-color-light), #546347);
     color: #fff;
     transition: width 0.7s;
     position: relative;
@@ -2062,7 +2062,7 @@ a:hover {
 .sectionProducts .header h2 {
     font-size: 2.2rem;
     font-weight: 400;
-    color: #444444; 
+    color: var(--text-color); 
 }
 
 .sectionProducts .single-product {
@@ -2127,8 +2127,8 @@ a:hover {
     position: absolute;
     top: 15px;
     left: 20px;
-    color: #ffffff;
-    background-color: rgb(84, 99, 72);
+    color: var(--card-bg);
+    background-color: var(--accent-color);
     padding: 2px 8px;
     text-transform: uppercase;
     font-size: 0.85rem;
@@ -2136,7 +2136,7 @@ a:hover {
 
 .sectionProducts .single-product .part-1 .new {
     left: 0;
-    background-color: #444444;
+    background-color: var(--text-color);
 }
 
 .sectionProducts .single-product .part-1 ul {
@@ -2166,15 +2166,15 @@ a:hover {
     width: 40px;
     height: 40px;
     line-height: 40px;
-    background-color: #ffffff;
-    color: #444444;
+    background-color: var(--card-bg);
+    color: var(--text-color);
     text-align: center;
     box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
     transition: color 0.2s;
 }
 
 .sectionProducts .single-product .part-1 ul li a:hover {
-    background-color:  #546348;
+    background-color:  var(--accent-color);
     color: white;
 }
 
@@ -2209,7 +2209,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: #444444;
+    background-color: var(--text-color);
     transform: translateY(-50%);
 }
 
@@ -2226,7 +2226,7 @@ ol, ul {
 }
 
 .accordion-button:not(.collapsed){
-    background-color: #546348;
+    background-color: var(--accent-color);
     color: white;
 }
 
