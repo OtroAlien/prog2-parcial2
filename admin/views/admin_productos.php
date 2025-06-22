@@ -64,12 +64,7 @@ if ($producto_id) {
                     
                     <hr class="my-4">
                     <h6 class="mb-3">Descuentos</h6>
-                    <form action="actions/add_category.php" method="POST" class="mb-3">
-                        <div class="input-group input-group-sm mb-2">
-                            <input type="text" class="form-control" placeholder="Nombre de categoría" name="nombre" required>
-                            <button class="btn btn-outline-success" type="submit">Agregar</button>
-                        </div>
-                    </form>
+                    <p class="text-muted small">Los descuentos se gestionan automáticamente desde los productos. No es necesario agregarlos manualmente.</p>
 
                     <!-- Lista de descuentos existentes -->
                     <h6 class="mb-2">Descuentos Existentes</h6>
@@ -97,12 +92,7 @@ if ($producto_id) {
                     
                     <hr class="my-4">
                     <h6 class="mb-3">Contenidos</h6>
-                    <form action="actions/add_category.php" method="POST" class="mb-3">
-                        <div class="input-group input-group-sm mb-2">
-                            <input type="text" class="form-control" placeholder="Contenido en ml" name="contenido" required>
-                            <button class="btn btn-outline-success" type="submit">Agregar</button>
-                        </div>
-                    </form>
+                    <p class="text-muted small">Los contenidos se gestionan automáticamente desde los productos. No es necesario agregarlos manualmente.</p>
 
                     <!-- Lista de contenidos existentes -->
                     <h6 class="mb-2">Contenidos Existentes</h6>
