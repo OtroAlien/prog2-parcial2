@@ -132,6 +132,14 @@
     input:-internal-autofill-selected{
         background-color: #0d6efd !important;
     }
+
+    .body-dashboard {
+        background-image: url(../img/oscuro/skincare-1.jpeg);
+    }
+
+    .container-admprofile {
+        background-color: rgba(25, 25, 25, 0.5);
+    }
 }
 
 /* Apply theme variables */

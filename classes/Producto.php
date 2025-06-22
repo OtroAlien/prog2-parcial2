@@ -464,6 +464,16 @@ class Producto
         
         return $producto;
     }
+
+    private array $subcategorias = [];
+
+    public function setSubcategorias(array $subcategorias): void {
+        $this->subcategorias = $subcategorias;
+    }
+
+    public function getSubcategorias(): array {
+        return $this->subcategorias;
+    }
     
     public function remove_producto(int $id): void
     {
