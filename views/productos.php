@@ -42,7 +42,7 @@ if ($filtro) {
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="img/productos/productos-4.jpeg" class="d-block w-100" alt="Nuestros productos 1">
+            <div class="img1"></div>
             <div class="carousel-caption d-none d-md-block">
                 <div class="cc-carrusel">
                     <h2>Descubre Nuestra Colección</h2>
@@ -51,7 +51,7 @@ if ($filtro) {
             </div>
         </div>
         <div class="carousel-item">
-            <img src="img/productos/productos-3.jpeg" class="d-block w-100" alt="Nuestros productos 2">
+            <div class="img2"></div>
             <div class="carousel-caption d-none d-md-block">
                 <div class="cc-carrusel">
                     <h2>Explora Nuestra Gama de Productos</h2>
@@ -60,7 +60,7 @@ if ($filtro) {
             </div>
         </div>
         <div class="carousel-item">
-            <img src="img/productos/productos-2.jpeg" class="d-block w-100" alt="Nuestros productos 3">
+            <div class="img3"></div>
             <div class="carousel-caption d-none d-md-block">
                 <div class="cc-carrusel">
                     <h2>Experimenta el Poder Transformador de la Naturaleza</h2>

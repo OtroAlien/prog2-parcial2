@@ -7,7 +7,7 @@ $productosDestacados = $miProducto->catalogoDestacado(true);
 ?>
 
 <div class="banner">
-        <img class="background" src="img/banner/banner1.jpg" alt="imagen banner 1">
+    <div class="background"></div>
         <div class="info">
             <h2>Diseñado para realzar tu belleza</h2>
             <p class="pExplore">En NATURE, creemos en realzar tu belleza natural. Nuestra gama de productos de belleza de alta calidad está diseñada para hacerte sentir segura y radiante en cada momento. Únete a nosotros y descubre tu mejor versión.</p>

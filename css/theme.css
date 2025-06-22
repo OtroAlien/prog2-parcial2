@@ -34,14 +34,104 @@
     --modal-bg: #2c2c2c;
 
 
-.body-login {
-    background-image: url('../img/oscuro/login-dark.jpg');
-}
+    .body-login {
+        background-image: url(../img/oscuro/login-dark.jpeg);
+    }
 
-.body-contacto, .body-formulario {
-    background-image: url('../img/oscuro/contacto-dark.jpg');
-}
+    .containerlogin {
+        background: rgba(25, 25, 25, 0.5);
+    }
 
+    .body-contacto, .body-formulario {
+        background-image: url(../img/oscuro/contacto-dark.jpeg);
+    }
+
+    .navbar{
+        background-color: rgba(39, 39, 39, 0.5);
+    }
+
+    .background {
+        background-image: url(../img/oscuro/banner1.jpg);
+    }
+
+    .img1{
+        background-image: url(../img/oscuro/productos-1.jpg);
+    }
+    
+    .img2{
+        background-image: url(../img/oscuro/productos-2.jpg);
+    }
+    
+    .img3{
+        background-image: url(../img/oscuro/productos-3.jpg);
+    }
+
+    .accordion{
+        border: rgb(30, 30, 30) solid 5px;
+        border-radius: 10px;
+    }
+
+    .accordion-button:not(.collapsed){
+        color: black;
+    }
+
+    .accordion-button.collapsed::after{
+        color: black;
+    }
+
+    .accordion-body, .accordion-header {
+        background-color: rgb(30, 30, 30);
+    }
+
+    .accordion-button{
+        background-color: rgb(50, 50, 50);
+        color: white;
+    }
+
+    .list-group {
+        --bs-list-group-color: white;
+        --bs-list-group-bg: rgb(50, 50, 50);
+    }
+
+    .list-group-item:hover {
+        color: black;
+    }
+
+    .accordion-item{
+        border: none;
+    }
+
+    .form-control, .form-select, .input-group-text{
+        background-color: darkgray;
+    }
+
+    .form-control::placeholder{
+        color: rgb(70, 70, 70);
+    }
+
+    .w-100 {
+        color: white;
+    }
+
+    .col-9 .w-100:hover {
+        color: #546348;
+    }
+
+    .col-9 .border:hover {
+        border: #546348 solid 1px !important;
+    }
+
+    .col-3 .w-100:hover {
+        color: red;
+    }
+
+    .col-3 .border:hover {
+        border: red solid 1px !important;
+    }
+
+    input:-internal-autofill-selected{
+        background-color: #0d6efd !important;
+    }
 }
 
 /* Apply theme variables */

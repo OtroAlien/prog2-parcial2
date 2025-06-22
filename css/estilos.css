@@ -40,6 +40,10 @@ h1{
     width: 100%;
     height: auto;
     display: block;
+    background-image: url(../img/banner/banner1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .navbar{
@@ -502,11 +506,24 @@ h2, .pExplore, .info p {
     height: 100vh;
 }
 
-.carousel-item img {
-    object-fit: cover;
-    object-position: center center;
+.img1{
+    background-image: url(../img/productos/productos-1.jpeg);
+}
+
+.img2{
+    background-image: url(../img/productos/productos-2.jpeg);
+}
+
+.img3{
+    background-image: url(../img/productos/productos-3.jpeg);
+}
+
+.img1, .img2, .img3 {
     height: 100%;
     width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .d-none {
