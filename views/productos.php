@@ -309,7 +309,7 @@ if ($filtro) {
                 const productoElement = item.querySelector('.single-product');
                 const categoria = productoElement.getAttribute('data-categoria') || '';
                 const descuento = productoElement.getAttribute('data-descuento') || '';
-                const piel = productoElement.getAttribute('data-piel') || '';
+                const piel = productoElement.getAttribute('') || '';
                 
                 // Verificar búsqueda por texto
                 const cumpleBusqueda = textoBusqueda === '' || 

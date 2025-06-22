@@ -395,9 +395,9 @@ class Producto
     }
 
     public function getPiel()
-    {
-        return $this->piel;
-    }
+{
+    return $this->piel ?? 'todoTipo';
+}
 
     public function getLanzamiento()
     {
