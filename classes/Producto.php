@@ -1,7 +1,7 @@
 <?php
 
 require_once "Conexion.php";
-require_once "Categoria.php"; // Asegúrate de incluir esta clase
+require_once "Categoria.php";
 
 class Producto
 {
@@ -15,24 +15,15 @@ class Producto
     private string $piel;
     private string $lanzamiento;
     private int $contenido;
-    private int $descuento;
+    private int $descuento_id;
+    private int $descuento_valor;
     private bool $waterproof;
     private bool $vegano;
     private bool $productoDestacado;
 
     private static $createValues = [
-        'product_id', 
-        'nombre', 
-        'descripcion', 
-        'precio', 
-        'imagen', 
-        'stock',
-        'lanzamiento', 
-        'contenido', 
-        'descuento',
-        'waterproof', 
-        'vegano',
-        'productoDestacado'
+        'product_id', 'nombre', 'descripcion', 'precio', 'imagen', 'stock',
+        'lanzamiento', 'contenido', 'descuento_id', 'waterproof', 'vegano', 'productoDestacado'
     ];
 
     public static function reasignarProductosACategoriaRespaldo(int $categoria_id, int $categoria_respaldo_id = 4): void
@@ -123,10 +114,10 @@ class Producto
         return $catalogo;
     }
 
-    public function insert($nombre, $descripcion, $precio, $imagen, $stock, $categoria_id, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado): int
+    public function insert($nombre, $descripcion, $precio, $imagen, $stock, $categoria_id, $lanzamiento, $contenido, $descuento_id, $waterproof, $vegano, $productoDestacado): int
     {
         $conexion = Conexion::getConexion();
-        $query = "INSERT INTO productos (nombre, descripcion, precio, imagen, stock, categoria_id, lanzamiento, contenido, descuento, waterproof, vegano, productoDestacado) VALUES (:nombre, :descripcion, :precio, :imagen, :stock, :categoria_id, :lanzamiento, :contenido, :descuento, :waterproof, :vegano, :productoDestacado)";
+        $query = "INSERT INTO productos (nombre, descripcion, precio, imagen, stock, categoria_id, lanzamiento, contenido, descuento_id, waterproof, vegano, productoDestacado) VALUES (:nombre, :descripcion, :precio, :imagen, :stock, :categoria_id, :lanzamiento, :contenido, :descuento_id, :waterproof, :vegano, :productoDestacado)";
     
         $PDOStatement = $conexion->prepare($query);
         
@@ -139,7 +130,7 @@ class Producto
             'categoria_id' => $categoria_id,
             'lanzamiento' => $lanzamiento,
             'contenido' => $contenido,
-            'descuento' => $descuento,
+            'descuento' => $descuento_id,
             'waterproof' => $waterproof,
             'vegano' => $vegano,
             'productoDestacado' => $productoDestacado
@@ -150,8 +141,10 @@ class Producto
         return $conexion->lastInsertId();
     }
     
-    public function edit($nombre, $descripcion, $precio, $imagen, $stock, $categoria_id, $lanzamiento, $contenido, $descuento, $waterproof, $vegano, $productoDestacado)
-    {
+    public function edit(
+        $nombre, $descripcion, $precio, $imagen, $stock, $categoria_id,
+        $lanzamiento, $contenido, $descuento_id, $waterproof, $vegano, $productoDestacado
+    ) {
         $conexion = Conexion::getConexion();
         $query = "UPDATE productos SET
             nombre = :nombre,
@@ -162,16 +155,15 @@ class Producto
             categoria_id = :categoria_id,
             lanzamiento = :lanzamiento,
             contenido = :contenido,
-            descuento = :descuento,
+            descuento_id = :descuento_id,
             waterproof = :waterproof,
             vegano = :vegano,
             productoDestacado = :productoDestacado
             WHERE product_id = :product_id";
     
         $PDOStatement = $conexion->prepare($query);
-        
+    
         if (!$PDOStatement->execute([
-            'product_id' => $this->product_id,
             'nombre' => $nombre,
             'descripcion' => $descripcion,
             'precio' => $precio,
@@ -180,15 +172,15 @@ class Producto
             'categoria_id' => $categoria_id,
             'lanzamiento' => $lanzamiento,
             'contenido' => $contenido,
-            'descuento' => $descuento,
+            'descuento_id' => $descuento_id,
             'waterproof' => $waterproof,
             'vegano' => $vegano,
-            'productoDestacado' => $productoDestacado
+            'productoDestacado' => $productoDestacado,
+            'product_id' => $this->product_id
         ])) {
             print_r($PDOStatement->errorInfo());
         }
     }
-    
 
     public function delete()
     {
@@ -223,7 +215,8 @@ class Producto
     public function catalogoPorDescuento(float $descuento): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id WHERE p.descuento = :descuento";
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre FROM productos p JOIN categorias c ON p.categoria_id = c.categoria_id WHERE p.descuento_id = :descuento";
+
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute(['descuento' => $descuento]);
@@ -330,14 +323,15 @@ class Producto
     public function catalogoCompleto(): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre 
-                  FROM productos p 
-                  JOIN categorias c ON p.categoria_id = c.categoria_id";
-    
+        $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre, d.valor as descuento_valor
+                  FROM productos p
+                  JOIN categorias c ON p.categoria_id = c.categoria_id
+                  LEFT JOIN descuentos d ON p.descuento_id = d.descuento_id";
+
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute();
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-    
+
         $productos = [];
         while ($productoData = $PDOStatement->fetch()) {
             $productoData['categoria'] = [
@@ -346,16 +340,17 @@ class Producto
             ];
             $productos[] = self::createProducto($productoData);
         }
-    
+
         return $productos;
     }
-    
+
 
 
     public function precioDescuento(): string
     {
-        $resultado = number_format(($this->precio - ($this->precio * $this->descuento /100)), 2, ".", ",");
-        return $resultado;
+        $valor = $this->descuento_valor ?? 0;
+        $resultado = $this->precio - ($this->precio * $valor / 100);
+        return number_format($resultado, 2, ".", ",");
     }
 
     public function precioFormateado(): string
@@ -409,10 +404,17 @@ class Producto
         return $this->product_id;
     }
 
-    public function getDescuento()
+    public function getDescuento(): string
     {
-        return $this->descuento;
+        $conexion = Conexion::getConexion();
+        $query = "SELECT valor FROM descuentos WHERE descuento_id = :id";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute(['id' => $this->descuento_id]);
+        $valor = $stmt->fetchColumn();
+        
+        return $valor !== false ? $valor : '0';
     }
+    
 
     public function getContenido()
     {
@@ -442,26 +444,48 @@ class Producto
     private static function createProducto(array $data): Producto
     {
         $producto = new self();
-        
+
         foreach (self::$createValues as $value) {
             if (isset($data[$value])) {
-                $producto->{$value} = $data[$value];
+                switch ($value) {
+                    case 'product_id':
+                    case 'stock':
+                    case 'contenido':
+                    case 'descuento_id':
+                        $producto->{$value} = (int)$data[$value];
+                        break;
+                    case 'precio':
+                        $producto->{$value} = (float)$data[$value];
+                        break;
+                    case 'waterproof':
+                    case 'vegano':
+                    case 'productoDestacado':
+                        $producto->{$value} = (bool)$data[$value];
+                        break;
+                    default:
+                        $producto->{$value} = $data[$value];
+                        break;
+                }
             }
         }
-        
+
+        if (isset($data['descuento_valor'])) {
+            $producto->descuento_valor = (int)$data['descuento_valor'];
+        }
+
         if (isset($data['categoria'])) {
             $categoria = new Categoria();
             $categoria->setId($data['categoria']['categoria_id']);
             $categoria->setNombre($data['categoria']['nombre']);
             $producto->categoria = $categoria;
-        } else if (isset($data['categoria_id'])) {
+        } elseif (isset($data['categoria_id'])) {
             $producto->categoria = self::categoriaPorId($data['categoria_id']);
         }
-        
+
         if (isset($data['piel'])) {
             $producto->piel = $data['piel'];
         }
-        
+
         return $producto;
     }
 
@@ -484,21 +508,25 @@ class Producto
     public static function obtenerTodosDescuentos(): array
     {
         $conexion = Conexion::getConexion();
-        $query = "SELECT DISTINCT descuento FROM productos ORDER BY descuento ASC";
+        $query = "SELECT descuento_id, valor FROM descuentos ORDER BY valor ASC";
         $stmt = $conexion->prepare($query);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        
+    
         $descuentos = [];
         while ($datos = $stmt->fetch()) {
             $descuento = new stdClass();
-            $descuento->valor = $datos['descuento'];
-            $descuento->nombre = $datos['descuento'] . '%';
+            $descuento->id = $datos['descuento_id'];
+            $descuento->valor = $datos['valor'];
+            $descuento->nombre = $datos['valor'] . '%';  // esto genera "15%", "30%", etc.
             $descuentos[] = $descuento;
         }
-        
+    
         return $descuentos;
     }
+    
+    
+    
     
     public static function obtenerTodosContenidos(): array
     {
@@ -519,5 +547,4 @@ class Producto
         return $contenidos;
     }
 }
-
 ?>

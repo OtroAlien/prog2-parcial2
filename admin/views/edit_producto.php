@@ -9,8 +9,9 @@ if (!$producto) {
     die("Producto no encontrado");
 }
 
-// Obtener todas las categorías para el dropdown
 $categorias = Categoria::obtenerTodas();
+$contenidos = Producto::obtenerTodosContenidos();
+$descuentos = Producto::obtenerTodosDescuentos();
 ?>
 
 <div class="container my-5">
@@ -74,9 +75,11 @@ $categorias = Categoria::obtenerTodas();
                         <label for="contenido" class="form-label">Contenido (ml)</label>
                         <select class="form-select" name="contenido" id="contenido" required>
                             <option value="" disabled>Elija una opción</option>
-                            <option value="15" <?= $producto->getContenido() == "15" ? "selected" : "" ?>>15 ml</option>
-                            <option value="30" <?= $producto->getContenido() == "30" ? "selected" : "" ?>>30 ml</option>
-                            <option value="60" <?= $producto->getContenido() == "60" ? "selected" : "" ?>>60 ml</option>
+                            <?php foreach ($contenidos as $contenido): ?>
+                                <option value="<?= $contenido->valor ?>" <?= $producto->getContenido() == $contenido->valor ? "selected" : "" ?>>
+                                    <?= htmlspecialchars($contenido->nombre) ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -84,10 +87,11 @@ $categorias = Categoria::obtenerTodas();
                         <label for="descuento" class="form-label">Descuento (%)</label>
                         <select class="form-select" name="descuento" id="descuento" required>
                             <option value="" disabled>Elija una opción</option>
-                            <option value="0" <?= $producto->getDescuento() == "0" ? "selected" : "" ?>>0%</option>
-                            <option value="15" <?= $producto->getDescuento() == "15" ? "selected" : "" ?>>15%</option>
-                            <option value="20" <?= $producto->getDescuento() == "20" ? "selected" : "" ?>>20%</option>
-                            <option value="40" <?= $producto->getDescuento() == "40" ? "selected" : "" ?>>40%</option>
+                            <?php foreach ($descuentos as $descuento): ?>
+                                <option value="<?= $descuento->id ?>" <?= $producto->getDescuento() == $descuento->id ? "selected" : "" ?>>
+                                    <?= htmlspecialchars($descuento->valor) ?>%
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 

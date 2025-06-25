@@ -12,7 +12,7 @@ $cantidadProductos = Categoria::contarProductosPorCategoria($id);
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-center mb-5 fw-bold">¿Está seguro que desea eliminar esta categoría?</h2>
+            <h2 class="text-center mb-5 fw-bold">¿Está seguro que desea eliminar este descuento?</h2>
             
             <?php if ($cantidadProductos > 0): ?>
                 <div class="alert alert-warning" role="alert">
@@ -26,7 +26,7 @@ $cantidadProductos = Categoria::contarProductosPorCategoria($id);
             
             <div class="row g-3">
                 <div class="col-12 col-md-6">
-                    <h3 class="fs-6">Nombre de la categoría:</h3>
+                    <h3 class="fs-6">Descuento:</h3>
                     <p><?= htmlspecialchars($categoria->getNombre()) ?></p>
                 </div>
                 <div class="col-12 col-md-6">
@@ -35,7 +35,7 @@ $cantidadProductos = Categoria::contarProductosPorCategoria($id);
                             <?php if ($cantidadProductos > 0): ?>
                                 Eliminar y Reasignar Productos
                             <?php else: ?>
-                                Eliminar Categoría
+                                Eliminar Desceunto
                             <?php endif; ?>
                         </a>
                         <a href="index.php?sec=admin_productos" role="button" class="btn btn-secondary btn-lg mt-3">

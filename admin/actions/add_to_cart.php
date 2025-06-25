@@ -1,30 +1,27 @@
 <?php
 require_once "../../functions/autoload.php";
 
-// Asegurarse de que la sesión está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
-    // Redirigir al login si no está logueado
+// Verificar que el usuario esté logueado correctamente
+if (!isset($_SESSION['loggedIn']) || !is_array($_SESSION['loggedIn'])) {
     header('Location: ../../index.php?sec=login');
     exit;
 }
 
-// Obtener los datos del formulario
+// Obtener datos del formulario
 $productoID = $_POST['producto_id'] ?? $_GET['producto_id'] ?? null;
 $cantidad = isset($_POST['cantidad']) ? (int)$_POST['cantidad'] : 1;
 
-// Validar que se recibió un ID de producto
 if (!$productoID || !is_numeric($productoID)) {
     (new Alerta())->add_alerta('danger', "No se especificó un producto válido para agregar al carrito.");
     header('Location: ../../index.php?sec=productos');
     exit;
 }
 
-// Agregar el producto al carrito
+// Agregar al carrito
 try {
     $carrito = new Carrito();
     $carrito->add_item((int)$productoID, $cantidad);
