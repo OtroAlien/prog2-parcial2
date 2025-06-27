@@ -596,5 +596,58 @@ return $producto;
         
         return $contenidos;
     }
+    
+    // Contar productos por descuento
+    public static function contarProductosPorDescuento(int $descuento_id): int
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT COUNT(*) FROM productos WHERE descuento_id = :descuento_id";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute(['descuento_id' => $descuento_id]);
+        return (int)$stmt->fetchColumn();
+    }
+    
+    // Obtener descuento por ID
+    public static function descuentoPorId(int $descuento_id): ?object
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT descuento_id, valor FROM descuentos WHERE descuento_id = :descuento_id";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute(['descuento_id' => $descuento_id]);
+        $datos = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($datos) {
+            $descuento = new stdClass();
+            $descuento->id = $datos['descuento_id'];
+            $descuento->valor = $datos['valor'];
+            $descuento->nombre = $datos['valor'] . '%';
+            return $descuento;
+        }
+        
+        return null;
+    }
+    
+    // Eliminar descuento con reasignación
+    public static function eliminarDescuentoConReasignacion(int $descuento_id): void
+    {
+        $conexion = Conexion::getConexion();
+        
+        try {
+            $conexion->beginTransaction();
+            
+            // Reasignar productos a descuento 0 (sin descuento)
+            $reasignar = $conexion->prepare("UPDATE productos SET descuento_id = 1 WHERE descuento_id = :descuento_id");
+            $reasignar->execute(['descuento_id' => $descuento_id]);
+            
+            // Eliminar el descuento
+            $eliminar = $conexion->prepare("DELETE FROM descuentos WHERE descuento_id = :descuento_id");
+            $eliminar->execute(['descuento_id' => $descuento_id]);
+            
+            $conexion->commit();
+        } catch (Exception $e) {
+            $conexion->rollBack();
+            throw $e;
+        }
+    }
 }
 ?>

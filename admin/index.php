@@ -24,6 +24,10 @@ $secciones_validas = [
         "titulo" => "Administrar Categorías",
         "restringido" => TRUE
     ],
+    "admin_descuentos" => [
+        "titulo" => "Administrar Descuentos",
+        "restringido" => TRUE
+    ],
     "add_producto" => [
         "titulo" => "Agregar producto",
         "restringido" => TRUE
@@ -46,6 +50,10 @@ $secciones_validas = [
     ],
     "delete_category" => [
         "titulo" => "Eliminar categorías",
+        "restringido" => TRUE
+    ],
+    "delete_discount" => [
+        "titulo" => "Eliminar descuentos",
         "restringido" => TRUE
     ],
     "edit_orden" => [
