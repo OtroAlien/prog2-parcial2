@@ -1,4 +1,7 @@
 <?php
+require_once '../../functions/autoload.php';
+
+
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$id) {
     die("ID inválido");
@@ -12,6 +15,10 @@ if (!$producto) {
 $categorias = Categoria::obtenerTodas();
 $contenidos = Producto::obtenerTodosContenidos();
 $descuentos = Producto::obtenerTodosDescuentos();
+
+// Subcategorías
+$subcategorias = Subcategoria::obtenerTodas(); // Clase que deberías tener
+$subcategoriasSeleccionadas = $producto->getSubcategorias(); // Array de strings
 ?>
 
 <div class="container my-5">
@@ -44,6 +51,31 @@ $descuentos = Producto::obtenerTodosDescuentos();
                             <?php endforeach; ?>
                         </select>
                     </div>
+
+                    <div class="col-md-12 mt-3">
+    <label class="form-label">Subcategorías</label>
+    <div class="d-flex flex-wrap gap-3">
+        <?php foreach ($subcategorias as $sub): ?>
+            <?php
+            // Extraer los IDs de las subcategorías seleccionadas para comparar
+            $idsSeleccionadas = array_map(fn($s) => $s->getId(), $subcategoriasSeleccionadas);
+            ?>
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       id="subcat_<?= $sub->getId() ?>"
+                       name="subcategorias[]"
+                       value="<?= $sub->getId() ?>"
+                       <?= in_array($sub->getId(), $idsSeleccionadas) ? 'checked' : '' ?>>
+                <label class="form-check-label" for="subcat_<?= $sub->getId() ?>">
+                    <?= htmlspecialchars($sub->getNombre()) ?>
+                </label>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+
 
                     <div class="col-md-12 mt-3">
                         <label for="descripcion" class="form-label">Descripción</label>

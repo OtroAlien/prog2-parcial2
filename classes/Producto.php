@@ -81,6 +81,24 @@ class Producto
         return null;
     }
 
+    public function actualizarSubcategorias(array $subcategoria_ids): void
+{
+    $conexion = Conexion::getConexion();
+
+    // Eliminar subcategorías anteriores
+    $stmt = $conexion->prepare("DELETE FROM productos_subcategorias WHERE producto_id = :producto_id");
+    $stmt->execute(['producto_id' => $this->getId()]);
+
+    // Insertar nuevas subcategorías
+    $stmt = $conexion->prepare("INSERT INTO productos_subcategorias (producto_id, subcategoria_id) VALUES (:producto_id, :subcategoria_id)");
+    foreach ($subcategoria_ids as $subcategoria_id) {
+        $stmt->execute([
+            'producto_id' => $this->getId(),
+            'subcategoria_id' => $subcategoria_id
+        ]);
+    }
+}
+
 
     public function productos_x_rango(int $minimo = 0, int $maximo = 0): array
     {
@@ -290,7 +308,11 @@ class Producto
                 'categoria_id' => $productoData['categoria_id'],
                 'nombre' => $productoData['categoria_nombre']
             ];
-            return self::createProducto($productoData);
+            $producto = self::createProducto($productoData);
+
+$subcategorias = self::obtenerSubcategoriasPorProducto($producto->getId());
+$producto->setSubcategorias($subcategorias);
+return $producto;
         } else {
             return null;
         }
@@ -327,22 +349,30 @@ class Producto
                   FROM productos p
                   JOIN categorias c ON p.categoria_id = c.categoria_id
                   LEFT JOIN descuentos d ON p.descuento_id = d.descuento_id";
-
+    
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute();
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
-
+    
         $productos = [];
         while ($productoData = $PDOStatement->fetch()) {
             $productoData['categoria'] = [
                 'categoria_id' => $productoData['categoria_id'],
                 'nombre' => $productoData['categoria_nombre']
             ];
-            $productos[] = self::createProducto($productoData);
+    
+            $producto = self::createProducto($productoData);
+    
+            // Subcategorías
+            $subcategorias = self::obtenerSubcategoriasPorProducto($producto->getId());
+            $producto->setSubcategorias($subcategorias);
+    
+            $productos[] = $producto;
         }
-
+    
         return $productos;
     }
+    
 
 
 
@@ -526,7 +556,27 @@ class Producto
     }
     
     
+    public static function obtenerSubcategoriasPorProducto(int $producto_id): array
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT s.subcategoria_id, s.name 
+                  FROM productos_subcategorias ps
+                  JOIN subcategorias s ON ps.subcategoria_id = s.subcategoria_id
+                  WHERE ps.producto_id = :producto_id";
     
+        $stmt = $conexion->prepare($query);
+        $stmt->execute(['producto_id' => $producto_id]);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    
+        $subcategorias = [];
+        while ($row = $stmt->fetch()) {
+            $subcategorias[] = new Subcategoria($row['subcategoria_id'], $row['name']);
+        }
+    
+        return $subcategorias;
+    }
+    
+
     
     public static function obtenerTodosContenidos(): array
     {

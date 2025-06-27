@@ -1,5 +1,5 @@
 <?php
-require_once "../../functions/autoload.php";
+require_once __DIR__ . '/../../functions/autoload.php';
 
 $postData = $_POST;
 $fileData = $_FILES['imagen'] ?? FALSE;
@@ -50,6 +50,12 @@ try {
         $postData['vegano'],
         isset($postData['productoDestacado']) ? $postData['productoDestacado'] : 0
     );
+    // ✅ Guardar subcategorías seleccionadas
+    if (!empty($postData['subcategorias']) && is_array($postData['subcategorias'])) {
+        $producto->actualizarSubcategorias($postData['subcategorias']);
+    }
+    
+    
 
     header('Location: ../index.php?sec=admin_productos&status=success');
     exit;

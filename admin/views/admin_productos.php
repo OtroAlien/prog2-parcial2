@@ -159,6 +159,7 @@ if ($producto_id) {
                             <th scope="col" class="sortable" data-column="precio">Precio <span class="sort-icon"></span></th>
                             <th scope="col" class="sortable" data-column="stock">Stock <span class="sort-icon"></span></th>
                             <th scope="col" class="sortable" data-column="categoria">Categoría <span class="sort-icon"></span></th>
+                            <th scope="col">Subcategorías</th>
                             <th scope="col" class="sortable" data-column="descuento">Descuento <span class="sort-icon"></span></th>
                             <th scope="col" class="sortable" data-column="waterproof">Waterproof <span class="sort-icon"></span></th>
                             <th scope="col">Acciones</th>
@@ -177,6 +178,15 @@ if ($producto_id) {
                                 <td>$<?= htmlspecialchars($P->getPrecio()) ?></td>
                                 <td><?= htmlspecialchars($P->getStock()) ?></td>
                                 <td><?= htmlspecialchars($P->getCategoria()) ?></td>
+                                <td>
+    <?php
+    $subs = array_map(function($sub) {
+        return htmlspecialchars($sub->getNombre());
+    }, $P->getSubcategorias());
+    echo implode(', ', $subs);
+    ?>
+</td>
+
                                 <td><?= htmlspecialchars($P->getDescuento()) ?>%</td>
                                 <td><?= $P->getWaterproof() ? 'Sí' : 'No' ?></td>
                                 <td>
