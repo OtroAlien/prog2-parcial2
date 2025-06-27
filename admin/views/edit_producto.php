@@ -1,5 +1,6 @@
 <?php
-require_once '../../functions/autoload.php';
+require_once(__DIR__ . '/../../functions/autoload.php');
+
 
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
