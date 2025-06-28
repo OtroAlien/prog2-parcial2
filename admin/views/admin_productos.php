@@ -1,11 +1,13 @@
 <?php
 require_once "../classes/Producto.php";
 require_once "../classes/Categoria.php";
+require_once "../classes/Subcategoria.php";
 
 $productos = (new Producto())->catalogoCompleto();
 $categorias = Categoria::obtenerTodas();
 $descuentos = Producto::obtenerTodosDescuentos();
 $contenidos = Producto::obtenerTodosContenidos();
+$subcategorias = Subcategoria::obtenerTodas();
 
 if (!$productos) {
     echo "<p>No se encontraron productos.</p>";
@@ -120,6 +122,40 @@ if ($producto_id) {
                                         </svg>
                                     </a>
                                     <a href="actions/delete_contenido.php?valor=<?= htmlspecialchars($contenido->valor) ?>" class="text-danger" title="Eliminar contenido">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>   
+                </div>
+                <div class="card-body">
+                    
+                    <hr class="my-4">
+                    <h6 class="mb-3">Agregar Nueva Subcategoría</h6>
+                    <form action="actions/add_subcategoria.php" method="POST" class="mb-3">
+                        <div class="input-group input-group-sm mb-2">
+                            <input type="text" class="form-control" placeholder="Nombre de subcategoría" name="nombre" required>
+                            <button class="btn btn-outline-success" type="submit">Agregar</button>
+                        </div>
+                    </form>
+
+                    <!-- Lista de subcategorías existentes -->
+                    <h6 class="mb-2">Subcategorías Existentes</h6>
+                    <ul class="list-group list-group-flush small">
+                        <?php foreach ($subcategorias as $subcategoria): ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <?= htmlspecialchars($subcategoria->getNombre()) ?>
+                                <span class="badge bg-secondary rounded-pill"><?= Subcategoria::contarProductosPorSubcategoria($subcategoria->getId()) ?> productos</span>
+                                <div class="btn-group" role="group" aria-label="Acciones">
+                                    <a href="#" class="text-primary edit-subcategoria" data-bs-toggle="modal" data-bs-target="#editSubcategoriaModal" data-id="<?= htmlspecialchars($subcategoria->getId()) ?>" data-nombre="<?= htmlspecialchars($subcategoria->getNombre()) ?>" title="Editar subcategoría">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-pencil" viewBox="0 0 16 16">
+                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                        </svg>
+                                    </a>
+                                    <a href="actions/delete_subcategoria.php?id=<?= htmlspecialchars($subcategoria->getId()) ?>" class="text-danger" title="Eliminar subcategoría" onclick="return confirm('¿Estás seguro de que quieres eliminar esta subcategoría?')">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                         </svg>
@@ -286,6 +322,30 @@ if ($producto_id) {
     </div>
 </div>
 
+<!-- Modal para editar subcategoría -->
+<div class="modal fade" id="editSubcategoriaModal" tabindex="-1" aria-labelledby="editSubcategoriaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSubcategoriaModalLabel">Editar Subcategoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editSubcategoriaForm" action="actions/update_subcategoria.php" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="subcategoriaName" class="form-label">Nombre de la Subcategoría</label>
+                        <input type="text" class="form-control" id="subcategoriaName" name="nombre" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     // Script para manejar la edición de descuentos, contenidos y categorías
     document.addEventListener('DOMContentLoaded', function() {
@@ -320,6 +380,18 @@ if ($producto_id) {
                 const nombre = this.getAttribute('data-nombre');
                 document.getElementById('categoryName').value = nombre;
                 document.getElementById('editCategoryForm').action = `actions/update_category.php?id=${id}`;
+            });
+        });
+        
+        // Manejar click en editar subcategoría
+        const editSubcategoriaLinks = document.querySelectorAll('.edit-subcategoria');
+        editSubcategoriaLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const id = this.getAttribute('data-id');
+                const nombre = this.getAttribute('data-nombre');
+                document.getElementById('subcategoriaName').value = nombre;
+                document.getElementById('editSubcategoriaForm').action = `actions/update_subcategoria.php?id=${id}`;
             });
         });
 
