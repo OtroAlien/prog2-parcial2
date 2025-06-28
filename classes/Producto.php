@@ -627,6 +627,45 @@ return $producto;
         return null;
     }
     
+
+    public static function contarProductosPorSubcategoria(int $subcategoria_id): int {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT COUNT(*) as total FROM producto_subcategoria WHERE subcategoria_id = :id";
+        $stmt = $conexion->prepare($query);
+        $stmt->execute([':id' => $subcategoria_id]);
+    
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado ? (int)$resultado['total'] : 0;
+    }
+    
+    public static function obtenerTodasSubcategorias() {
+        $conexion = Conexion::getConexion();
+        $sql = "SELECT * FROM subcategorias ORDER BY name ASC"; // O el campo que uses para el nombre
+        $stmt = $conexion->prepare($sql);
+        $stmt->execute();
+    
+        $resultados = [];
+        while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $resultados[] = new Subcategoria($fila['subcategoria_id'], $fila['name']);
+        }
+        return $resultados;
+    }
+    
+    public static function subcategoriaPorId($id) {
+        $conexion = Conexion::getConexion();
+        $sql = "SELECT * FROM subcategorias WHERE subcategoria_id = :id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($fila) {
+            return new Subcategoria($fila['subcategoria_id'], $fila['name']);
+        }
+        return null;
+    }
+    
+    
     // Eliminar descuento con reasignación
     public static function eliminarDescuentoConReasignacion(int $descuento_id): void
     {

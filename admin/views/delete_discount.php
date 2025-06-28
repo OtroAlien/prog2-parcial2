@@ -35,7 +35,7 @@ $cantidadProductos = Producto::contarProductosPorDescuento($id);
                             <?php if ($cantidadProductos > 0): ?>
                                 Eliminar y Reasignar Productos
                             <?php else: ?>
-                                Eliminar Descuento
+                                Eliminar Desceunto
                             <?php endif; ?>
                         </a>
                         <a href="index.php?sec=admin_descuentos" role="button" class="btn btn-secondary btn-lg mt-3">

@@ -120,7 +120,7 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
     </main>
     <section>
     <?php
-    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'admin_categorias', 'add_producto', 'edit_producto', 'delete_producto', 'duplicate_producto', 'delete_category', 'admin_ordenes', 'edit_orden', 'delete_orden', 'admin_subcategorias'])) {
+    if (in_array($vista, ['login', 'dashboard', 'admin_productos', 'admin_usuarios', 'admin_categorias', 'add_producto', 'edit_producto', 'delete_producto', 'duplicate_producto', 'delete_category', 'admin_ordenes', 'edit_orden', 'delete_orden', 'admin_subcategorias', 'admin_descuentos', 'delete_discount'])) {
         include_once "views/$vista.php";
     } else {
         include_once "../views/$vista.php";

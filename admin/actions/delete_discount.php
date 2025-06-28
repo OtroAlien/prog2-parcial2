@@ -3,18 +3,35 @@ require_once "../../functions/autoload.php";
 
 $id = $_GET['id'] ?? false;
 
+if (!$id) {
+    header("Location: ../admin/index.php?sec=admin_descuentos&error=Id inválido");
+    exit;
+}
+
 try {
-    if (!$id) {
-        throw new Exception("ID de descuento no proporcionado.");
-    }
+    $conexion = Conexion::getConexion();
+    $conexion->beginTransaction();
 
-    // Usar el método de la clase Producto para eliminar con reasignación
-    Producto::eliminarDescuentoConReasignacion($id);
+    // 1. Quitar el descuento de los productos que lo tienen asignado
+    $sqlActualizarProductos = "UPDATE productos SET descuento = NULL WHERE descuento = :id";
+    $stmtActualizar = $conexion->prepare($sqlActualizarProductos);
+    $stmtActualizar->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmtActualizar->execute();
 
-    // Redirigir con éxito
-    header('Location: ../index.php?sec=admin_descuentos');
+    // 2. Eliminar el descuento
+    $sqlEliminarDescuento = "DELETE FROM descuentos WHERE descuento_id = :id";
+    $stmtEliminar = $conexion->prepare($sqlEliminarDescuento);
+    $stmtEliminar->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmtEliminar->execute();
+
+    $conexion->commit();
+
+    header("Location: ../admin/index.php?sec=admin_descuentos&msg=Descuento eliminado correctamente");
+    exit;
 } catch (Exception $e) {
-    // Si querés implementar alertas tipo flash, podrías usar tu clase Alerta aquí
-    // (new Alerta())->add_alerta('danger', "Error al eliminar el descuento.");
-    header('Location: ../index.php?sec=admin_descuentos');
+    if ($conexion->inTransaction()) {
+        $conexion->rollBack();
+    }
+    header("Location: ../admin/index.php?sec=admin_descuentos&error=Error al eliminar el descuento: " . urlencode($e->getMessage()));
+    exit;
 }
