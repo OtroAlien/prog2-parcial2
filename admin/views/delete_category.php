@@ -1,11 +1,8 @@
 <?php
-// This file is already included by admin/index.php
-// require_once "../../functions/autoload.php";
 
 $id = $_GET['id'] ?? false;
-$categoria = (new Categoria())->categoriaPorId($id); // Suponiendo que tenés este método
+$categoria = (new Categoria())->categoriaPorId($id); 
 
-// Verificar si la categoría tiene productos asociados
 $cantidadProductos = Categoria::contarProductosPorCategoria($id);
 ?>
 

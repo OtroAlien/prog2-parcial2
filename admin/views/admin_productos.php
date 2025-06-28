@@ -65,13 +65,13 @@ if ($producto_id) {
                         <?php endforeach; ?>
                     </ul>
                 </div>
-                <div class="card-body">
+                <!-- <div class="card-body">
                     
                     <hr class="my-4">
                     <h6 class="mb-3">Descuentos</h6>
                     <p class="text-muted small">Los descuentos se gestionan automáticamente desde los productos. No es necesario agregarlos manualmente.</p>
 
-                    <!-- Lista de descuentos existentes -->
+                    
                     <h6 class="mb-3">Agregar Nuevo Descuento</h6>
                     <form action="actions/add_discount.php" method="POST" class="mb-3">
                         <div class="input-group input-group-sm mb-2">
@@ -101,14 +101,14 @@ if ($producto_id) {
                             </li>
                         <?php endforeach; ?>
                     </ul>   
-                </div>
-                <div class="card-body">
+                </div> -->
+                <!-- <div class="card-body">
                     
                     <hr class="my-4">
                     <h6 class="mb-3">Contenidos</h6>
                     <p class="text-muted small">Los contenidos se gestionan automáticamente desde los productos. No es necesario agregarlos manualmente.</p>
 
-                    <!-- Lista de contenidos existentes -->
+                    
                     <h6 class="mb-2">Contenidos Existentes</h6>
                     <ul class="list-group list-group-flush small">
                         <?php $contenidos = Producto::obtenerTodosContenidos(); ?>
@@ -130,7 +130,7 @@ if ($producto_id) {
                             </li>
                         <?php endforeach; ?>
                     </ul>   
-                </div>
+                </div> -->
                 <div class="card-body">
                     
                     <hr class="my-4">
@@ -155,7 +155,7 @@ if ($producto_id) {
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                         </svg>
                                     </a>
-                                    <a href="actions/delete_subcategoria.php?id=<?= htmlspecialchars($subcategoria->getId()) ?>" class="text-danger" title="Eliminar subcategoría" onclick="return confirm('¿Estás seguro de que quieres eliminar esta subcategoría?')">
+                                    <a href="actions/admin_subcategorias.php?id=<?= htmlspecialchars($subcategoria->getId()) ?>" class="text-danger" title="Eliminar subcategoría">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                         </svg>

@@ -91,31 +91,31 @@ class Subcategoria {
     // Eliminar subcategoría
     public function eliminar() {
         $conexion = Conexion::getConexion();
-        
+    
         try {
-            // Verificar si hay productos asociados a esta subcategoría
-            $contarProductos = self::contarProductosPorSubcategoria($this->id);
-            
-            if ($contarProductos > 0) {
-                throw new Exception("No se puede eliminar la subcategoría '{$this->nombre}' porque tiene {$contarProductos} producto(s) asociado(s). Primero debe reasignar o eliminar los productos.");
-            }
-            
             $conexion->beginTransaction();
-            
-            // Eliminar la subcategoría (no hay productos asociados)
-            $eliminarSubcategoria = $conexion->prepare("DELETE FROM subcategorias WHERE subcategoria_id = :id");
-            $eliminarSubcategoria->bindParam(':id', $this->id, PDO::PARAM_INT);
-            $eliminarSubcategoria->execute();
-            
+    
+            // Eliminar todas las relaciones en la tabla intermedia
+            $stmtRelaciones = $conexion->prepare("DELETE FROM productos_subcategorias WHERE subcategoria_id = :id");
+            $stmtRelaciones->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $stmtRelaciones->execute();
+    
+            // Ahora sí eliminar la subcategoría
+            $stmtEliminar = $conexion->prepare("DELETE FROM subcategorias WHERE subcategoria_id = :id");
+            $stmtEliminar->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $stmtEliminar->execute();
+    
             $conexion->commit();
             return true;
+    
         } catch (Exception $e) {
             if ($conexion->inTransaction()) {
                 $conexion->rollBack();
             }
-            throw $e;
+            throw new Exception("Error al eliminar la subcategoría: " . $e->getMessage());
         }
     }
+    
     
     // Contar productos por subcategoría
     public static function contarProductosPorSubcategoria(int $subcategoria_id): int {

@@ -608,24 +608,25 @@ return $producto;
     }
     
     // Obtener descuento por ID
-    public static function descuentoPorId(int $descuento_id): ?object
-    {
+    public static function descuentoPorId($id) {
         $conexion = Conexion::getConexion();
-        $query = "SELECT descuento_id, valor FROM descuentos WHERE descuento_id = :descuento_id";
-        $stmt = $conexion->prepare($query);
-        $stmt->execute(['descuento_id' => $descuento_id]);
-        $datos = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        if ($datos) {
-            $descuento = new stdClass();
-            $descuento->id = $datos['descuento_id'];
-            $descuento->valor = $datos['valor'];
-            $descuento->nombre = $datos['valor'] . '%';
-            return $descuento;
+        $sql = "SELECT * FROM descuentos WHERE descuento_id = :id";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($fila) {
+            // Retornar un objeto "Descuento" o al menos un objeto con propiedades:
+            return (object)[
+                'id' => $fila['descuento_id'],
+                'nombre' => $fila['nombre'],  // Cambia 'nombre' si tu campo se llama distinto
+                'valor' => $fila['valor'],    // si quieres otras propiedades
+            ];
         }
-        
         return null;
     }
+    
     
 
     public static function contarProductosPorSubcategoria(int $subcategoria_id): int {

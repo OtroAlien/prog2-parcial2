@@ -1,11 +1,6 @@
 <?php
-// This file is already included by admin/index.php
-// require_once "../../functions/autoload.php";
-
 $id = $_GET['id'] ?? false;
-$subcategoria = Subcategoria::subcategoriaPorId($id);
-
-// Verificar si la subcategoría tiene productos asociados
+$subcategoria = (new Subcategoria())->subcategoriaPorId($id);
 $cantidadProductos = Subcategoria::contarProductosPorSubcategoria($id);
 ?>
 
@@ -17,10 +12,10 @@ $cantidadProductos = Subcategoria::contarProductosPorSubcategoria($id);
             <?php if ($cantidadProductos > 0): ?>
                 <div class="alert alert-warning" role="alert">
                     <h4 class="alert-heading">¡Advertencia!</h4>
-                    <p>Esta subcategoría tiene <strong><?= $cantidadProductos ?> producto<?= $cantidadProductos > 1 ? 's' : '' ?></strong> asociado<?= $cantidadProductos > 1 ? 's' : '' ?>.</p>
-                    <p>Si elimina esta subcategoría, se eliminarán todas las relaciones con los productos asociados.</p>
+                    <p>Esta subcategoría está asociada a <strong><?= $cantidadProductos ?> producto<?= $cantidadProductos > 1 ? 's' : '' ?></strong>.</p>
+                    <p>Si la elimina, se eliminarán también las asociaciones en la base de datos, pero los productos no se eliminarán.</p>
                     <hr>
-                    <p class="mb-0">¿Está seguro que desea continuar?</p>
+                    <p class="mb-0">¿Desea continuar con la eliminación?</p>
                 </div>
             <?php endif; ?>
             
@@ -33,12 +28,12 @@ $cantidadProductos = Subcategoria::contarProductosPorSubcategoria($id);
                     <div class="d-grid gap-2">
                         <a href="actions/delete_subcategoria.php?id=<?= $subcategoria->getId() ?>" role="button" class="btn btn-danger btn-lg">
                             <?php if ($cantidadProductos > 0): ?>
-                                Eliminar y Quitar Relaciones
+                                Eliminar y Desvincular
                             <?php else: ?>
                                 Eliminar Subcategoría
                             <?php endif; ?>
                         </a>
-                        <a href="index.php?sec=admin_subcategorias" role="button" class="btn btn-secondary btn-lg mt-3">
+                        <a href="index.php?sec=admin_productos" role="button" class="btn btn-secondary btn-lg mt-3">
                             Cancelar
                         </a>
                     </div>
