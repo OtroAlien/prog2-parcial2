@@ -148,7 +148,7 @@ class Producto
             'categoria_id' => $categoria_id,
             'lanzamiento' => $lanzamiento,
             'contenido' => $contenido,
-            'descuento' => $descuento_id,
+            'descuento_id' => $descuento_id,
             'waterproof' => $waterproof,
             'vegano' => $vegano,
             'productoDestacado' => $productoDestacado
@@ -346,9 +346,10 @@ return $producto;
     {
         $conexion = Conexion::getConexion();
         $query = "SELECT p.*, c.categoria_id, c.nombre as categoria_nombre, d.valor as descuento_valor
-                  FROM productos p
-                  JOIN categorias c ON p.categoria_id = c.categoria_id
-                  LEFT JOIN descuentos d ON p.descuento_id = d.descuento_id";
+          FROM productos p
+          JOIN categorias c ON p.categoria_id = c.categoria_id
+          LEFT JOIN descuentos d ON p.descuento_id = d.descuento_id";
+
     
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute();
@@ -631,7 +632,7 @@ return $producto;
 
     public static function contarProductosPorSubcategoria(int $subcategoria_id): int {
         $conexion = Conexion::getConexion();
-        $query = "SELECT COUNT(*) as total FROM producto_subcategoria WHERE subcategoria_id = :id";
+        $query = "SELECT COUNT(*) as total FROM producto_subcategorias WHERE subcategoria_id = :id";
         $stmt = $conexion->prepare($query);
         $stmt->execute([':id' => $subcategoria_id]);
     

@@ -166,16 +166,20 @@ if ($filtro) {
                 </div>
             </div>
 
-            <!-- Filtros rápidos -->
             <div id="filtrosAdicionales" class="mb-4" style="display: none;">
-                <!-- Los filtros se cargarán dinámicamente según la selección -->
+
             </div>
             <div class="container">
                 <div class="row" id="productosContainer">
                 <?php if (!empty($productos)) {
             foreach ($productos as $producto) { ?>
+<?php 
+        $dataPiel = implode(',', array_map(fn($subcat) => $subcat->getNombre(), $producto->getSubcategorias()));
+
+    ?>
+
             <div class="col-md-6 col-lg-4 col-xl-4 col-sm-12">
-                <div id="product-1" class="single-product" data-categoria="<?= $producto->getCategoria() ?>" data-descuento="<?= $producto->getDescuento() ?>" data-piel="<?= htmlspecialchars(implode(',', $producto->getSubcategorias()), ENT_QUOTES, 'UTF-8') ?>"                "                >
+                <div id="product-1" class="single-product" data-categoria="<?= $producto->getCategoria() ?>" data-descuento="<?= $producto->getDescuento() ?>" data-piel="<?= htmlspecialchars(implode(',', $producto->getSubcategorias()), ENT_QUOTES, 'UTF-8') ?>">
                     <div class="part-1">
                         <?php if ($producto->getDescuento() > 0) { ?>
                             <div class="descuento-cartelito">Descuento: <?= $producto->getDescuento() ?>%</div>
