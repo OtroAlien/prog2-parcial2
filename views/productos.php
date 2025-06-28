@@ -178,7 +178,7 @@ if ($filtro) {
     ?>
 
             <div class="col-md-6 col-lg-4 col-xl-4 col-sm-12">
-                <div id="product-1" class="single-product" data-categoria="<?= $producto->getCategoria() ?>" data-descuento="<?= $producto->getDescuento() ?>" data-piel="<?= htmlspecialchars(implode(',', $producto->getSubcategorias()), ENT_QUOTES, 'UTF-8') ?>">
+                <div id="product-1" class="single-product" data-categoria="<?= $producto->getCategoria() ?>" data-descuento="<?= $producto->getDescuento() ?>" data-piel="<?= htmlspecialchars($dataPiel, ENT_QUOTES, 'UTF-8') ?>">
                     <div class="part-1">
                         <?php if ($producto->getDescuento() > 0) { ?>
                             <div class="descuento-cartelito">Descuento: <?= $producto->getDescuento() ?>%</div>
@@ -312,7 +312,7 @@ if ($filtro) {
                 const productoElement = item.querySelector('.single-product');
                 const categoria = productoElement.getAttribute('data-categoria') || '';
                 const descuento = productoElement.getAttribute('data-descuento') || '';
-                const piel = productoElement.getAttribute('') || '';
+                const piel = productoElement.getAttribute('data-piel') || '';
                 
                 // Verificar búsqueda por texto
                 const cumpleBusqueda = textoBusqueda === '' || 
