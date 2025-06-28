@@ -148,7 +148,6 @@ if ($filtro) {
             </div>
             <div class="col-md-9">
 
-            <!-- Buscador de productos -->
             <div class="mb-4">
                 <div class="input-group">
                     <span class="input-group-text">
