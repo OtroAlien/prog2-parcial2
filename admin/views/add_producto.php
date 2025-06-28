@@ -1,6 +1,9 @@
 <?php
+require_once __DIR__ . "/../../functions/autoload.php";
 
 $producto = (new Producto())->catalogoCompleto();
+$categorias = Categoria::obtenerTodas();
+$descuentos = Producto::obtenerTodosDescuentos(); // Ya lo venías usando
 
 ?>
 
@@ -38,15 +41,13 @@ $producto = (new Producto())->catalogoCompleto();
                             <input type="number" class="form-control" id="stock" name="stock" required>
                         </div>
 
-                        <div class="col-md-4 mb-3">
-                            <label for="categoria" class="form-label">Categoría</label>
-                            <select class="form-select" id="categoria" name="categoria" required>
-                                <option value="" selected disabled>Elija una opción</option>
-                                <option value="1">Skincare</option>
-                                <option value="2">Maquillaje</option>
-                                <option value="3">Cabello</option>
-                            </select>
-                        </div>
+                        <select class="form-select" id="categoria" name="categoria" required>
+    <option value="" selected disabled>Elija una opción</option>
+    <?php foreach($categorias as $categoria): ?>
+        <option value="<?= $categoria->getId() ?>"><?= $categoria->getNombre() ?></option>
+    <?php endforeach; ?>
+</select>
+
 
                         <div class="col-md-4 mb-3">
                             <label for="lanzamiento" class="form-label">Fecha de Lanzamiento</label>
@@ -62,17 +63,12 @@ $producto = (new Producto())->catalogoCompleto();
                                 <option value="60">60 ml</option>
                             </select>
                         </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label for="descuento" class="form-label">Descuento (%)</label>
-                            <select class="form-select" id="descuento" name="descuento" required>
-                                <option value="" selected disabled>Elija una opción</option>
-                                <option value="0">0%</option>
-                                <option value="15">15%</option>
-                                <option value="20">20%</option>
-                                <option value="40">40%</option>
-                            </select>
-                        </div>
+                        <select class="form-select" id="descuento" name="descuento" required>
+    <option value="" selected disabled>Elija una opción</option>
+    <?php foreach($descuentos as $descuento): ?>
+        <option value="<?= $descuento->id ?>"><?= $descuento->valor ?>%</option>
+    <?php endforeach; ?>
+</select>
 
                         <div class="col-md-6 mb-3">
                             <label for="imagen" class="form-label">Imagen del Producto</label>
