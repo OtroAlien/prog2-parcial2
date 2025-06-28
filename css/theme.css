@@ -140,6 +140,10 @@
     .container-admprofile {
         background-color: rgba(25, 25, 25, 0.5);
     }
+
+    .table-striped>tbody>tr:nth-of-type(odd)>* {
+        color: #dee2e6;
+    }
 }
 
 /* Apply theme variables */

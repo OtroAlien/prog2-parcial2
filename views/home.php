@@ -73,7 +73,7 @@ $productosDestacados = $miProducto->catalogoDestacado(true);
         <section class="sectionProducts">
             <div class="ofertas">
                 <div class="container-home">
-                    <h2>Nustros productos destacados de la semana</h2>
+                    <h2>Nuestros productos destacados de la semana</h2>
                     <div class="row">
 
                 <?php if (!empty($productosDestacados)) {
