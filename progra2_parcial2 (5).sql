@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-07-2025 a las 02:41:20
+-- Tiempo de generación: 02-07-2025 a las 03:28:42
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -64,7 +64,8 @@ INSERT INTO `descuentos` (`descuento_id`, `nombre`, `valor`) VALUES
 (3, '', 15),
 (5, '', 40),
 (8, '', 20),
-(14, '', 1);
+(14, '', 1),
+(15, 'Sin descuento', 0);
 
 -- --------------------------------------------------------
 
@@ -406,7 +407,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `descuentos`
 --
 ALTER TABLE `descuentos`
-  MODIFY `descuento_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `descuento_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `ordenes`
@@ -424,7 +425,7 @@ ALTER TABLE `ordenes_productos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT de la tabla `subcategorias`

@@ -1,5 +1,4 @@
 <?php
-
 $id = $_GET['id'] ?? false;
 $categoria = (new Categoria())->categoriaPorId($id); 
 

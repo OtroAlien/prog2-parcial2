@@ -82,22 +82,22 @@ class Producto
     }
 
     public function actualizarSubcategorias(array $subcategoria_ids): void
-{
-    $conexion = Conexion::getConexion();
+    {
+        $conexion = Conexion::getConexion();
 
-    // Eliminar subcategorías anteriores
-    $stmt = $conexion->prepare("DELETE FROM productos_subcategorias WHERE producto_id = :producto_id");
-    $stmt->execute(['producto_id' => $this->getId()]);
+        // Eliminar subcategorías anteriores
+        $stmt = $conexion->prepare("DELETE FROM productos_subcategorias WHERE producto_id = :producto_id");
+        $stmt->execute(['producto_id' => $this->getId()]);
 
-    // Insertar nuevas subcategorías
-    $stmt = $conexion->prepare("INSERT INTO productos_subcategorias (producto_id, subcategoria_id) VALUES (:producto_id, :subcategoria_id)");
-    foreach ($subcategoria_ids as $subcategoria_id) {
-        $stmt->execute([
-            'producto_id' => $this->getId(),
-            'subcategoria_id' => $subcategoria_id
-        ]);
+        // Insertar nuevas subcategorías
+        $stmt = $conexion->prepare("INSERT INTO productos_subcategorias (producto_id, subcategoria_id) VALUES (:producto_id, :subcategoria_id)");
+        foreach ($subcategoria_ids as $subcategoria_id) {
+            $stmt->execute([
+                'producto_id' => $this->getId(),
+                'subcategoria_id' => $subcategoria_id
+            ]);
+        }
     }
-}
 
 
     public function productos_x_rango(int $minimo = 0, int $maximo = 0): array
@@ -433,6 +433,11 @@ return $producto;
     public function getId()
     {
         return $this->product_id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->product_id = $id;
     }
 
     public function getDescuento(): string

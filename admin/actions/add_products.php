@@ -4,14 +4,6 @@ require_once "../../functions/autoload.php";
 $postData = $_POST;
 $fileData = $_FILES['imagen'];
 
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
-
-echo "<pre>";
-print_r($_FILES);
-echo "</pre>";
-
 try {
     $producto = new Producto();
 
@@ -58,10 +50,33 @@ try {
         $postData['productoDestacado']
     );
 
+    // Asignar el ID del producto recién insertado
+    $producto->setId($idProducto);
+
+    // Manejar las subcategorías seleccionadas
+    if (isset($postData['subcategorias']) && is_array($postData['subcategorias'])) {
+        try {
+            $producto->actualizarSubcategorias($postData['subcategorias']);
+        } catch (Exception $e) {
+            // Ignorar el error de clave duplicada y continuar
+            if (strpos($e->getMessage(), 'Duplicate entry') === false) {
+                throw $e;
+            }
+        }
+    }
+
     header('Location: ../index.php?sec=admin_productos');
     exit;
 
 } catch (Exception $e) {
+    // Si el producto se insertó pero hubo un error en las subcategorías,
+    // redirigir al panel de administración
+    if (isset($idProducto) && $idProducto > 0) {
+        header('Location: ../index.php?sec=admin_productos');
+        exit;
+    }
+    
+    // Si fue otro tipo de error, mostrar el mensaje
     echo "<pre>";
     print_r($e->getMessage());
     echo "</pre>";

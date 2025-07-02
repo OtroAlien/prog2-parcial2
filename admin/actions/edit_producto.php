@@ -54,8 +54,6 @@ try {
     if (!empty($postData['subcategorias']) && is_array($postData['subcategorias'])) {
         $producto->actualizarSubcategorias($postData['subcategorias']);
     }
-    
-    
 
     header('Location: ../index.php?sec=admin_productos&status=success');
     exit;

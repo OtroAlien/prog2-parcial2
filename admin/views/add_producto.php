@@ -3,7 +3,9 @@ require_once __DIR__ . "/../../functions/autoload.php";
 
 $producto = (new Producto())->catalogoCompleto();
 $categorias = Categoria::obtenerTodas();
-$descuentos = Producto::obtenerTodosDescuentos(); // Ya lo venías usando
+$descuentos = Producto::obtenerTodosDescuentos();
+$contenidos = Producto::obtenerTodosContenidos();
+$subcategorias = Subcategoria::obtenerTodas();
 
 ?>
 
@@ -41,13 +43,32 @@ $descuentos = Producto::obtenerTodosDescuentos(); // Ya lo venías usando
                             <input type="number" class="form-control" id="stock" name="stock" required>
                         </div>
 
-                        <select class="form-select" id="categoria" name="categoria" required>
-    <option value="" selected disabled>Elija una opción</option>
-    <?php foreach($categorias as $categoria): ?>
-        <option value="<?= $categoria->getId() ?>"><?= $categoria->getNombre() ?></option>
-    <?php endforeach; ?>
-</select>
+                        <div class="col-md-4 mb-3">
+                            <label for="categoria" class="form-label">Categoría</label>
+                            <select class="form-select" id="categoria" name="categoria" required>
+                                <option value="" selected disabled>Elija una opción</option>
+                                <?php foreach($categorias as $categoria): ?>
+                                    <option value="<?= $categoria->getId() ?>"><?= $categoria->getNombre() ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Subcategorías</label>
+                            <div class="row g-3">
+                                <?php foreach($subcategorias as $subcategoria): ?>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="subcategorias[]" 
+                                                   value="<?= $subcategoria->getId() ?>" id="subcategoria_<?= $subcategoria->getId() ?>">
+                                            <label class="form-check-label" for="subcategoria_<?= $subcategoria->getId() ?>">
+                                                <?= $subcategoria->getNombre() ?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
 
                         <div class="col-md-4 mb-3">
                             <label for="lanzamiento" class="form-label">Fecha de Lanzamiento</label>
@@ -58,17 +79,21 @@ $descuentos = Producto::obtenerTodosDescuentos(); // Ya lo venías usando
                             <label for="contenido" class="form-label">Contenido (ml)</label>
                             <select class="form-select" id="contenido" name="contenido" required>
                                 <option value="" selected disabled>Elija una opción</option>
-                                <option value="15">15 ml</option>
-                                <option value="30">30 ml</option>
-                                <option value="60">60 ml</option>
+                                <?php foreach($contenidos as $contenido): ?>
+                                    <option value="<?= $contenido->valor ?>"><?= $contenido->nombre ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
-                        <select class="form-select" id="descuento" name="descuento" required>
-    <option value="" selected disabled>Elija una opción</option>
-    <?php foreach($descuentos as $descuento): ?>
-        <option value="<?= $descuento->id ?>"><?= $descuento->valor ?>%</option>
-    <?php endforeach; ?>
-</select>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="descuento" class="form-label">Descuento</label>
+                            <select class="form-select" id="descuento" name="descuento" required>
+                                <option value="" selected disabled>Elija una opción</option>
+                                <?php foreach($descuentos as $descuento): ?>
+                                    <option value="<?= $descuento->id ?>"><?= $descuento->valor ?>%</option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
                         <div class="col-md-6 mb-3">
                             <label for="imagen" class="form-label">Imagen del Producto</label>
@@ -96,6 +121,6 @@ $descuentos = Producto::obtenerTodosDescuentos(); // Ya lo venías usando
                     </form>
                 </div>
             </div>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
