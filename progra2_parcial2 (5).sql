@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-07-2025 a las 03:28:42
+-- Tiempo de generación: 07-08-2025 a las 00:16:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `progra2_parcial2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carrito`
+--
+
+CREATE TABLE `carrito` (
+  `carrito_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `creado_en` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carrito_productos`
+--
+
+CREATE TABLE `carrito_productos` (
+  `carrito_producto_id` int(10) UNSIGNED NOT NULL,
+  `carrito_id` int(10) UNSIGNED NOT NULL,
+  `product_id` int(10) UNSIGNED NOT NULL,
+  `cantidad` int(10) UNSIGNED NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -201,7 +226,6 @@ CREATE TABLE `productos_subcategorias` (
 --
 
 INSERT INTO `productos_subcategorias` (`producto_subcategoria_id`, `producto_id`, `subcategoria_id`) VALUES
-(0, 2, 37),
 (4, 3, 1),
 (5, 4, 5),
 (6, 4, 2),
@@ -228,7 +252,16 @@ INSERT INTO `productos_subcategorias` (`producto_subcategoria_id`, `producto_id`
 (28, 18, 1),
 (29, 19, 23),
 (30, 19, 24),
-(31, 20, 1);
+(31, 20, 1),
+(32, 11, 37),
+(33, 1, 37),
+(34, 1, 25),
+(35, 64, 4),
+(36, 64, 5),
+(37, 68, 2),
+(38, 68, 9),
+(39, 2, 37),
+(40, 2, 9);
 
 -- --------------------------------------------------------
 
@@ -298,12 +331,12 @@ CREATE TABLE `user_address` (
 
 CREATE TABLE `usuarios` (
   `user_id` int(10) UNSIGNED NOT NULL,
-  `username` varchar(256) NOT NULL,
-  `nombre_completo` varchar(256) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `nombre_completo` varchar(150) NOT NULL,
   `password_hash` varchar(256) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `id_address` int(11) DEFAULT NULL,
-  `rol` enum('superadmin','admin','usuario') NOT NULL
+  `email` varchar(255) NOT NULL,
+  `id_address` int(10) UNSIGNED DEFAULT NULL,
+  `rol` enum('superadmin','admin','usuario') NOT NULL DEFAULT 'usuario'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -322,6 +355,21 @@ INSERT INTO `usuarios` (`user_id`, `username`, `nombre_completo`, `password_hash
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD PRIMARY KEY (`carrito_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indices de la tabla `carrito_productos`
+--
+ALTER TABLE `carrito_productos`
+  ADD PRIMARY KEY (`carrito_producto_id`),
+  ADD KEY `carrito_id` (`carrito_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indices de la tabla `categorias`
@@ -391,11 +439,26 @@ ALTER TABLE `user_address`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `user_id` (`user_id`),
+  ADD UNIQUE KEY `unique_username` (`username`),
+  ADD UNIQUE KEY `unique_email` (`email`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  MODIFY `carrito_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `carrito_productos`
+--
+ALTER TABLE `carrito_productos`
+  MODIFY `carrito_producto_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -428,6 +491,12 @@ ALTER TABLE `productos`
   MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
+-- AUTO_INCREMENT de la tabla `productos_subcategorias`
+--
+ALTER TABLE `productos_subcategorias`
+  MODIFY `producto_subcategoria_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
 -- AUTO_INCREMENT de la tabla `subcategorias`
 --
 ALTER TABLE `subcategorias`
@@ -448,6 +517,19 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `carrito_productos`
+--
+ALTER TABLE `carrito_productos`
+  ADD CONSTRAINT `carrito_productos_ibfk_1` FOREIGN KEY (`carrito_id`) REFERENCES `carrito` (`carrito_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `carrito_productos_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `productos` (`product_id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `favoritos`
