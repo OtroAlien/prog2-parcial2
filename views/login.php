@@ -38,3 +38,11 @@
         </div>
     </div>
 </div>
+
+<?php
+// Mostrar mensaje si viene del carrito
+if (isset($_SESSION['mensaje_login'])) {
+    echo '<div class="alert alert-info">' . $_SESSION['mensaje_login'] . '</div>';
+    unset($_SESSION['mensaje_login']);
+}
+?>

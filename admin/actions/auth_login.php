@@ -17,5 +17,5 @@ if ($rol) {
 }
 
 // Si llegamos aquí, el login falló
-header('location: ../../index.php?sec=login');
+header('location: ../../index.php?sec=panel_usuario');
 exit;

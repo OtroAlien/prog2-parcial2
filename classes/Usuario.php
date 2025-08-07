@@ -4,7 +4,7 @@ require_once "Conexion.php";
 
 class Usuario
 {
-    private $id;
+    private $user_id;
     private $username;
     private $nombre_completo;
     private $password_hash;
@@ -62,10 +62,13 @@ function obtenerIdUsuario($userID) {
 
         $usuario = new self();
         foreach ($result as $key => $value) {
-            if (property_exists($usuario, $key)) {
-                $usuario->$key = $value;
-            }
-        }
+    if ($key === 'user_id') {
+        $usuario->user_id = $value; // Asignar manualmente
+    } elseif (property_exists($usuario, $key)) {
+        $usuario->$key = $value;
+    }
+}
+
         return $usuario;
     }
 
@@ -111,7 +114,7 @@ function obtenerIdUsuario($userID) {
 
             $stmtUsuario = $conexion->prepare($queryUsuario);
             $stmtUsuario->execute([
-                ':user_id' => $this->id,
+                ':user_id' => $this->user_id,
                 ':username' => $usuario['username'] ?? $this->username,
                 ':nombre_completo' => $usuario['nombre_completo'] ?? $this->nombre_completo,
                 ':email' => $usuario['email'] ?? $this->email,
@@ -132,7 +135,7 @@ function obtenerIdUsuario($userID) {
 
             $stmtAddress = $conexion->prepare($queryAddress);
             $stmtAddress->execute([
-                ':user_id' => $this->id,
+                ':user_id' => $this->user_id,
                 ':calle' => $id_address['calle'] ?? null,
                 ':ciudad' => $id_address['ciudad'] ?? null,
                 ':localidad' => $id_address['localidad'] ?? null,
@@ -175,7 +178,7 @@ function obtenerIdUsuario($userID) {
             return null;
         }
 
-        $this->id = $data['user_id'];
+        $this->user_id = $data['user_id'];
         $this->username = $data['username'];
         $this->nombre_completo = $data['nombre_completo'];
         $this->password_hash = $data['password_hash'];
@@ -198,7 +201,7 @@ function obtenerIdUsuario($userID) {
     // Getters
     public function getId()
     {
-        return $this->id;
+        return $this->user_id;
     }
 
     public function getEmail()
@@ -251,7 +254,7 @@ function obtenerIdUsuario($userID) {
         $usuarios = [];
         while ($datos = $stmt->fetch()) {
             $usuario = new self();
-            $usuario->id = $datos['user_id'];
+            $usuario->user_id = $datos['user_id'];
             $usuario->username = $datos['username'];
             $usuario->nombre_completo = $datos['nombre_completo'];
             $usuario->password_hash = $datos['password_hash'];
