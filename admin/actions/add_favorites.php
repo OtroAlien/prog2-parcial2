@@ -3,13 +3,13 @@ require_once "../../functions/autoload.php";
 
 $postData = $_POST;
 $datosArchivo = $_FILES['imagen'];
-public function insert_like(int $producto_id, int $usuario_id){
+public function insert_like(int $producto_id, int $user_id){
     $conexion = Conexion::getConexion();
-    $query = "INSERT INTO favoritos (usuario_id, producto_id) VALUES (:usuario_id, :producto_id)";
+    $query = "INSERT INTO favoritos (user_id, producto_id) VALUES (:user_id, :producto_id)";
 
     $PDOStatement = $conexion->prepare($query);
     $PDOStatement->execute([
-        "usuario_id" => $checkoutData['usuario_id'], 
+        "user_id" => $checkoutData['user_id'], 
         "producto_id" => $checkoutData['producto_id']
     ]);
 

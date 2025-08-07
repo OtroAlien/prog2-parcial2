@@ -1,6 +1,23 @@
 <?PHP
-$items = (new Carrito())->get_carrito();
+// Obtener user_id si está logueado
+$user_id = null;
+if (isset($_SESSION['loggedIn']) && is_array($_SESSION['loggedIn'])) {
+    $user_id = $_SESSION['loggedIn']['id'] ?? null;
+}
 ?>
+
+<h2 class="text-center fs-2 my-5"> Carrito de Compras</h2>
+<div class="container my-4">
+
+    <?PHP if ($user_id) { ?>
+        <div class="text-center">
+            <h3>ID del Usuario: <?= $user_id ?></h3>
+        </div>
+    <?PHP } else { ?>
+        <h2 class="text-center mb-5 text-danger">Usuario no logueado</h2>
+    <?PHP } ?>
+
+</div>
 
 <h2 class="text-center fs-2 my-5"> Carrito de Compras</h2>
 <div class="container my-4">
@@ -50,19 +67,13 @@ $items = (new Carrito())->get_carrito();
                             <h3 class="h5 py-3">Total:</h3>
                         </td>
                         <td class="text-end">
-
-                        <p class="h5 py-3">$<?= number_format((new Carrito())->precio_total(), 2, ",", ".") ?></p>
-                        
+                        <p class="h5 py-3">$<?= number_format($total, 2, ",", ".") ?></p>
                         </td>
                         <td></td>
                     </tr>
                 </tbody>
 
-
-
             </table>
-
-
 
             <div class="d-flex justify-content-end gap-2">
                 <input type="submit" value="Actualizar Cantidades" class="btn btn-warning">
@@ -75,6 +86,5 @@ $items = (new Carrito())->get_carrito();
     <?PHP } else { ?>
         <h2 class="text-center mb-5 text-danger">Su carrito esta vacio</h2>
     <?PHP } ?>
-
 
 </div>

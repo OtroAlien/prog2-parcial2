@@ -63,6 +63,11 @@ $stmtAddress->execute([$telefono, $calle, $ciudad, $localidad, $codigo_postal, $
             <h2><?= $_SESSION['loggedIn']['username'] ?></h2>
             <p>Email: <?= $_SESSION['loggedIn']['email'] ?></p>
             
+ <pre>
+<?php print_r($_SESSION); ?>
+</pre>
+
+            
             <!-- Botón Cerrar Sesión -->
             <form action="admin/actions/auth_logout.php" method="post">
                 <button type="submit" class="btn btn-danger">Cerrar Sesión</button>

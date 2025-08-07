@@ -1,35 +1,24 @@
 <?php
 require_once "../../functions/autoload.php";
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+$postData = $_POST;
+$productoID = $postData['producto_id'] ?? false;
+$cantidad = $postData['cantidad'] ?? 1;
 
-// Verificar que el usuario esté logueado correctamente
-if (!isset($_SESSION['loggedIn']) || !is_array($_SESSION['loggedIn'])) {
-    header('Location: ../../index.php?sec=login');
-    exit;
-}
-
-// Obtener datos del formulario
-$productoID = $_POST['producto_id'] ?? $_GET['producto_id'] ?? null;
-$cantidad = isset($_POST['cantidad']) ? (int)$_POST['cantidad'] : 1;
-
-if (!$productoID || !is_numeric($productoID)) {
-    (new Alerta())->add_alerta('danger', "No se especificó un producto válido para agregar al carrito.");
-    header('Location: ../../index.php?sec=productos');
-    exit;
-}
-
-// Agregar al carrito
-try {
-    $carrito = new Carrito();
-    $carrito->add_item((int)$productoID, $cantidad);
+if ($productoID) {
+    // Obtener user_id si está logueado
+    $user_id = $_SESSION['loggedIn']['id'] ?? null;
+    
+    // Crear instancia del carrito
+    $carrito = new Carrito($user_id);
+    
+    // Agregar producto
+    $carrito->add_item($productoID, $cantidad);
+    
     (new Alerta())->add_alerta('success', "Producto agregado al carrito correctamente.");
-} catch (Exception $e) {
-    (new Alerta())->add_alerta('danger', "Ocurrió un error al agregar el producto al carrito.");
+} else {
+    (new Alerta())->add_alerta('danger', "Error al agregar el producto al carrito.");
 }
 
-// Redirigir al carrito
-header('Location: ../../index.php?sec=carrito');
+header('location: ../../index.php?sec=productos');
 exit;
