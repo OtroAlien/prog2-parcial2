@@ -52,7 +52,9 @@ $total = $carritoObj->precio_total();
                             <p class="h5 py-3 subtotal" id="subtotal-<?= $key ?>">$<?= number_format($item['cantidad'] * $item['precio'], 2, ",", ".") ?></p>
                         </td>
                         <td class="text-end align-middle">
-                            <a href="admin/actions/remove_producto.php?id=<?= $key ?>" class="btn btn-sm btn-danger">Eliminar</a>
+                            <a href="admin/actions/remove_producto.php?id=<?= $key ?>" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                 <?PHP } ?>
